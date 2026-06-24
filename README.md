@@ -26,6 +26,8 @@ cd marketing-hub
 2. Make your changes
 3. Open a pull request — every change goes through review before hitting `main`
 
+See [CONTRIBUTING.md](CONTRIBUTING.md) for branch naming and commit message conventions.
+
 ---
 
 **Cruz Creative Agency** · support@cruzcreative.agency
