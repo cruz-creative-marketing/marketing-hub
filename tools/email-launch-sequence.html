@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Email Launch Sequence Builder — Cruz Creative</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #ffffff;
+    --bg-secondary: #f7f6f3;
+    --bg-tertiary: #f0ede8;
+    --text: #1a1a1a;
+    --text-muted: #6b6b68;
+    --text-hint: #9b9b97;
+    --border: rgba(0,0,0,0.12);
+    --border-strong: rgba(0,0,0,0.25);
+    --accent: #533ab7;
+    --accent-bg: #eeedfe;
+    --accent-text: #3c3489;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --success-bg: #eaf3de;
+    --success-text: #3b6d11;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1c1c1a;
+      --bg-secondary: #252523;
+      --bg-tertiary: #2e2e2b;
+      --text: #f0ede8;
+      --text-muted: #a8a8a3;
+      --text-hint: #6b6b68;
+      --border: rgba(255,255,255,0.12);
+      --border-strong: rgba(255,255,255,0.25);
+      --accent: #afa9ec;
+      --accent-bg: #26215c;
+      --accent-text: #cecbf6;
+      --success-bg: #173404;
+      --success-text: #c0dd97;
+    }
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg-tertiary);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  header {
+    background: var(--bg);
+    border-bottom: 0.5px solid var(--border);
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  header .logo {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  header .divider { color: var(--border-strong); }
+
+  header h1 {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    gap: 0;
+    min-height: calc(100vh - 57px);
+  }
+
+  .sidebar {
+    background: var(--bg);
+    border-right: 0.5px solid var(--border);
+    padding: 1.5rem;
+    overflow-y: auto;
+    position: sticky;
+    top: 0;
+    height: calc(100vh - 57px);
+  }
+
+  .main {
+    padding: 1.5rem;
+    overflow-y: auto;
+  }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-hint);
+    margin-bottom: 12px;
+    margin-top: 1.5rem;
+  }
+
+  .section-label:first-child { margin-top: 0; }
+
+  label {
+    display: block;
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+    margin-top: 12px;
+  }
+
+  label:first-of-type { margin-top: 0; }
+
+  input[type="text"], textarea {
+    width: 100%;
+    background: var(--bg-secondary);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 8px 10px;
+    font-size: 14px;
+    color: var(--text);
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+
+  input[type="text"]:focus, textarea:focus {
+    border-color: var(--accent);
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 80px;
+    line-height: 1.5;
+  }
+
+  .benefit-list { display: flex; flex-direction: column; gap: 6px; }
+
+  .benefit-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .benefit-row input { flex: 1; }
+
+  .remove-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-hint);
+    font-size: 16px;
+    padding: 4px;
+    line-height: 1;
+    border-radius: 4px;
+    transition: color 0.15s;
+    flex-shrink: 0;
+  }
+
+  .remove-btn:hover { color: #e24b4a; }
+
+  .add-btn {
+    margin-top: 8px;
+    background: none;
+    border: 0.5px dashed var(--border-strong);
+    border-radius: var(--radius-md);
+    color: var(--text-muted);
+    font-size: 13px;
+    padding: 7px 12px;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    transition: background 0.15s, color 0.15s;
+    font-family: inherit;
+  }
+
+  .add-btn:hover {
+    background: var(--bg-secondary);
+    color: var(--text);
+  }
+
+  .generate-btn {
+    margin-top: 1.5rem;
+    width: 100%;
+    background: var(--accent);
+    color: #ffffff;
+    border: none;
+    border-radius: var(--radius-md);
+    padding: 11px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: inherit;
+    transition: opacity 0.15s;
+  }
+
+  .generate-btn:hover { opacity: 0.88; }
+  .generate-btn:active { opacity: 0.75; }
+
+  .empty-state {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--text-hint);
+  }
+
+  .empty-state .icon {
+    font-size: 40px;
+    margin-bottom: 1rem;
+    display: block;
+    color: var(--border-strong);
+  }
+
+  .empty-state p { font-size: 14px; line-height: 1.7; }
+
+  .sequence-header {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 0.5px solid var(--border);
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .sequence-header h2 { font-size: 18px; font-weight: 500; }
+  .sequence-header p { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+
+  .copy-all-btn {
+    background: var(--bg-secondary);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-md);
+    color: var(--text-muted);
+    font-size: 13px;
+    padding: 7px 12px;
+    cursor: pointer;
+    font-family: inherit;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: background 0.15s;
+  }
+
+  .copy-all-btn:hover { background: var(--bg-tertiary); }
+
+  .email-card {
+    background: var(--bg);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    margin-bottom: 1rem;
+    overflow: hidden;
+  }
+
+  .email-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-bottom: 0.5px solid var(--border);
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .email-card-header:hover { background: var(--bg-secondary); }
+
+  .email-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .email-num {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--accent-bg);
+    color: var(--accent-text);
+    font-size: 12px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .email-type { font-size: 14px; font-weight: 500; }
+
+  .email-timing {
+    font-size: 12px;
+    color: var(--text-hint);
+    margin-top: 1px;
+  }
+
+  .email-date {
+    font-size: 12px;
+    color: var(--text-muted);
+    text-align: right;
+  }
+
+  .chevron {
+    color: var(--text-hint);
+    font-size: 16px;
+    transition: transform 0.2s;
+    margin-left: 8px;
+  }
+
+  .chevron.open { transform: rotate(180deg); }
+
+  .email-card-body {
+    padding: 16px;
+    display: none;
+    border-top: 0.5px solid var(--border);
+  }
+
+  .email-card-body.open { display: block; }
+
+  .field-group { margin-bottom: 14px; }
+  .field-group:last-child { margin-bottom: 0; }
+
+  .field-label {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-hint);
+    margin-bottom: 6px;
+  }
+
+  .field-value {
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  .subject-options { display: flex; flex-direction: column; gap: 6px; }
+
+  .subject-option {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--bg-secondary);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 8px 12px;
+    font-size: 14px;
+    gap: 8px;
+  }
+
+  .subject-option span { flex: 1; }
+
+  .copy-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-hint);
+    font-size: 14px;
+    padding: 2px 4px;
+    border-radius: 4px;
+    transition: color 0.15s;
+    flex-shrink: 0;
+    font-family: inherit;
+  }
+
+  .copy-btn:hover { color: var(--accent); }
+  .copy-btn.copied { color: var(--success-text); }
+
+  .body-text {
+    background: var(--bg-secondary);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 12px;
+    font-size: 13px;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    font-family: 'Georgia', serif;
+    color: var(--text);
+  }
+
+  .cta-pill {
+    display: inline-block;
+    background: var(--accent-bg);
+    color: var(--accent-text);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  .copy-body-btn {
+    margin-top: 8px;
+    background: none;
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-md);
+    color: var(--text-muted);
+    font-size: 12px;
+    padding: 6px 10px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s;
+  }
+
+  .copy-body-btn:hover { background: var(--bg-tertiary); }
+</style>
+</head>
+<body>
+
+<header>
+  <span class="logo">Cruz Creative</span>
+  <span class="divider">·</span>
+  <h1>Email Launch Sequence Builder</h1>
+</header>
+
+<div class="layout">
+
+  <aside class="sidebar">
+    <div class="section-label">Course details</div>
+
+    <label for="course">Course name</label>
+    <input type="text" id="course" placeholder="e.g. AI Content Academy">
+
+    <label for="price">Full price</label>
+    <input type="text" id="price" placeholder="e.g. $497">
+
+    <label for="earlybird">Early bird price <span style="color:var(--text-hint)">(optional)</span></label>
+    <input type="text" id="earlybird" placeholder="e.g. $297">
+
+    <label for="signoff">Sign-off name</label>
+    <input type="text" id="signoff" placeholder="e.g. Ana or The Cruz Creative Team">
+
+    <div class="section-label">Key benefits</div>
+    <div class="benefit-list" id="benefit-list">
+      <div class="benefit-row">
+        <input type="text" placeholder="Benefit 1">
+        <button class="remove-btn" onclick="removeBenefit(this)" title="Remove">×</button>
+      </div>
+      <div class="benefit-row">
+        <input type="text" placeholder="Benefit 2">
+        <button class="remove-btn" onclick="removeBenefit(this)" title="Remove">×</button>
+      </div>
+      <div class="benefit-row">
+        <input type="text" placeholder="Benefit 3">
+        <button class="remove-btn" onclick="removeBenefit(this)" title="Remove">×</button>
+      </div>
+    </div>
+    <button class="add-btn" onclick="addBenefit()">+ Add benefit</button>
+
+    <div class="section-label">Launch dates <span style="font-weight:400;color:var(--text-hint)">(optional)</span></div>
+
+    <label>Email 1 — Waitlist <span style="color:var(--text-hint)">(7 days before cart open)</span></label>
+    <input type="text" id="date-waitlist" placeholder="e.g. July 1, 2026">
+
+    <label>Email 2 — Tease <span style="color:var(--text-hint)">(3 days before cart open)</span></label>
+    <input type="text" id="date-tease" placeholder="e.g. July 5, 2026">
+
+    <label>Email 3 — Cart open date</label>
+    <input type="text" id="date-cartopen" placeholder="e.g. July 8, 2026">
+
+    <label>Email 4 — Social proof <span style="color:var(--text-hint)">(2 days after)</span></label>
+    <input type="text" id="date-social" placeholder="e.g. July 10, 2026">
+
+    <label>Email 5 — Urgency <span style="color:var(--text-hint)">(24 hours before close)</span></label>
+    <input type="text" id="date-urgency" placeholder="e.g. July 14, 2026">
+
+    <label>Email 6 — Cart close date/time</label>
+    <input type="text" id="date-cartclose" placeholder="e.g. July 15, 2026 at midnight">
+
+    <button class="generate-btn" onclick="generate()">Generate sequence →</button>
+  </aside>
+
+  <main class="main" id="main">
+    <div class="empty-state">
+      <span class="icon">✦</span>
+      <p>Fill in your course details on the left<br>and click <strong>Generate sequence</strong> to build<br>your 6-email launch sequence.</p>
+    </div>
+  </main>
+
+</div>
+
+<script>
+function val(id) { return document.getElementById(id).value.trim(); }
+
+function addBenefit() {
+  const list = document.getElementById('benefit-list');
+  const count = list.children.length + 1;
+  const row = document.createElement('div');
+  row.className = 'benefit-row';
+  row.innerHTML = `<input type="text" placeholder="Benefit ${count}"><button class="remove-btn" onclick="removeBenefit(this)" title="Remove">×</button>`;
+  list.appendChild(row);
+  row.querySelector('input').focus();
+}
+
+function removeBenefit(btn) {
+  const list = document.getElementById('benefit-list');
+  if (list.children.length > 1) btn.parentElement.remove();
+}
+
+function getBenefits() {
+  return Array.from(document.querySelectorAll('#benefit-list input'))
+    .map(i => i.value.trim()).filter(Boolean);
+}
+
+function parsePrice(p) { return parseFloat(p.replace(/[^0-9.]/g, '')) || 0; }
+
+function buildSequence(data) {
+  const { course, price, earlybird, signoff, benefits, dates } = data;
+  const b = benefits.map(x => `- ${x}`).join('\n');
+  const displayPrice = earlybird || price;
+  const diff = earlybird ? (parsePrice(price) - parsePrice(earlybird)) : null;
+  const diffStr = diff ? `$${Math.round(diff)}` : '[$ difference]';
+
+  return [
+    {
+      type: 'Waitlist',
+      timing: 'Send 7 days before cart open',
+      date: dates.waitlist,
+      subject: `Something I've been building — watch this space`,
+      preview: `This one's different.`,
+      body: `Hey [First Name],
+
+I've been quiet about this for a while. Not because nothing's happening — because I wanted to get it right before I said anything.
+
+Next week I'm opening something new. It's for [ideal student — be specific, e.g. "content creators who want to build faster using AI without sounding like a robot"].
+
+I'm not ready to share the full details yet. But if you've ever struggled with [biggest pain point this course solves], this is going to be worth your attention.
+
+More in a few days. Keep an eye on your inbox.
+
+Until then — what's your biggest AI content challenge right now? Hit reply and tell me. I read every one.
+
+${signoff}`,
+      cta: `Reply and tell me your biggest AI content challenge`,
+    },
+    {
+      type: 'Tease',
+      timing: 'Send 3 days before cart open',
+      date: dates.tease,
+      subject: `[Specific result, e.g. "How one creator went from 4 hours to 40 minutes per post"]`,
+      preview: `The method behind it opens ${dates.cartOpen || '[CART OPEN DATE]'}.`,
+      body: `Hey [First Name],
+
+[Open with a concrete win. One specific result. Make it real — a number, a tool, a before/after. E.g.:
+
+"Last month, one of our clients cut their content production time by 60% using a single AI workflow we built in an afternoon. No extra tools. No complicated setup. Just a smarter process."]
+
+That's exactly what ${course} teaches.
+
+In [X weeks / X hours of video / X modules], you'll learn:
+
+${b}
+
+This isn't theory. It's the exact [process / system / workflow] we use at Cruz Creative every day.
+
+Cart opens ${dates.cartOpen || '[CART OPEN DATE]'}. Early bird pricing closes fast — I'm only holding it for [X hours / the first X students].
+
+If you want first access and the best price, get on the early bird list now.
+
+${signoff}
+
+P.S. Questions before we open? Hit reply. I'll get back to you today.`,
+      cta: `Cart opens ${dates.cartOpen || '[CART OPEN DATE]'} — get on the early bird list`,
+    },
+    {
+      type: 'Open Cart',
+      timing: 'Send on cart open day',
+      date: dates.cartOpen,
+      subject: `${course} is open. Here's everything inside`,
+      preview: `Early bird price — today only.`,
+      body: `Hey [First Name],
+
+We're open.
+
+${course} is live right now. Here's everything you need to know.
+
+WHAT YOU GET:
+
+${b}
+
+[Add 2–3 sentences on the transformation. Be specific. E.g. "By the end of Module 2, you'll have a working AI content system you can use immediately — not a concept, an actual workflow. Most students get their first output the same day."]
+
+WHO IT'S FOR:
+
+This is for [ideal student]. Specifically:
+- [Pain point 1 — e.g. You're spending too many hours on content that barely performs]
+- [Pain point 2 — e.g. You know AI can help but don't know where to start]
+- [Pain point 3 — e.g. You want a repeatable system, not a one-off hack]
+
+THE INVESTMENT:
+
+Early bird: ${displayPrice}
+Full price after [DATE]: ${price}
+
+[Guarantee: e.g. "If you go through the course and don't get [result] within [timeframe], I'll refund every cent."]
+
+WHAT HAPPENS WHEN YOU ENROLL:
+
+Instant access to [platform]. All [X] modules. All [X] resources. Plus [bonus if applicable].
+
+No waiting. No drip. Everything's there the moment you join.
+
+Cart closes ${dates.cartClose || '[CART CLOSE DATE]'}. Early bird price disappears with it.
+
+${signoff}
+
+P.S. Got a question before you join? Reply now. I'm checking email all day.`,
+      cta: `Get ${course} at early bird price →`,
+    },
+    {
+      type: 'Social Proof',
+      timing: 'Send 2 days after cart open',
+      date: dates.social,
+      subject: `"[Paste a short result quote — under 10 words]"`,
+      preview: `Real result. Real person. Here's the story.`,
+      body: `Hey [First Name],
+
+Still thinking? Good. Let the results do the talking.
+
+[Open with the full story. One person, one result, one transformation. E.g.:
+
+"[Name] came to us spending 6 hours a week on content. No system. No consistency. Three weeks after going through ${course}, she'd cut that to 90 minutes — and her engagement had doubled.
+
+Her words: 'I finally feel like I'm in control of my content instead of it controlling me.'"]
+
+That's what this course does. Not magic. Just a clear system, applied consistently.
+
+[NAME] is one of [NUMBER] people already inside ${course}.
+
+Still on the fence? Here's what I'd ask: what does it cost you to keep doing things the way you're doing them now?
+
+${displayPrice}. Cart closes ${dates.cartClose || '[CART CLOSE DATE]'}.
+
+${signoff}
+
+P.S. Any questions? Reply to this email. I'll answer personally.`,
+      cta: `Join [NUMBER] students already inside →`,
+    },
+    {
+      type: 'Urgency',
+      timing: 'Send 24 hours before cart close',
+      date: dates.urgency,
+      subject: `Early bird closes in 24 hours`,
+      preview: `After midnight, price goes up.`,
+      body: `Hey [First Name],
+
+24 hours.
+
+The early bird price on ${course} — ${displayPrice} — closes tomorrow at midnight. After that, it goes up to ${price}.
+
+That's a ${diffStr} difference for the exact same course.
+
+You've seen what's inside. You know who it's for. You know what it delivers.
+
+The only question is whether [the core outcome — e.g. "building a content system that runs in 90 minutes a week instead of 6 hours"] is worth acting on today.
+
+If it is, here's your link.
+
+${signoff}
+
+P.S. No exceptions on the deadline. Midnight is midnight.`,
+      cta: `Lock in your early bird price before midnight →`,
+    },
+    {
+      type: 'Last Call',
+      timing: 'Send on cart close day',
+      date: dates.cartClose,
+      subject: `Closing tonight. No extensions.`,
+      preview: `Last chance to join ${course}.`,
+      body: `Hey [First Name],
+
+Tonight. That's it.
+
+${course} closes at [TIME] and I won't reopen enrollment [until X / for the foreseeable future].
+
+If you've been sitting on this — I get it. Big decisions take time. But the time is up.
+
+${displayPrice}. Everything you've seen in these emails. Instant access. Closes tonight at [TIME].
+
+I'm not going to list everything out again. You've read the emails. You know what it is.
+
+This is the last time I'll mention it.
+
+${signoff}`,
+      cta: `This is the last time I'll mention it →`,
+    },
+  ];
+}
+
+function copyText(text, btn) {
+  navigator.clipboard.writeText(text).then(() => {
+    const orig = btn.textContent;
+    btn.textContent = 'Copied';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 1500);
+  });
+}
+
+function toggleCard(header) {
+  const body = header.nextElementSibling;
+  const chevron = header.querySelector('.chevron');
+  body.classList.toggle('open');
+  chevron.classList.toggle('open');
+}
+
+function generate() {
+  const course = val('course') || '[COURSE NAME]';
+  const price = val('price') || '[PRICE]';
+  const earlybird = val('earlybird') || null;
+  const signoff = val('signoff') || '[YOUR NAME]';
+  const benefits = getBenefits();
+  if (!benefits.length) benefits.push('[Key benefit 1]', '[Key benefit 2]', '[Key benefit 3]');
+
+  const dates = {
+    waitlist: val('date-waitlist') || '[7 DAYS BEFORE CART OPEN]',
+    tease: val('date-tease') || '[3 DAYS BEFORE CART OPEN]',
+    cartOpen: val('date-cartopen') || '[CART OPEN DATE]',
+    social: val('date-social') || '[2 DAYS AFTER CART OPEN]',
+    urgency: val('date-urgency') || '[24 HOURS BEFORE CART CLOSE]',
+    cartClose: val('date-cartclose') || '[CART CLOSE DATE]',
+  };
+
+  const emails = buildSequence({ course, price, earlybird, signoff, benefits, dates });
+
+  const allText = emails.map((e, i) =>
+    `EMAIL ${i+1} — ${e.type.toUpperCase()}\nSend date: ${e.date}\n\nSUBJECT: ${e.subject}\nPREVIEW TEXT: ${e.preview}\n\nBODY:\n${e.body}\n\nCTA BUTTON TEXT: ${e.cta}`
+  ).join('\n\n---\n\n');
+
+  const main = document.getElementById('main');
+  main.innerHTML = `
+    <div class="sequence-header">
+      <div>
+        <h2>${course}</h2>
+        <p>6-email launch sequence · ${earlybird ? `Early bird ${earlybird} → ` : ''}${price}</p>
+      </div>
+      <button class="copy-all-btn" onclick="copyText(${JSON.stringify(allText)}, this)">Copy all emails</button>
+    </div>
+    ${emails.map((email, i) => `
+    <div class="email-card">
+      <div class="email-card-header" onclick="toggleCard(this)">
+        <div class="email-meta">
+          <div class="email-num">${i+1}</div>
+          <div>
+            <div class="email-type">${email.type}</div>
+            <div class="email-timing">${email.timing}</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px">
+          <div class="email-date">${email.date}</div>
+          <span class="chevron${i === 0 ? ' open' : ''}">▾</span>
+        </div>
+      </div>
+      <div class="email-card-body${i === 0 ? ' open' : ''}">
+        <div class="field-group">
+          <div class="field-label">Subject line</div>
+          <div class="subject-options">
+            <div class="subject-option">
+              <span>${email.subject}</span>
+              <button class="copy-btn" onclick="copyText(${JSON.stringify(email.subject)}, this)">Copy</button>
+            </div>
+          </div>
+        </div>
+        <div class="field-group">
+          <div class="field-label">Preview text</div>
+          <div class="subject-option">
+            <span>${email.preview}</span>
+            <button class="copy-btn" onclick="copyText(${JSON.stringify(email.preview)}, this)">Copy</button>
+          </div>
+        </div>
+        <div class="field-group">
+          <div class="field-label">Body</div>
+          <div class="body-text">${email.body.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>
+          <button class="copy-body-btn" onclick="copyText(${JSON.stringify(email.body)}, this)">Copy body</button>
+        </div>
+        <div class="field-group">
+          <div class="field-label">CTA button text</div>
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+            <span class="cta-pill">${email.cta}</span>
+            <button class="copy-btn" onclick="copyText(${JSON.stringify(email.cta)}, this)">Copy</button>
+          </div>
+        </div>
+      </div>
+    </div>`).join('')}
+  `;
+}
+</script>
+</body>
+</html>
