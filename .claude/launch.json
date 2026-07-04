@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "email-sequence-builder",
+      "runtimeExecutable": "/opt/homebrew/bin/node",
+      "runtimeArgs": ["-e", "require('http').createServer((req,res)=>{const fs=require('fs'),path=require('path');let f=path.join('/Users/jamestucker/Desktop/my business/tools',req.url==='/'?'email-launch-sequence.html':req.url);fs.readFile(f,(e,d)=>{if(e){res.writeHead(404);res.end();}else{const ext=path.extname(f);const t={'html':'text/html','js':'text/javascript','css':'text/css'}[ext.slice(1)]||'text/plain';res.writeHead(200,{'Content-Type':t});res.end(d);}});}).listen(3456)"],
+      "port": 3456
+    },
+    {
+      "name": "ai-prompt-builder",
+      "runtimeExecutable": "/opt/homebrew/bin/node",
+      "runtimeArgs": ["-e", "require('http').createServer((req,res)=>{const fs=require('fs'),path=require('path');let f=path.join('/Users/jamestucker/Desktop/my business/tools',req.url==='/'?'ai-prompt-builder.html':req.url);fs.readFile(f,(e,d)=>{if(e){res.writeHead(404);res.end();}else{const ext=path.extname(f);const t={'html':'text/html','js':'text/javascript','css':'text/css'}[ext.slice(1)]||'text/plain';res.writeHead(200,{'Content-Type':t});res.end(d);}});}).listen(3457)"],
+      "port": 3457
+    }
+  ]
+}

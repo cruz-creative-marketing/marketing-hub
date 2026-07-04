@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Prompt Builder — Cruz Creative</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #ffffff;
+    --bg-secondary: #f7f6f3;
+    --bg-tertiary: #f0ede8;
+    --text: #1a1a1a;
+    --text-muted: #6b6b68;
+    --text-hint: #9b9b97;
+    --border: rgba(0,0,0,0.12);
+    --border-strong: rgba(0,0,0,0.25);
+    --accent: #533ab7;
+    --accent-bg: #eeedfe;
+    --accent-text: #3c3489;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --success-bg: #eaf3de;
+    --success-text: #3b6d11;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1c1c1a;
+      --bg-secondary: #252523;
+      --bg-tertiary: #2e2e2b;
+      --text: #f0ede8;
+      --text-muted: #a8a8a3;
+      --text-hint: #6b6b68;
+      --border: rgba(255,255,255,0.12);
+      --border-strong: rgba(255,255,255,0.25);
+      --accent: #afa9ec;
+      --accent-bg: #26215c;
+      --accent-text: #cecbf6;
+      --success-bg: #173404;
+      --success-text: #c0dd97;
+    }
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg-tertiary);
+    color: var(--text);
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  header {
+    background: var(--bg);
+    border-bottom: 0.5px solid var(--border);
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  header .logo {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  header .divider { color: var(--border-strong); }
+  header h1 { font-size: 15px; font-weight: 500; color: var(--text); }
+
+  .wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  .progress-steps {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 2rem;
+  }
+
+  .progress-steps .step {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--text-hint);
+  }
+
+  .progress-steps .num {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--bg-secondary);
+    border: 0.5px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+
+  .progress-steps .step.active { color: var(--text); font-weight: 500; }
+  .progress-steps .step.active .num { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .progress-steps .step.done .num { background: var(--accent-bg); border-color: var(--accent); color: var(--accent-text); }
+  .progress-steps .sep { color: var(--border-strong); flex: 0 0 auto; }
+
+  .panel-title { font-size: 20px; font-weight: 500; margin-bottom: 4px; }
+  .panel-sub { font-size: 14px; color: var(--text-muted); margin-bottom: 1.75rem; }
+
+  .model-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 12px;
+  }
+
+  .model-card {
+    background: var(--bg);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 16px;
+    cursor: pointer;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    text-align: left;
+  }
+
+  .model-card:hover { border-color: var(--border-strong); }
+  .model-card.disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .model-card .row { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 6px; }
+  .model-card .name { font-size: 15px; font-weight: 500; }
+  .model-card .provider { font-size: 12px; color: var(--text-hint); margin-bottom: 8px; }
+  .model-card .tagline { font-size: 13px; color: var(--text-muted); }
+
+  .badge {
+    display: inline-block;
+    background: var(--accent-bg);
+    color: var(--accent-text);
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    border-radius: 20px;
+    padding: 3px 9px;
+    flex-shrink: 0;
+  }
+
+  .field { margin-bottom: 1.25rem; }
+  .field label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 5px;
+  }
+  .field .req { color: var(--accent); }
+  .field .help { font-size: 12px; color: var(--text-hint); margin-top: 4px; }
+
+  input[type="text"], input[type="number"], textarea, select {
+    width: 100%;
+    background: var(--bg);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 9px 11px;
+    font-size: 14px;
+    color: var(--text);
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.15s;
+  }
+
+  input:focus, textarea:focus, select:focus { border-color: var(--accent); }
+  input.invalid, textarea.invalid { border-color: #e24b4a; }
+
+  textarea { resize: vertical; min-height: 70px; line-height: 1.5; }
+
+  .custom-input { margin-top: 8px; display: none; }
+  .custom-input.shown { display: block; }
+
+  .btn {
+    border-radius: var(--radius-md);
+    padding: 10px 18px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: inherit;
+    border: none;
+    transition: opacity 0.15s, background 0.15s;
+  }
+
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { opacity: 0.88; }
+  .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .btn-secondary { background: var(--bg-secondary); border: 0.5px solid var(--border); color: var(--text); }
+  .btn-secondary:hover { background: var(--bg-tertiary); }
+
+  .btn-link {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 13px;
+    cursor: pointer;
+    font-family: inherit;
+    padding: 8px 0;
+  }
+  .btn-link:hover { color: var(--text); }
+
+  .nav-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+    border-top: 0.5px solid var(--border);
+  }
+
+  .review-card {
+    background: var(--bg);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 16px;
+    margin-bottom: 1.25rem;
+  }
+
+  .review-label {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-hint);
+    margin-bottom: 8px;
+  }
+
+  .prompt-textarea { min-height: 130px; font-family: 'Georgia', serif; font-size: 14px; }
+
+  .param-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+  .param-pill {
+    background: var(--bg-secondary);
+    border: 0.5px solid var(--border);
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+  .param-pill b { color: var(--text); font-weight: 500; }
+
+  .copy-block {
+    background: var(--bg-secondary);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 12px;
+    font-size: 12px;
+    font-family: 'SF Mono', Menlo, monospace;
+    white-space: pre-wrap;
+    word-break: break-word;
+    max-height: 260px;
+    overflow-y: auto;
+    display: none;
+    margin-top: 10px;
+  }
+  .copy-block.shown { display: block; }
+
+  .confirm-box {
+    background: var(--success-bg);
+    color: var(--success-text);
+    border-radius: var(--radius-md);
+    padding: 12px 14px;
+    font-size: 13px;
+    margin-top: 1rem;
+    display: none;
+  }
+  .confirm-box.shown { display: block; }
+</style>
+</head>
+<body>
+
+<header>
+  <span class="logo">Cruz Creative</span>
+  <span class="divider">·</span>
+  <h1>AI Prompt Builder</h1>
+</header>
+
+<div class="wrap">
+  <div class="progress-steps" id="progress-steps"></div>
+  <div id="panel"></div>
+</div>
+
+<script>
+// ─── MODEL REGISTRY ──────────────────────────────────────────────────────
+// To add a new model (e.g. a future image/video tool), append an entry here.
+// The wizard (choose → answer → review → hand off) never changes.
+// Set `comingSoon: true` (and omit fields/buildPrompt/buildParams) for a
+// model that isn't available through the connected Higgsfield MCP tools yet.
+const STYLE_OPTIONS = ['Photorealistic','Cinematic photography','3D render','Flat vector illustration','Anime / manga','Oil painting','Watercolor','Studio product photography','Isometric'];
+const LIGHTING_OPTIONS = ['Golden hour','Soft studio light','Overcast / diffused','Neon / night','Dramatic rim light','Natural daylight','Candlelight'];
+const COMPOSITION_OPTIONS = ['Close-up','Wide shot','Eye-level','Low angle','Top-down / flat lay','Over-the-shoulder','Symmetrical / centered'];
+
+const MODELS = [
+  {
+    id: 'nano_banana_pro',
+    label: 'Nano Banana Pro',
+    provider: 'Google',
+    outputType: 'image',
+    tagline: 'Ultimate quality, strong text & diagram rendering, up to 4K.',
+    mcpTool: 'generate_image',
+    aspectRatios: ['1:1','3:2','2:3','4:3','3:4','4:5','5:4','9:16','16:9','21:9'],
+    resolutions: ['1k','2k','4k'],
+    fields: [
+      { key: 'subject', label: 'What should the image show?', type: 'textarea', required: true,
+        placeholder: 'e.g. A weathered leather journal open on a wooden desk, sunlight streaming across the pages' },
+      { key: 'setting', label: 'Setting / background', type: 'text',
+        placeholder: 'e.g. A sunlit study with bookshelves in the background' },
+      { key: 'style', label: 'Visual style', type: 'select', allowCustom: true, options: STYLE_OPTIONS },
+      { key: 'lighting', label: 'Lighting', type: 'select', allowCustom: true, options: LIGHTING_OPTIONS },
+      { key: 'composition', label: 'Composition / camera angle', type: 'select', allowCustom: true, optional: true, options: COMPOSITION_OPTIONS },
+      { key: 'colorPalette', label: 'Color palette (optional)', type: 'text',
+        placeholder: 'e.g. warm earth tones with a deep teal accent' },
+      { key: 'textContent', label: 'Exact text or diagram labels to render (optional)', type: 'textarea',
+        placeholder: 'Nano Banana Pro renders legible text well — enter it exactly as it should appear' },
+      { key: 'avoid', label: 'Things to avoid (optional)', type: 'text',
+        placeholder: 'e.g. no text overlays, no extra fingers, no logos' },
+      { key: 'aspectRatio', label: 'Aspect ratio', type: 'select', required: true, default: '1:1',
+        options: ['1:1','3:2','2:3','4:3','3:4','4:5','5:4','9:16','16:9','21:9'] },
+      { key: 'resolution', label: 'Resolution', type: 'select', required: true, default: '2k',
+        options: ['1k','2k','4k'] },
+      { key: 'referenceNote', label: 'Reference image / Higgsfield element (optional)', type: 'text',
+        placeholder: 'Name a saved character/environment element, or describe a reference image to attach',
+        help: 'Mention this to Claude when you paste the prompt — attaching media requires Claude to look it up or upload it.' },
+    ],
+    buildPrompt(v) {
+      let p = v.subject.trim();
+      if (v.setting) p += `, set in ${v.setting}`;
+      p += '.';
+      const details = [];
+      if (v.style) details.push(`Rendered in a ${v.style.toLowerCase()} style`);
+      if (v.lighting) details.push(`${v.lighting.toLowerCase()} lighting`);
+      if (v.composition) details.push(`a ${v.composition.toLowerCase()} composition`);
+      if (details.length) p += ' ' + details.join(', ') + '.';
+      if (v.colorPalette) p += ` Color palette: ${v.colorPalette}.`;
+      if (v.textContent) p += ` The image must include this text/diagram rendered accurately: "${v.textContent}".`;
+      if (v.avoid) p += ` Avoid: ${v.avoid}.`;
+      return p.replace(/\s+/g, ' ').trim();
+    },
+    buildParams(v, prompt) {
+      return {
+        model: 'nano_banana_pro',
+        prompt,
+        aspect_ratio: v.aspectRatio,
+        resolution: v.resolution,
+        count: 1,
+      };
+    },
+  },
+  {
+    id: 'gpt_image_2',
+    label: 'GPT Image 2',
+    provider: 'OpenAI',
+    outputType: 'image',
+    tagline: 'Next-gen GPT image model — strong editing, text rendering & typography, up to 4K.',
+    mcpTool: 'generate_image',
+    aspectRatios: ['1:1','4:3','3:4','16:9','9:16','3:2','2:3'],
+    resolutions: ['1k','2k','4k'],
+    fields: [
+      { key: 'subject', label: 'What should the image show?', type: 'textarea', required: true,
+        placeholder: 'e.g. A minimalist infographic comparing three pricing tiers' },
+      { key: 'setting', label: 'Setting / background', type: 'text',
+        placeholder: 'e.g. Clean white background with soft shadows' },
+      { key: 'style', label: 'Visual style', type: 'select', allowCustom: true, options: STYLE_OPTIONS },
+      { key: 'lighting', label: 'Lighting', type: 'select', allowCustom: true, optional: true, options: LIGHTING_OPTIONS },
+      { key: 'composition', label: 'Composition / camera angle', type: 'select', allowCustom: true, optional: true, options: COMPOSITION_OPTIONS },
+      { key: 'colorPalette', label: 'Color palette (optional)', type: 'text',
+        placeholder: 'e.g. brand navy and gold' },
+      { key: 'textContent', label: 'Exact text or diagram labels to render (optional)', type: 'textarea',
+        placeholder: 'GPT Image 2 has the best text/typography rendering of these models — enter it exactly as it should appear' },
+      { key: 'avoid', label: 'Things to avoid (optional)', type: 'text',
+        placeholder: 'e.g. no watermarks, no distorted text' },
+      { key: 'aspectRatio', label: 'Aspect ratio', type: 'select', required: true, default: '1:1',
+        options: ['1:1','4:3','3:4','16:9','9:16','3:2','2:3'] },
+      { key: 'resolution', label: 'Resolution', type: 'select', required: true, default: '2k',
+        options: ['1k','2k','4k'] },
+      { key: 'quality', label: 'Quality tier', type: 'select', required: true, default: 'medium',
+        options: ['low','medium','high'], help: 'Higher quality costs more credits and takes longer.' },
+      { key: 'referenceNote', label: 'Reference image / Higgsfield element (optional)', type: 'text',
+        placeholder: 'Name a saved character/environment element, or describe a reference image to attach',
+        help: 'Mention this to Claude when you paste the prompt — attaching media requires Claude to look it up or upload it.' },
+    ],
+    buildPrompt(v) {
+      let p = v.subject.trim();
+      if (v.setting) p += `, set in ${v.setting}`;
+      p += '.';
+      const details = [];
+      if (v.style) details.push(`Rendered in a ${v.style.toLowerCase()} style`);
+      if (v.lighting) details.push(`${v.lighting.toLowerCase()} lighting`);
+      if (v.composition) details.push(`a ${v.composition.toLowerCase()} composition`);
+      if (details.length) p += ' ' + details.join(', ') + '.';
+      if (v.colorPalette) p += ` Color palette: ${v.colorPalette}.`;
+      if (v.textContent) p += ` The image must include this text/diagram rendered accurately: "${v.textContent}".`;
+      if (v.avoid) p += ` Avoid: ${v.avoid}.`;
+      return p.replace(/\s+/g, ' ').trim();
+    },
+    buildParams(v, prompt) {
+      return {
+        model: 'gpt_image_2',
+        prompt,
+        aspect_ratio: v.aspectRatio,
+        resolution: v.resolution,
+        quality: v.quality,
+        count: 1,
+      };
+    },
+  },
+  {
+    id: 'soul_2',
+    label: 'Higgsfield Soul 2.0',
+    provider: 'Higgsfield',
+    outputType: 'image',
+    tagline: 'Realistic UGC, fashion editorial and character generation.',
+    mcpTool: 'generate_image',
+    aspectRatios: ['1:1','16:9','9:16','4:3','3:4','3:2','2:3'],
+    resolutions: ['1.5k','2k'],
+    fields: [
+      { key: 'subject', label: 'Describe the person, outfit, and what they’re doing', type: 'textarea', required: true,
+        placeholder: 'e.g. A young woman in a cream oversized sweater sipping coffee at a window seat' },
+      { key: 'setting', label: 'Setting / location', type: 'text',
+        placeholder: 'e.g. A sunlit apartment kitchen' },
+      { key: 'contentType', label: 'Content type', type: 'select', allowCustom: true,
+        options: ['UGC selfie style','Fashion editorial','Lifestyle portrait','Studio portrait'] },
+      { key: 'lighting', label: 'Lighting', type: 'select', allowCustom: true, optional: true, options: LIGHTING_OPTIONS },
+      { key: 'mood', label: 'Mood / vibe (optional)', type: 'text',
+        placeholder: 'e.g. warm, candid, effortless' },
+      { key: 'avoid', label: 'Things to avoid (optional)', type: 'text',
+        placeholder: 'e.g. no visible logos, no extra fingers' },
+      { key: 'aspectRatio', label: 'Aspect ratio', type: 'select', required: true, default: '4:5',
+        options: ['1:1','16:9','9:16','4:3','3:4','3:2','2:3','4:5'] },
+      { key: 'quality', label: 'Quality', type: 'select', required: true, default: '2k',
+        options: ['1.5k','2k'] },
+      { key: 'soulId', label: 'Trained Soul ID (optional)', type: 'text',
+        placeholder: 'e.g. soul_xxxxxxxx',
+        help: 'If you’ve trained a reusable Soul character (via Higgsfield’s show_characters), paste its ID here for a consistent identity.' },
+      { key: 'referenceNote', label: 'Reference image (optional)', type: 'text',
+        placeholder: 'Describe a single reference image to attach',
+        help: 'Soul 2.0 accepts one reference image. Mention it to Claude — attaching media requires Claude to upload/reference it via MCP.' },
+    ],
+    buildPrompt(v) {
+      let p = v.subject.trim();
+      if (v.setting) p += `, set in ${v.setting}`;
+      p += '.';
+      const details = [];
+      if (v.contentType) details.push(`shot in a ${v.contentType.toLowerCase()}`);
+      if (v.lighting) details.push(`${v.lighting.toLowerCase()} lighting`);
+      if (details.length) p += ' ' + details.join(', ') + '.';
+      if (v.mood) p += ` Mood: ${v.mood}.`;
+      if (v.avoid) p += ` Avoid: ${v.avoid}.`;
+      return p.replace(/\s+/g, ' ').trim();
+    },
+    buildParams(v, prompt) {
+      const params = {
+        model: 'soul_2',
+        prompt,
+        aspect_ratio: v.aspectRatio,
+        quality: v.quality,
+        count: 1,
+      };
+      if (v.soulId) params.soul_id = v.soulId;
+      return params;
+    },
+  },
+  {
+    id: 'soul_cinematic',
+    label: 'Higgsfield Soul Cinema',
+    provider: 'Higgsfield',
+    outputType: 'image',
+    tagline: 'Cinema-grade stills and concept art with dramatic lighting.',
+    mcpTool: 'generate_image',
+    aspectRatios: ['1:1','4:3','3:4','16:9','9:16','3:2','2:3','21:9'],
+    resolutions: ['1.5k','2k'],
+    fields: [
+      { key: 'subject', label: 'Describe the character, action, and moment', type: 'textarea', required: true,
+        placeholder: 'e.g. A lone detective leaning against a rain-streaked window, city lights blurred behind him' },
+      { key: 'setting', label: 'Setting / environment', type: 'text',
+        placeholder: 'e.g. A dim, smoke-filled office in a 1940s city' },
+      { key: 'genre', label: 'Cinematic genre / mood', type: 'select', allowCustom: true,
+        options: ['Drama','Noir','Epic','Sci-fi','Fantasy','Thriller','Romance','Horror'] },
+      { key: 'lighting', label: 'Lighting', type: 'select', allowCustom: true, options: LIGHTING_OPTIONS },
+      { key: 'composition', label: 'Composition / camera angle', type: 'select', allowCustom: true, optional: true, options: COMPOSITION_OPTIONS },
+      { key: 'avoid', label: 'Things to avoid (optional)', type: 'text',
+        placeholder: 'e.g. no modern elements, no text overlays' },
+      { key: 'aspectRatio', label: 'Aspect ratio', type: 'select', required: true, default: '16:9',
+        options: ['1:1','4:3','3:4','16:9','9:16','3:2','2:3','21:9'] },
+      { key: 'quality', label: 'Quality', type: 'select', required: true, default: '2k',
+        options: ['1.5k','2k'] },
+      { key: 'soulId', label: 'Soul Cinema Character ID (optional)', type: 'text',
+        placeholder: 'e.g. soul_xxxxxxxx',
+        help: 'For a personalized cinematic character trained via Higgsfield’s show_characters.' },
+      { key: 'referenceNote', label: 'Reference image (optional)', type: 'text',
+        placeholder: 'Describe a single reference image to attach',
+        help: 'Soul Cinema accepts one reference image. Mention it to Claude — attaching media requires Claude to upload/reference it via MCP.' },
+    ],
+    buildPrompt(v) {
+      let p = v.subject.trim();
+      if (v.setting) p += `, set in ${v.setting}`;
+      p += '.';
+      const details = [];
+      if (v.genre) details.push(`${v.genre.toLowerCase()} genre and mood`);
+      if (v.lighting) details.push(`${v.lighting.toLowerCase()} lighting`);
+      if (v.composition) details.push(`a ${v.composition.toLowerCase()} composition`);
+      if (details.length) p += ' ' + details.join(', ') + '.';
+      if (v.avoid) p += ` Avoid: ${v.avoid}.`;
+      return p.replace(/\s+/g, ' ').trim();
+    },
+    buildParams(v, prompt) {
+      const params = {
+        model: 'soul_cinematic',
+        prompt,
+        aspect_ratio: v.aspectRatio,
+        quality: v.quality,
+        count: 1,
+      };
+      if (v.soulId) params.soul_id = v.soulId;
+      return params;
+    },
+  },
+  {
+    id: 'recraft_v4_1',
+    label: 'Recraft V4.1',
+    provider: 'Recraft',
+    outputType: 'image',
+    tagline: 'Vector logos/icons, brand assets, and product mockups.',
+    mcpTool: 'generate_image',
+    aspectRatios: ['1:1','3:4','4:3','4:5','5:4','3:2','2:3','16:9','9:16'],
+    resolutions: ['1k','2k'],
+    fields: [
+      { key: 'subject', label: 'What should the image show?', type: 'textarea', required: true,
+        placeholder: 'e.g. A minimalist logo for a coffee roastery, a coffee bean forming a mountain peak' },
+      { key: 'modelType', label: 'Variant', type: 'select', required: true, default: 'standard',
+        options: ['standard','vector','utility','utility_vector'],
+        help: 'standard = expressive/exploratory · vector = logos, typography, icons, SVG-like · utility = clean, flat, product shots/mockups · utility_vector = utility simplicity with vector output.' },
+      { key: 'style', label: 'Additional style notes (optional)', type: 'text',
+        placeholder: 'e.g. bold outlines, flat retro poster style' },
+      { key: 'colors', label: 'Color palette (optional)', type: 'text',
+        placeholder: 'e.g. #1A1A1A, #F4A300, #FFFFFF',
+        help: 'Up to 10 hex codes, comma-separated. Each must be #RRGGBB.' },
+      { key: 'backgroundColor', label: 'Background color (optional)', type: 'text',
+        placeholder: 'e.g. #FFFFFF', help: 'Hex code (#RRGGBB) for a flat background, or leave blank.' },
+      { key: 'avoid', label: 'Things to avoid (optional)', type: 'text',
+        placeholder: 'e.g. no gradients, no photorealistic textures' },
+      { key: 'aspectRatio', label: 'Aspect ratio', type: 'select', required: true, default: '1:1',
+        options: ['1:1','3:4','4:3','4:5','5:4','3:2','2:3','16:9','9:16'] },
+      { key: 'resolution', label: 'Resolution', type: 'select', required: true, default: '1k',
+        options: ['1k','2k'] },
+    ],
+    buildPrompt(v) {
+      let p = v.subject.trim() + '.';
+      if (v.style) p += ` Style: ${v.style}.`;
+      if (v.avoid) p += ` Avoid: ${v.avoid}.`;
+      return p.replace(/\s+/g, ' ').trim();
+    },
+    buildParams(v, prompt) {
+      const params = {
+        model: 'recraft_v4_1',
+        prompt,
+        aspect_ratio: v.aspectRatio,
+        resolution: v.resolution,
+        model_type: v.modelType,
+        count: 1,
+      };
+      const hex = /^#[0-9A-Fa-f]{6}$/;
+      const colors = (v.colors || '').split(',').map(c => c.trim()).filter(c => hex.test(c)).slice(0, 10);
+      if (colors.length) params.colors = colors;
+      if (v.backgroundColor && hex.test(v.backgroundColor.trim())) params.background_color = v.backgroundColor.trim();
+      return params;
+    },
+  },
+  {
+    id: 'seedance_2_0',
+    label: 'SeeDance 2.0',
+    provider: 'ByteDance',
+    outputType: 'video',
+    tagline: 'Reference-driven video with consistent identity, native audio, up to 4K.',
+    mcpTool: 'generate_video',
+    aspectRatios: ['auto','16:9','9:16','4:3','3:4','1:1','21:9'],
+    resolutions: ['480p','720p','1080p','4k'],
+    fields: [
+      { key: 'action', label: 'What happens in the scene?', type: 'textarea', required: true,
+        placeholder: 'e.g. A barista slides a latte across the counter and smiles at the camera' },
+      { key: 'setting', label: 'Setting / environment', type: 'text',
+        placeholder: 'e.g. A cozy neighborhood coffee shop, morning light through the window' },
+      { key: 'subjects', label: 'Main subject(s) / product (optional)', type: 'text',
+        placeholder: 'e.g. the same barista and the branded coffee cup from previous shots',
+        help: 'Used to keep identity/appearance consistent — SeeDance 2.0 is reference-driven.' },
+      { key: 'cameraMovement', label: 'Camera movement', type: 'select', allowCustom: true, optional: true,
+        options: ['Static','Slow pan','Dolly in','Dolly out','Handheld','Drone / aerial','Orbit'] },
+      { key: 'genre', label: 'Genre / tone', type: 'select', default: 'auto',
+        options: ['auto','action','horror','comedy','noir','drama','epic'] },
+      { key: 'avoid', label: 'Things to avoid (optional)', type: 'text',
+        placeholder: 'e.g. no text overlays, no camera shake' },
+      { key: 'aspectRatio', label: 'Aspect ratio', type: 'select', required: true, default: '16:9',
+        options: ['auto','16:9','9:16','4:3','3:4','1:1','21:9'] },
+      { key: 'duration', label: 'Duration (seconds, 4-15)', type: 'number', required: true, default: 5, min: 4, max: 15 },
+      { key: 'resolution', label: 'Resolution', type: 'select', required: true, default: '720p',
+        options: ['480p','720p','1080p','4k'],
+        help: '1080p and 4K require Standard mode below.',
+        onChange(value, form) {
+          const modeField = form.querySelector('[data-key="mode"]');
+          if (!modeField) return;
+          if (value === '1080p' || value === '4k') {
+            modeField.value = 'std';
+            modeField.disabled = true;
+          } else {
+            modeField.disabled = false;
+          }
+        } },
+      { key: 'mode', label: 'Mode', type: 'select', default: 'std',
+        options: ['std','fast'],
+        help: "'std' = higher quality. 'fast' = cheaper/quicker, 480p/720p only." },
+      { key: 'bitrateMode', label: 'Bitrate', type: 'select', default: 'standard',
+        options: ['standard','high'] },
+      { key: 'generateAudio', label: 'Generate native audio?', type: 'select', default: 'yes',
+        options: ['yes','no'] },
+    ],
+    buildPrompt(v) {
+      let p = v.action.trim();
+      if (v.setting) p += `, set in ${v.setting}`;
+      p += '.';
+      if (v.subjects) p += ` Featuring ${v.subjects}, keeping their appearance consistent throughout.`;
+      if (v.cameraMovement) p += ` Camera: ${v.cameraMovement.toLowerCase()}.`;
+      if (v.genre && v.genre !== 'auto') p += ` Genre/tone: ${v.genre}.`;
+      if (v.avoid) p += ` Avoid: ${v.avoid}.`;
+      return p.replace(/\s+/g, ' ').trim();
+    },
+    buildParams(v, prompt) {
+      return {
+        model: 'seedance_2_0',
+        prompt,
+        aspect_ratio: v.aspectRatio,
+        duration: Number(v.duration) || 5,
+        resolution: v.resolution,
+        mode: v.mode,
+        bitrate_mode: v.bitrateMode,
+        genre: v.genre,
+        generate_audio: v.generateAudio === 'yes',
+        count: 1,
+      };
+    },
+  },
+  {
+    id: 'character_swap',
+    label: 'Higgsfield Character Swap',
+    provider: 'Higgsfield',
+    outputType: '—',
+    tagline: 'Not available yet — no matching model or tool was found in the connected Higgsfield MCP catalog.',
+    comingSoon: true,
+  },
+];
+
+// ─── STATE ───────────────────────────────────────────────────────────────
+let currentStep = 1;
+let selectedModelId = null;
+let editedPrompt = null;
+
+function getModel(id) { return MODELS.find(m => m.id === id); }
+
+// ─── PROGRESS STEPS ──────────────────────────────────────────────────────
+function renderProgress() {
+  const labels = ['Choose model', 'Answer questions', 'Review & send'];
+  const el = document.getElementById('progress-steps');
+  el.innerHTML = labels.map((label, i) => {
+    const n = i + 1;
+    const cls = n === currentStep ? 'active' : n < currentStep ? 'done' : '';
+    return `<div class="step ${cls}"><span class="num">${n < currentStep ? '✓' : n}</span><span>${label}</span></div>${n < labels.length ? '<span class="sep">→</span>' : ''}`;
+  }).join('');
+}
+
+// ─── STEP 1: CHOOSE MODEL ────────────────────────────────────────────────
+function renderStep1() {
+  currentStep = 1;
+  renderProgress();
+  const panel = document.getElementById('panel');
+  panel.innerHTML = `
+    <div class="panel-title">Choose a model</div>
+    <div class="panel-sub">Pick the AI generation model you want to build a prompt for.</div>
+    <div class="model-grid">
+      ${MODELS.map(m => `
+        <div class="model-card${m.comingSoon ? ' disabled' : ''}"${m.comingSoon ? '' : ` onclick="selectModel('${m.id}')"`}>
+          <div class="row">
+            <span class="name">${m.label}</span>
+            <span class="badge">${m.comingSoon ? 'Coming soon' : m.outputType}</span>
+          </div>
+          <div class="provider">${m.provider}</div>
+          <div class="tagline">${m.tagline}</div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+function selectModel(id) {
+  selectedModelId = id;
+  editedPrompt = null;
+  renderStep2();
+}
+
+// ─── STEP 2: ANSWER QUESTIONS ────────────────────────────────────────────
+function renderStep2() {
+  currentStep = 2;
+  renderProgress();
+  const model = getModel(selectedModelId);
+  const panel = document.getElementById('panel');
+
+  panel.innerHTML = `
+    <div class="panel-title">${model.label}</div>
+    <div class="panel-sub">Answer a few questions to write the prompt. Only the first field is required — fill in as much detail as you want for a stronger result.</div>
+    <form id="question-form">
+      ${model.fields.map(f => renderField(f)).join('')}
+    </form>
+    <div class="nav-row">
+      <button class="btn-link" onclick="renderStep1()">← Back to models</button>
+      <button class="btn btn-primary" onclick="goToReview()">Review prompt →</button>
+    </div>
+  `;
+
+  const form = document.getElementById('question-form');
+  model.fields.forEach(f => {
+    if (f.type === 'select' && f.allowCustom) {
+      const select = document.getElementById('field-' + f.key);
+      select.addEventListener('change', () => toggleCustomInput(f.key));
+    }
+    if (f.onChange) {
+      const el = document.getElementById('field-' + f.key);
+      el.addEventListener('change', () => f.onChange(el.value, form));
+      f.onChange(el.value, form);
+    }
+  });
+}
+
+function renderField(f) {
+  const id = 'field-' + f.key;
+  const reqMark = f.required ? ' <span class="req">*</span>' : '';
+  let control = '';
+
+  if (f.type === 'textarea') {
+    control = `<textarea id="${id}" data-key="${f.key}" placeholder="${f.placeholder || ''}"></textarea>`;
+  } else if (f.type === 'number') {
+    control = `<input type="number" id="${id}" data-key="${f.key}" min="${f.min ?? ''}" max="${f.max ?? ''}" value="${f.default ?? ''}">`;
+  } else if (f.type === 'select') {
+    const opts = f.options.map(o => `<option value="${o}" ${o === f.default ? 'selected' : ''}>${o}</option>`).join('');
+    const customOpt = f.allowCustom ? `<option value="__custom__">Custom…</option>` : '';
+    const placeholderOpt = f.default ? '' : `<option value="">Select…</option>`;
+    control = `<select id="${id}" data-key="${f.key}">${placeholderOpt}${opts}${customOpt}</select>`;
+    if (f.allowCustom) {
+      control += `<div class="custom-input" id="${id}-custom-wrap"><input type="text" id="${id}-custom" placeholder="Describe it..."></div>`;
+    }
+  } else {
+    control = `<input type="text" id="${id}" data-key="${f.key}" placeholder="${f.placeholder || ''}">`;
+  }
+
+  return `
+    <div class="field">
+      <label for="${id}">${f.label}${reqMark}</label>
+      ${control}
+      ${f.help ? `<div class="help">${f.help}</div>` : ''}
+    </div>
+  `;
+}
+
+function toggleCustomInput(key) {
+  const select = document.getElementById('field-' + key);
+  const wrap = document.getElementById('field-' + key + '-custom-wrap');
+  if (!wrap) return;
+  wrap.classList.toggle('shown', select.value === '__custom__');
+}
+
+function getFieldValue(f) {
+  const el = document.getElementById('field-' + f.key);
+  if (!el) return '';
+  if (f.type === 'select' && f.allowCustom && el.value === '__custom__') {
+    const custom = document.getElementById('field-' + f.key + '-custom');
+    return custom ? custom.value.trim() : '';
+  }
+  if (f.type === 'number') return el.value !== '' ? el.value : (f.default ?? '');
+  return (el.value || '').trim();
+}
+
+function collectAnswers(model) {
+  const answers = {};
+  let firstInvalid = null;
+  model.fields.forEach(f => {
+    const value = getFieldValue(f);
+    answers[f.key] = value || f.default || '';
+    if (f.required && !answers[f.key] && !firstInvalid) firstInvalid = f;
+  });
+  return { answers, firstInvalid };
+}
+
+function goToReview() {
+  const model = getModel(selectedModelId);
+  const { answers, firstInvalid } = collectAnswers(model);
+
+  document.querySelectorAll('#question-form textarea, #question-form input, #question-form select')
+    .forEach(el => el.classList.remove('invalid'));
+
+  if (firstInvalid) {
+    const el = document.getElementById('field-' + firstInvalid.key);
+    el.classList.add('invalid');
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    el.focus();
+    return;
+  }
+
+  window._answers = answers;
+  editedPrompt = model.buildPrompt(answers);
+  renderStep3();
+}
+
+// ─── STEP 3: REVIEW & SEND ───────────────────────────────────────────────
+function renderStep3() {
+  currentStep = 3;
+  renderProgress();
+  const model = getModel(selectedModelId);
+  const answers = window._answers;
+  const panel = document.getElementById('panel');
+
+  const params = model.buildParams(answers, editedPrompt);
+  const paramPills = Object.entries(params)
+    .filter(([k]) => k !== 'prompt' && k !== 'model')
+    .map(([k, v]) => `<span class="param-pill"><b>${k}:</b> ${v}</span>`).join('');
+
+  panel.innerHTML = `
+    <div class="panel-title">Review & confirm</div>
+    <div class="panel-sub">Edit the prompt below if you want to tweak wording, then copy it for Claude.</div>
+
+    <div class="review-card">
+      <div class="review-label">Prompt</div>
+      <textarea class="prompt-textarea" id="final-prompt">${escapeHtml(editedPrompt)}</textarea>
+    </div>
+
+    <div class="review-card">
+      <div class="review-label">${model.label} parameters</div>
+      <div class="param-pills">${paramPills}</div>
+    </div>
+
+    <button class="btn-link" onclick="toggleJson()">Show/hide raw JSON</button>
+    <pre class="copy-block" id="json-block"></pre>
+
+    <div class="nav-row">
+      <button class="btn-link" onclick="renderStep2()">← Back to edit answers</button>
+      <button class="btn btn-primary" onclick="copyForClaude()">Copy for Claude →</button>
+    </div>
+
+    <div class="confirm-box" id="confirm-box">
+      ✓ Copied. Paste this into your Claude Code chat — Claude will call Higgsfield's <code>${model.mcpTool}</code> MCP tool and send back the result.
+    </div>
+  `;
+}
+
+function escapeHtml(s) {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+function currentParams() {
+  const model = getModel(selectedModelId);
+  const prompt = document.getElementById('final-prompt').value.trim();
+  return { model, prompt, params: model.buildParams(window._answers, prompt) };
+}
+
+function toggleJson() {
+  const { params } = currentParams();
+  const block = document.getElementById('json-block');
+  block.textContent = JSON.stringify(params, null, 2);
+  block.classList.toggle('shown');
+}
+
+function copyForClaude() {
+  const { model, prompt, params } = currentParams();
+  const text = `Generate this with Higgsfield via MCP.
+
+Model: ${model.label} (${model.id})
+Prompt:
+"${prompt}"
+
+Call the "${model.mcpTool}" MCP tool with these params:
+${JSON.stringify(params, null, 2)}`;
+
+  navigator.clipboard.writeText(text).then(() => {
+    document.getElementById('confirm-box').classList.add('shown');
+  });
+}
+
+renderStep1();
+</script>
+</body>
+</html>
