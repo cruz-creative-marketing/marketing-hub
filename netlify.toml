@@ -1,0 +1,7 @@
+[build]
+  publish = "tools"
+
+[[redirects]]
+  from = "/"
+  to = "/bio-cruz-creaative.html"
+  status = 200
