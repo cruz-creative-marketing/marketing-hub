@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI for Content Creators — Course Waitlist | Cruz Creative</title>
+<meta name="description" content="Join the waitlist for AI for Content Creators — the practical AI system Cruz Creative uses daily to produce client content. First access and early-bird pricing when doors open this autumn." />
+<link rel="icon" href="assets/cruz-creative-logo-horizontal-darkbg.svg" type="image/svg+xml" />
+
+<style>
+  @font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('design_system/assets/fonts/montserrat-400.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('design_system/assets/fonts/montserrat-600.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 800;
+    font-display: swap;
+    src: url('design_system/assets/fonts/montserrat-800.woff2') format('woff2');
+  }
+
+  :root {
+    --mint: #A5F0B1;
+    --mint-hover: #8FE39C;
+    --near-black: #0A0909;
+    --surface: #141212;
+    --elevated: #1E1A1A;
+    --white: #FFFFFF;
+    --text-on-dark: #CCCCCC;
+    --font-primary: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--near-black);
+    font-family: var(--font-primary);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: clamp(40px, 6vw, 72px) 24px 80px;
+  }
+
+  a { color: var(--mint); text-decoration: none; }
+  a:hover { opacity: 0.7; }
+
+  .page {
+    max-width: 640px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .logo {
+    height: 34px;
+    margin-bottom: clamp(48px, 7vw, 88px);
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 16px;
+    border-radius: 999px;
+    background: var(--elevated);
+    color: var(--mint);
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    font-weight: 800;
+    font-size: clamp(34px, 5vw, 52px);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    color: var(--white);
+    margin: 28px 0 0;
+    text-wrap: pretty;
+  }
+  h1 span { color: var(--mint); }
+
+  .subhead {
+    font-weight: 400;
+    font-size: clamp(17px, 2vw, 20px);
+    line-height: 1.6;
+    color: var(--text-on-dark);
+    margin: 24px 0 0;
+    max-width: 560px;
+    text-wrap: pretty;
+  }
+
+  .hero-image-wrap {
+    width: 100%;
+    max-width: 640px;
+    aspect-ratio: 16 / 9;
+    margin-top: clamp(32px, 4vw, 48px);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .hero-image-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .benefits {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: clamp(36px, 5vw, 56px);
+    width: 100%;
+    max-width: 520px;
+    text-align: left;
+  }
+
+  .benefit-card {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    background: var(--surface);
+    border: 1px solid var(--elevated);
+    border-radius: 16px;
+    padding: 20px 22px;
+  }
+  .benefit-card img {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    filter: invert(87%) sepia(14%) saturate(651%) hue-rotate(75deg) brightness(103%) contrast(94%);
+  }
+  .benefit-card p {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--text-on-dark);
+    font-weight: 600;
+  }
+  .benefit-card p strong { color: var(--white); font-weight: 600; }
+
+  .video-block {
+    width: 100%;
+    max-width: 640px;
+    margin-top: clamp(36px, 5vw, 56px);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .video-label {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--mint);
+    text-align: center;
+  }
+  .video-frame {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--elevated);
+    background: var(--surface);
+    position: relative;
+  }
+  .video-frame iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+  }
+  .video-play {
+    position: absolute;
+    inset: 0;
+    cursor: pointer;
+    border: 0;
+    padding: 0;
+    background: none;
+  }
+  .video-play img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .video-play-scrim {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(10, 9, 9, 0.25);
+  }
+  .video-play-btn {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: var(--mint);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 160ms var(--ease-out);
+  }
+  .video-play:hover .video-play-btn { background: var(--mint-hover); }
+  .video-play-triangle {
+    width: 0;
+    height: 0;
+    border-top: 14px solid transparent;
+    border-bottom: 14px solid transparent;
+    border-left: 22px solid var(--near-black);
+    margin-left: 5px;
+  }
+  .hidden { display: none !important; }
+
+  form.waitlist-form {
+    margin-top: clamp(36px, 5vw, 56px);
+    width: 100%;
+    max-width: 520px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    text-align: left;
+  }
+
+  .field { display: flex; flex-direction: column; gap: 8px; }
+  .field label {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-on-dark);
+  }
+  .field input {
+    background: var(--surface);
+    border: 1px solid var(--elevated);
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-size: 16px;
+    font-family: var(--font-primary);
+    color: var(--white);
+    outline: none;
+    transition: border-color 160ms var(--ease-out);
+  }
+  .field input::placeholder { color: var(--text-on-dark); opacity: 0.6; }
+  .field input:focus { border-color: var(--mint); }
+
+  .submit-row { display: flex; justify-content: center; width: 100%; }
+
+  .btn-submit {
+    background: var(--mint);
+    color: var(--near-black);
+    font-family: var(--font-primary);
+    font-weight: 600;
+    font-size: 18px;
+    padding: 18px 32px;
+    border: 0;
+    border-radius: 999px;
+    cursor: pointer;
+    min-width: 240px;
+    transition: background 160ms var(--ease-out), transform 120ms var(--ease-out);
+  }
+  .btn-submit:hover { background: var(--mint-hover); }
+  .btn-submit:active { transform: scale(0.97); }
+
+  .success-card {
+    margin-top: clamp(36px, 5vw, 56px);
+    width: 100%;
+    max-width: 520px;
+    background: var(--surface);
+    border: 1px solid var(--mint);
+    border-radius: 16px;
+    padding: 32px 28px;
+    text-align: center;
+  }
+  .success-card p:first-child {
+    margin: 0;
+    font-weight: 800;
+    font-size: 22px;
+    color: var(--white);
+  }
+  .success-card p:last-child {
+    margin: 12px 0 0;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--text-on-dark);
+  }
+
+  .trust-line {
+    margin: 20px 0 0;
+    font-size: 14px;
+    color: var(--text-on-dark);
+    opacity: 0.75;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <img class="logo" src="assets/cruz-creative-logo-horizontal-darkbg.svg" alt="Cruz Creative" />
+
+  <span class="badge">Coming this autumn</span>
+
+  <h1>AI for Content Creators: <span>the practical system</span>, from an agency that uses it daily.</h1>
+
+  <p class="subhead">8 modules. 40+ lessons. The complete workflow we use to produce client content with AI: prompting, platform content, video, automation, strategy.</p>
+
+  <div class="hero-image-wrap">
+    <img src="uploads/hero-agata.png" alt="AI for Content Creators course preview" />
+  </div>
+
+  <div class="benefits">
+    <div class="benefit-card">
+      <img src="https://unpkg.com/lucide-static@latest/icons/target.svg" alt="" />
+      <p><strong>First access when doors open.</strong> The waitlist hears before anyone else.</p>
+    </div>
+    <div class="benefit-card">
+      <img src="https://unpkg.com/lucide-static@latest/icons/badge-percent.svg" alt="" />
+      <p><strong>Early-bird pricing, waitlist only.</strong> A meaningful discount that disappears 72 hours after launch.</p>
+    </div>
+    <div class="benefit-card">
+      <img src="https://unpkg.com/lucide-static@latest/icons/zap.svg" alt="" />
+      <p><strong>Built from real client work.</strong> Every lesson field-tested on live brands, not theory.</p>
+    </div>
+  </div>
+
+  <div class="video-block">
+    <p class="video-label">Watch: what's inside the course</p>
+    <div class="video-frame">
+      <button type="button" class="video-play" id="videoPlay" aria-label="Play course preview video">
+        <img src="https://img.youtube.com/vi/C0uUd59VhXE/maxresdefault.jpg" alt="Course preview video thumbnail" />
+        <span class="video-play-scrim">
+          <span class="video-play-btn"><span class="video-play-triangle"></span></span>
+        </span>
+      </button>
+      <iframe id="videoIframe" class="hidden" title="AI for Content Creators course preview" referrerpolicy="origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <form class="waitlist-form" id="waitlistForm">
+    <div class="field">
+      <label for="firstName">First name</label>
+      <input type="text" id="firstName" name="firstName" placeholder="Your first name" required />
+    </div>
+    <div class="field">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" placeholder="you@yourbrand.com" required />
+    </div>
+    <div class="submit-row">
+      <button type="submit" class="btn-submit">Join the waitlist</button>
+    </div>
+  </form>
+
+  <div class="success-card hidden" id="successCard">
+    <p>You're on the list.</p>
+    <p>First access and early-bird pricing land in your inbox before anyone else hears a word.</p>
+  </div>
+
+  <p class="trust-line">No spam, no daily countdown emails. We'll tell you when it matters.</p>
+</div>
+
+<script>
+  document.getElementById('videoPlay').addEventListener('click', function () {
+    var iframe = document.getElementById('videoIframe');
+    iframe.src = 'https://www.youtube-nocookie.com/embed/C0uUd59VhXE?autoplay=1&rel=0';
+    iframe.classList.remove('hidden');
+    this.classList.add('hidden');
+  });
+
+  document.getElementById('waitlistForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    // Production: POST to Kajabi with tag "course-waitlist" + fire GA4 event here
+    this.classList.add('hidden');
+    document.getElementById('successCard').classList.remove('hidden');
+  });
+</script>
+</body>
+</html>
