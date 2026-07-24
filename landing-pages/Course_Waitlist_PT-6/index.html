@@ -396,7 +396,9 @@
 
   document.getElementById('waitlistForm').addEventListener('submit', function (e) {
     e.preventDefault();
-    // Production: POST to MailerLite with tag "course-waitlist" happens here (separate task)
+    var form = this;
+    var firstName = document.getElementById('firstName').value;
+    var email = document.getElementById('email').value;
 
     // GA4 event on submission
     if (typeof gtag === 'function') {
@@ -407,7 +409,16 @@
       });
     }
 
-    this.classList.add('hidden');
+    // POST to MailerLite (via Netlify function, which holds the API key) with the course-waitlist group
+    fetch('/.netlify/functions/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ firstName: firstName, email: email })
+    }).catch(function (err) {
+      console.error('MailerLite subscribe request failed', err);
+    });
+
+    form.classList.add('hidden');
     document.getElementById('successCard').classList.remove('hidden');
   });
 </script>
