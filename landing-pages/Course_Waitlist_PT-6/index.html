@@ -7,6 +7,15 @@
 <meta name="description" content="Join the waitlist for AI for Content Creators — the practical AI system Cruz Creative uses daily to produce client content. First access and early-bird pricing when doors open this autumn." />
 <link rel="icon" href="assets/cruz-creative-logo-horizontal-darkbg.svg" type="image/svg+xml" />
 
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-452DCFWWE6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-452DCFWWE6');
+</script>
+
 <style>
   @font-face {
     font-family: 'Montserrat';
@@ -387,7 +396,17 @@
 
   document.getElementById('waitlistForm').addEventListener('submit', function (e) {
     e.preventDefault();
-    // Production: POST to Kajabi with tag "course-waitlist" + fire GA4 event here
+    // Production: POST to MailerLite with tag "course-waitlist" happens here (separate task)
+
+    // GA4 event on submission
+    if (typeof gtag === 'function') {
+      gtag('event', 'waitlist_signup', {
+        event_category: 'engagement',
+        event_label: 'course-waitlist',
+        page_location: window.location.href
+      });
+    }
+
     this.classList.add('hidden');
     document.getElementById('successCard').classList.remove('hidden');
   });
