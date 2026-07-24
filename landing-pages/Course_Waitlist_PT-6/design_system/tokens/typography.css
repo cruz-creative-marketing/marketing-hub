@@ -1,0 +1,39 @@
+/* Cruz Creative — Typography tokens */
+
+:root {
+  --font-primary: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+  /* Poppins Black is the logo-wordmark face, but it's never used to set live
+     text (the logo ships as pre-outlined SVG/PNG paths) — see readme.md →
+     Typography. Deliberately not declared as a token/@font-face: if it were,
+     it would sit unused waiting on a file upload forever. Upload real
+     Poppins files and reintroduce the token only if a text use ever needs it. */
+
+  --weight-regular: 400;
+  --weight-semibold: 600;
+  --weight-extrabold: 800;
+
+  /* Type scale — hero/H1 and H2 share weight 800, differ only in size.
+     Kept as discrete size/weight/line-height/leading tokens (not CSS font
+     shorthand) so each value stays individually inspectable. */
+  --size-hero: clamp(2.75rem, 2rem + 3vw, 5.5rem);
+  --size-h1: clamp(2.75rem, 2rem + 3vw, 5.5rem);
+  --size-h2: clamp(1.75rem, 1.4rem + 1.4vw, 2.75rem);
+  --size-h3: clamp(1.25rem, 1.1rem + 0.6vw, 1.625rem);
+  --size-body-lg: 1.25rem;
+  --size-body: 1.0625rem;
+  --size-small: 0.9375rem;
+  --size-list: 1.0625rem;
+  --size-eyebrow: 0.8125rem;
+  --size-button: 1rem;
+
+  --leading-hero: 1.02;
+  --leading-heading: 1.08;
+  --leading-subheading: 1.15;
+  --leading-body: 1.6;
+  --leading-body-lg: 1.55;
+  --leading-tight: 1.2;
+  --leading-none: 1;
+
+  --tracking-tight: -0.02em;
+  --tracking-eyebrow: 0.12em;
+}

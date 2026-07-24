@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/cruz-creative-design-system-b781408b-dd88-441b-bd0e-28563191188b/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/cruz-creative-design-system-b781408b-dd88-441b-bd0e-28563191188b/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/cruz-creative-design-system-b781408b-dd88-441b-bd0e-28563191188b/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/cruz-creative-design-system-b781408b-dd88-441b-bd0e-28563191188b/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/cruz-creative-design-system-b781408b-dd88-441b-bd0e-28563191188b/styles.css">
+  <script src="_ds/cruz-creative-design-system-b781408b-dd88-441b-bd0e-28563191188b/_ds_bundle.js"></script>
+  <script src="image-slot.js"></script>
+  <style>
+    body { margin: 0; background: var(--near-black); }
+    a { color: var(--mint); text-decoration: none; }
+    a:hover { opacity: 0.7; }
+  </style>
+</helmet>
+<div style="min-height: 100vh; background: var(--near-black); font-family: var(--font-primary); display: flex; flex-direction: column; align-items: center; padding: clamp(40px, 6vw, 72px) 24px 80px;" data-screen-label="Course Waitlist">
+  <img src="assets/cruz-creative-logo-horizontal-darkbg.svg" alt="Cruz Creative" style="height: 34px; margin-bottom: clamp(48px, 7vw, 88px);">
+  <div style="max-width: 640px; width: 100%; display: flex; flex-direction: column; align-items: center; text-align: center;">
+    <x-import component-from-global-scope="CruzCreativeDesignSystem_b78140.Badge" hint-size="auto,28px">Coming this autumn</x-import>
+    <h1 style="font-weight: 800; font-size: clamp(34px, 5vw, 52px); line-height: 1.1; letter-spacing: -0.01em; color: var(--white); margin: 28px 0 0; text-wrap: pretty;">AI for Content Creators: <span style="color: var(--mint);">the practical system</span>, from an agency that uses it daily.</h1>
+    <p style="font-weight: 400; font-size: clamp(17px, 2vw, 20px); line-height: 1.6; color: var(--text-on-dark); margin: 24px 0 0; max-width: 560px; text-wrap: pretty;">8 modules. 40+ lessons. The complete workflow we use to produce client content with AI: prompting, platform content, video, automation, strategy.</p>
+    <div style="width: 100%; max-width: 640px; aspect-ratio: 16 / 9; margin-top: clamp(32px, 4vw, 48px);">
+      <image-slot id="hero-graphic" shape="rounded" radius="16" src="uploads/hf_20260722_112807_d6f68f83-3d9f-42b4-9dac-6b15608f435e.png" placeholder="Drop the hero graphic (course mockup / laptop shot)"></image-slot>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 16px; margin-top: clamp(36px, 5vw, 56px); width: 100%; max-width: 520px; text-align: left;">
+      <div style="display: flex; gap: 16px; align-items: flex-start; background: var(--surface); border: 1px solid var(--elevated); border-radius: 16px; padding: 20px 22px;">
+        <img src="https://unpkg.com/lucide-static@latest/icons/target.svg" alt="" style="width: 24px; height: 24px; flex-shrink: 0; margin-top: 2px; filter: invert(87%) sepia(14%) saturate(651%) hue-rotate(75deg) brightness(103%) contrast(94%);">
+        <p style="margin: 0; font-size: 16px; line-height: 1.55; color: var(--text-on-dark); font-weight: 600;"><span style="color: var(--white);">First access when doors open.</span> The waitlist hears before anyone else.</p>
+      </div>
+      <div style="display: flex; gap: 16px; align-items: flex-start; background: var(--surface); border: 1px solid var(--elevated); border-radius: 16px; padding: 20px 22px;">
+        <img src="https://unpkg.com/lucide-static@latest/icons/badge-percent.svg" alt="" style="width: 24px; height: 24px; flex-shrink: 0; margin-top: 2px; filter: invert(87%) sepia(14%) saturate(651%) hue-rotate(75deg) brightness(103%) contrast(94%);">
+        <p style="margin: 0; font-size: 16px; line-height: 1.55; color: var(--text-on-dark); font-weight: 600;"><span style="color: var(--white);">Early-bird pricing, waitlist only.</span> A meaningful discount that disappears 72 hours after launch.</p>
+      </div>
+      <div style="display: flex; gap: 16px; align-items: flex-start; background: var(--surface); border: 1px solid var(--elevated); border-radius: 16px; padding: 20px 22px;">
+        <img src="https://unpkg.com/lucide-static@latest/icons/zap.svg" alt="" style="width: 24px; height: 24px; flex-shrink: 0; margin-top: 2px; filter: invert(87%) sepia(14%) saturate(651%) hue-rotate(75deg) brightness(103%) contrast(94%);">
+        <p style="margin: 0; font-size: 16px; line-height: 1.55; color: var(--text-on-dark); font-weight: 600;"><span style="color: var(--white);">Built from real client work.</span> Every lesson field-tested on live brands, not theory.</p>
+      </div>
+    </div>
+    <div style="width: 100%; max-width: 640px; margin-top: clamp(36px, 5vw, 56px); display: flex; flex-direction: column; gap: 14px;">
+      <p style="margin: 0; font-size: 13px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mint); text-align: center;">Watch: what's inside the course</p>
+      <div style="width: 100%; aspect-ratio: 16 / 9; border-radius: 16px; overflow: hidden; border: 1px solid var(--elevated); background: var(--surface); position: relative;">
+        <sc-if value="{{ videoPlaying }}" hint-placeholder-val="{{ false }}">
+          <iframe src="https://www.youtube-nocookie.com/embed/C0uUd59VhXE?autoplay=1&amp;rel=0" title="AI for Content Creators course preview" referrerPolicy="origin" style="width: 100%; height: 100%; border: 0; display: block;" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="{{ true }}"></iframe>
+        </sc-if>
+        <sc-if value="{{ videoIdle }}" hint-placeholder-val="{{ true }}">
+          <div onClick="{{ playVideo }}" style="position: absolute; inset: 0; cursor: pointer;">
+            <img src="https://img.youtube.com/vi/C0uUd59VhXE/maxresdefault.jpg" alt="Course preview video thumbnail" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+            <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(10, 9, 9, 0.25);">
+              <div style="width: 72px; height: 72px; border-radius: 50%; background: var(--mint); display: flex; align-items: center; justify-content: center;">
+                <div style="width: 0; height: 0; border-top: 14px solid transparent; border-bottom: 14px solid transparent; border-left: 22px solid var(--near-black); margin-left: 5px;"></div>
+              </div>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+    <sc-if value="{{ showForm }}" hint-placeholder-val="{{ true }}">
+      <form onSubmit="{{ handleSubmit }}" style="margin-top: clamp(36px, 5vw, 56px); width: 100%; max-width: 520px; display: flex; flex-direction: column; gap: 18px; text-align: left;">
+        <x-import component-from-global-scope="CruzCreativeDesignSystem_b78140.Input" label="First name" name="firstName" placeholder="Your first name" required="{{ true }}" hint-size="100%,80px"></x-import>
+        <x-import component-from-global-scope="CruzCreativeDesignSystem_b78140.Input" label="Email" name="email" type="email" placeholder="you@yourbrand.com" required="{{ true }}" hint-size="100%,80px"></x-import>
+        <div style="display: flex; justify-content: center; width: 100%;">
+          <x-import component-from-global-scope="CruzCreativeDesignSystem_b78140.Button" size="lg" type="submit" hint-size="240px,54px">Join the waitlist</x-import>
+        </div>
+      </form>
+    </sc-if>
+    <sc-if value="{{ submitted }}" hint-placeholder-val="{{ false }}">
+      <div style="margin-top: clamp(36px, 5vw, 56px); width: 100%; max-width: 520px; background: var(--surface); border: 1px solid var(--mint); border-radius: 16px; padding: 32px 28px; text-align: center;">
+        <p style="margin: 0; font-weight: 800; font-size: 22px; color: var(--white);">You're on the list.</p>
+        <p style="margin: 12px 0 0; font-size: 16px; line-height: 1.6; color: var(--text-on-dark);">First access and early-bird pricing land in your inbox before anyone else hears a word.</p>
+      </div>
+    </sc-if>
+    <p style="margin: 20px 0 0; font-size: 14px; color: var(--text-on-dark); opacity: 0.75;">No spam, no daily countdown emails. We'll tell you when it matters.</p>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;previewSuccessState&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: false, &quot;tsType&quot;: &quot;boolean&quot;}}">
+class Component extends DCLogic {
+  state = { submitted: false, videoPlaying: false };
+  renderVals() {
+    const submitted = (this.props.previewSuccessState ?? false) || this.state.submitted;
+    return {
+      submitted,
+      videoPlaying: this.state.videoPlaying,
+      videoIdle: !this.state.videoPlaying,
+      playVideo: () => this.setState({ videoPlaying: true }),
+      showForm: !submitted,
+      fullWidth: { width: '100%', maxWidth: '320px', alignSelf: 'center' },
+      handleSubmit: (e) => {
+        e.preventDefault();
+        // Production: POST to Kajabi with tag "course-waitlist" + fire GA4 event here
+        this.setState({ submitted: true });
+      },
+    };
+  }
+}
+</script>
+</body>
+</html>

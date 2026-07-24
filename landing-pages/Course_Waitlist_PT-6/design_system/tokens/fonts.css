@@ -1,0 +1,29 @@
+/* Cruz Creative — Webfonts
+   Montserrat is the single production typeface (headings, body, lists).
+   Poppins Black is reserved exclusively for the logo lockups, which ship
+   as pre-outlined vector/PNG files — it is not embedded here because it is
+   never used to set live text. See readme.md → Typography for detail. */
+
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../assets/fonts/montserrat-400.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('../assets/fonts/montserrat-600.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url('../assets/fonts/montserrat-800.woff2') format('woff2');
+}
