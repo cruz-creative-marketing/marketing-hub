@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/cruz-creative-design-system-b781408b-dd88-441b-bd0e-28563191188b/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/cruz-creative-design-system-b781408b-dd88-441b-bd0e-28563191188b/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/cruz-creative-design-system-b781408b-dd88-441b-bd0e-28563191188b/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/cruz-creative-design-system-b781408b-dd88-441b-bd0e-28563191188b/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/cruz-creative-design-system-b781408b-dd88-441b-bd0e-28563191188b/styles.css">
+  <script src="_ds/cruz-creative-design-system-b781408b-dd88-441b-bd0e-28563191188b/_ds_bundle.js"></script>
+  <script src="image-slot.js"></script>
+  <style>
+    body { margin: 0; background: var(--near-black); }
+    a { color: var(--mint); text-decoration: none; }
+    a:hover { opacity: 0.7; }
+  </style>
+</helmet>
+<div style="min-height: 100vh; background: var(--near-black); font-family: var(--font-primary); display: flex; flex-direction: column; align-items: center; padding: clamp(40px, 6vw, 72px) 24px 80px;" data-screen-label="Free Prompts Thank You">
+  <img src="assets/cruz-creative-logo-horizontal-darkbg.svg" alt="Cruz Creative" style="height: 34px; margin-bottom: clamp(48px, 7vw, 88px);">
+  <div style="max-width: 640px; width: 100%; display: flex; flex-direction: column; align-items: center; text-align: center;">
+    <div style="width: 72px; height: 72px; border-radius: 50%; background: var(--elevated); display: flex; align-items: center; justify-content: center;">
+      <img src="https://unpkg.com/lucide-static@latest/icons/mail-check.svg" alt="" style="width: 32px; height: 32px; filter: invert(87%) sepia(14%) saturate(651%) hue-rotate(75deg) brightness(103%) contrast(94%);">
+    </div>
+    <h1 style="font-weight: 800; font-size: clamp(34px, 5vw, 52px); line-height: 1.1; letter-spacing: -0.01em; color: var(--white); margin: 28px 0 0; text-wrap: pretty;">Done. <span style="color: var(--mint);">Check your inbox.</span></h1>
+    <p style="font-weight: 400; font-size: clamp(17px, 2vw, 20px); line-height: 1.6; color: var(--text-on-dark); margin: 24px 0 0; max-width: 560px; text-wrap: pretty;">The prompts are on their way from hello@cruzcreative.agency. If they're not there in 2 minutes, check spam and drag us to your inbox (it matters, your email provider is watching).</p>
+    <div style="display: flex; gap: 16px; align-items: flex-start; background: var(--surface); border: 1px solid var(--mint); border-radius: 16px; padding: 20px 22px; margin-top: clamp(36px, 5vw, 56px); width: 100%; max-width: 520px; text-align: left;">
+      <img src="https://unpkg.com/lucide-static@latest/icons/zap.svg" alt="" style="width: 24px; height: 24px; flex-shrink: 0; margin-top: 2px; filter: invert(87%) sepia(14%) saturate(651%) hue-rotate(75deg) brightness(103%) contrast(94%);">
+      <p style="margin: 0; font-size: 16px; line-height: 1.55; color: var(--text-on-dark); font-weight: 600;"><span style="color: var(--white);">While you wait: start with prompt #1, the Hook Machine.</span> It's the fastest win in the pack.</p>
+    </div>
+    <div style="width: 100%; max-width: 640px; aspect-ratio: 16 / 9; margin-top: clamp(36px, 5vw, 56px);">
+      <image-slot id="thanks-hero" shape="rounded" radius="16" placeholder="Drop the image (prompt pack preview / team shot)"></image-slot>
+    </div>
+    <div style="background: var(--surface); border: 1px solid var(--elevated); border-radius: 16px; padding: 28px 26px; margin-top: 16px; width: 100%; max-width: 520px; text-align: left; display: flex; flex-direction: column; gap: 16px;" data-screen-label="Tripwire slot">
+      <p style="margin: 0; font-size: 13px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mint);">For teams</p>
+      <p style="margin: 0; font-size: 16px; line-height: 1.6; color: var(--text-on-dark); font-weight: 600;"><span style="color: var(--white);">Running a business with a team?</span> We also audit content workflows and build AI systems.</p>
+      <div style="display: flex; justify-content: center; width: 100%;">
+        <a href="https://cruzcreative.net" style="display: inline-flex; text-decoration: none;">
+          <x-import component-from-global-scope="CruzCreativeDesignSystem_b78140.Button" variant="primary" hint-size="auto,48px">See AI Services</x-import>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+</x-dc>
+</body>
+</html>

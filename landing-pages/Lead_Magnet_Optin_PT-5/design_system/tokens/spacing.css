@@ -1,0 +1,43 @@
+/* Cruz Creative — Spacing, radius, shadow, motion tokens
+   No explicit spacing/radius system is defined in the brand guidelines
+   (they cover logo, color, type only). These are inferred from the bold,
+   confident, high-contrast personality of the brand: sharp-ish corners,
+   generous section padding, punchy fast easing — see readme.md → Visual
+   Foundations for the reasoning. */
+
+:root {
+  /* Spacing scale (4px base) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --space-10: 128px;
+
+  /* Section rhythm */
+  --section-padding-y: clamp(64px, 8vw, 128px);
+  --content-max-width: 1200px;
+  --content-padding-x: clamp(24px, 5vw, 64px);
+
+  /* Corner radii — small on controls, larger on cards/media */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-pill: 999px;
+
+  /* Borders */
+  --border-width: 1px;
+
+  /* Shadow — used sparingly; brand favors flat contrast over depth */
+  --shadow-card: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 12px 32px rgba(0, 0, 0, 0.35);
+  --shadow-none: none;
+
+  /* Motion — fast, confident, no bounce */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1); /* @kind other */
+  --duration-fast: 120ms; /* @kind other */
+  --duration-base: 200ms; /* @kind other */
+}

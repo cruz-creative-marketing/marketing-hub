@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="stylesheet" href="_ds/cruz-creative-design-system-b781408b-dd88-441b-bd0e-28563191188b/tokens/colors.css">
+  <link rel="stylesheet" href="_ds/cruz-creative-design-system-b781408b-dd88-441b-bd0e-28563191188b/tokens/fonts.css">
+  <link rel="stylesheet" href="_ds/cruz-creative-design-system-b781408b-dd88-441b-bd0e-28563191188b/tokens/typography.css">
+  <link rel="stylesheet" href="_ds/cruz-creative-design-system-b781408b-dd88-441b-bd0e-28563191188b/tokens/spacing.css">
+  <link rel="stylesheet" href="_ds/cruz-creative-design-system-b781408b-dd88-441b-bd0e-28563191188b/styles.css">
+  <script src="_ds/cruz-creative-design-system-b781408b-dd88-441b-bd0e-28563191188b/_ds_bundle.js"></script>
+  <script src="image-slot.js"></script>
+  <style>
+    body { margin: 0; background: var(--near-black); }
+    a { color: var(--mint); text-decoration: none; }
+    a:hover { opacity: 0.7; }
+  </style>
+</helmet>
+<div style="min-height: 100vh; background: var(--near-black); font-family: var(--font-primary); display: flex; flex-direction: column; align-items: center; padding: clamp(40px, 6vw, 72px) 24px 80px;" data-screen-label="Free Prompts Opt-In">
+  <img src="assets/cruz-creative-logo-horizontal-darkbg.svg" alt="Cruz Creative" style="height: 34px; margin-bottom: clamp(48px, 7vw, 88px);">
+  <div style="max-width: 640px; width: 100%; display: flex; flex-direction: column; align-items: center; text-align: center;">
+    <x-import component-from-global-scope="CruzCreativeDesignSystem_b78140.Badge" hint-size="auto,28px">Free download</x-import>
+    <h1 style="font-weight: 800; font-size: clamp(34px, 5vw, 52px); line-height: 1.1; letter-spacing: -0.01em; color: var(--white); margin: 28px 0 0; text-wrap: pretty;">15 AI prompts we use on real client brands. <span style="color: var(--mint);">Steal them.</span></h1>
+    <p style="font-weight: 400; font-size: clamp(17px, 2vw, 20px); line-height: 1.6; color: var(--text-on-dark); margin: 24px 0 0; max-width: 560px; text-wrap: pretty;">Not theory. Not "act as a marketing expert." The actual prompts a working content agency runs every day: for captions, scripts, and strategy. Copy, paste, go.</p>
+    <div style="width: 100%; max-width: 640px; aspect-ratio: 16 / 9; margin-top: clamp(32px, 4vw, 48px);">
+      <image-slot id="optin-hero" shape="rounded" radius="16" placeholder="Drop the hero graphic (PDF cover mockup)"></image-slot>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 16px; margin-top: clamp(36px, 5vw, 56px); width: 100%; max-width: 520px; text-align: left;">
+      <div style="display: flex; gap: 16px; align-items: flex-start; background: var(--surface); border: 1px solid var(--elevated); border-radius: 16px; padding: 20px 22px;">
+        <img src="https://unpkg.com/lucide-static@latest/icons/zap.svg" alt="" style="width: 24px; height: 24px; flex-shrink: 0; margin-top: 2px; filter: invert(87%) sepia(14%) saturate(651%) hue-rotate(75deg) brightness(103%) contrast(94%);">
+        <p style="margin: 0; font-size: 16px; line-height: 1.55; color: var(--text-on-dark); font-weight: 600;"><span style="color: var(--white);">Write a week of content in one sitting.</span> Including the planner prompt that builds 7 posts at once.</p>
+      </div>
+      <div style="display: flex; gap: 16px; align-items: flex-start; background: var(--surface); border: 1px solid var(--elevated); border-radius: 16px; padding: 20px 22px;">
+        <img src="https://unpkg.com/lucide-static@latest/icons/mic.svg" alt="" style="width: 24px; height: 24px; flex-shrink: 0; margin-top: 2px; filter: invert(87%) sepia(14%) saturate(651%) hue-rotate(75deg) brightness(103%) contrast(94%);">
+        <p style="margin: 0; font-size: 16px; line-height: 1.55; color: var(--text-on-dark); font-weight: 600;"><span style="color: var(--white);">Make AI sound like you, not a robot.</span> The brand-voice extractor and the de-robotifier are worth the download alone.</p>
+      </div>
+      <div style="display: flex; gap: 16px; align-items: flex-start; background: var(--surface); border: 1px solid var(--elevated); border-radius: 16px; padding: 20px 22px;">
+        <img src="https://unpkg.com/lucide-static@latest/icons/clapperboard.svg" alt="" style="width: 24px; height: 24px; flex-shrink: 0; margin-top: 2px; filter: invert(87%) sepia(14%) saturate(651%) hue-rotate(75deg) brightness(103%) contrast(94%);">
+        <p style="margin: 0; font-size: 16px; line-height: 1.55; color: var(--text-on-dark); font-weight: 600;"><span style="color: var(--white);">Scripts, hooks, carousels, CTAs.</span> Every format you post, covered.</p>
+      </div>
+    </div>
+    <sc-if value="{{ showForm }}" hint-placeholder-val="{{ true }}">
+      <form onSubmit="{{ handleSubmit }}" style="margin-top: clamp(36px, 5vw, 56px); width: 100%; max-width: 520px; display: flex; flex-direction: column; gap: 18px; text-align: left;">
+        <x-import component-from-global-scope="CruzCreativeDesignSystem_b78140.Input" label="First name" name="firstName" placeholder="Your first name" required="{{ true }}" hint-size="100%,80px"></x-import>
+        <x-import component-from-global-scope="CruzCreativeDesignSystem_b78140.Input" label="Email" name="email" type="email" placeholder="you@yourbrand.com" required="{{ true }}" hint-size="100%,80px"></x-import>
+        <div style="display: flex; justify-content: center; width: 100%;">
+          <x-import component-from-global-scope="CruzCreativeDesignSystem_b78140.Button" size="lg" type="submit" hint-size="240px,54px">Send me the prompts</x-import>
+        </div>
+      </form>
+    </sc-if>
+    <sc-if value="{{ submitted }}" hint-placeholder-val="{{ false }}">
+      <div style="margin-top: clamp(36px, 5vw, 56px); width: 100%; max-width: 520px; background: var(--surface); border: 1px solid var(--mint); border-radius: 16px; padding: 32px 28px; text-align: center;">
+        <p style="margin: 0; font-weight: 800; font-size: 22px; color: var(--white);">Done. Check your inbox.</p>
+        <p style="margin: 12px 0 0; font-size: 16px; line-height: 1.6; color: var(--text-on-dark);">The prompts are on their way from hello@cruzcreative.agency. If they're not there in 2 minutes, check spam and drag us to your inbox.</p>
+      </div>
+    </sc-if>
+    <p style="margin: 20px 0 0; font-size: 14px; line-height: 1.6; color: var(--text-on-dark); opacity: 0.75; max-width: 520px;">No spam. One useful email a week, unsubscribe anytime. Used daily at Cruz Creative on brands like the ones in our portfolio.</p>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;previewSuccessState&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: false, &quot;tsType&quot;: &quot;boolean&quot;}}">
+class Component extends DCLogic {
+  state = { submitted: false };
+  renderVals() {
+    const submitted = (this.props.previewSuccessState ?? false) || this.state.submitted;
+    return {
+      submitted,
+      showForm: !submitted,
+      handleSubmit: (e) => {
+        e.preventDefault();
+        // Production: Kajabi form, tag "lead-magnet-prompts" + GA4 opt-in event, then redirect to /free-prompts/thanks
+        this.setState({ submitted: true });
+      },
+    };
+  }
+}
+</script>
+</body>
+</html>

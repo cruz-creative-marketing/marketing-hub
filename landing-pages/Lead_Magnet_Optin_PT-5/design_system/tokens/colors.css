@@ -1,0 +1,38 @@
+/* Cruz Creative — Color tokens
+   Source: Brand Guidelines v1.3, July 2026 */
+
+:root {
+  /* Primary accent */
+  --mint: #A5F0B1;
+
+  /* Dark backgrounds (near-black base + tints) */
+  --near-black: #0A0909;
+  --surface: #141212;
+  --elevated: #1E1A1A;
+
+  /* Light backgrounds */
+  --off-white: #F5F5F0;
+  --light-grey: #F0F0F0;
+
+  /* Text & neutral */
+  --white: #FFFFFF;
+  --text-on-dark: #CCCCCC;
+  --charcoal: #333333;
+
+  /* ---- Semantic aliases ---- */
+  --bg-dark: var(--near-black);
+  --bg-dark-surface: var(--surface);
+  --bg-dark-elevated: var(--elevated);
+  --bg-light: var(--off-white);
+  --bg-light-alt: var(--light-grey);
+
+  --text-hero-on-dark: var(--white);
+  --text-body-on-dark: var(--text-on-dark);
+  --text-body-on-light: var(--charcoal);
+
+  --accent-primary: var(--mint);
+  --accent-on-dark: var(--mint);
+
+  --border-on-dark: var(--elevated);
+  --border-on-light: rgba(51, 51, 51, 0.15);
+}
