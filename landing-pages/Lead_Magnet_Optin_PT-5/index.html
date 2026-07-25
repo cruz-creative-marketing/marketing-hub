@@ -114,7 +114,8 @@
     fetch('/.netlify/functions/subscribe', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ firstName: firstName, email: email, group: 'lead-magnet-prompts' })
+      body: JSON.stringify({ firstName: firstName, email: email, group: 'lead-magnet-prompts' }),
+      keepalive: true
     }).catch(function (err) {
       console.error('subscribe request failed', err);
     });
