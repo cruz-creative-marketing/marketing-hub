@@ -2,6 +2,7 @@
 
 ## Overview
 The email-capture funnel for the "15 AI Prompts We Use on Real Client Brands" lead magnet.
+Production URL: https://freeprompts.cruzcreative.net/
 Two pages: opt-in at /free-prompts (index.html) and thank-you at thank-you.html (map to /free-prompts/thanks via a redirect rule if preferred).
 Copy source: Cruz_Creative_Lead_Magnet_Funnel_PT-5 doc, Parts 2 + 3. Design base: the deployed PT-6 course waitlist page (same stripped format: no nav, no footer, one action).
 
