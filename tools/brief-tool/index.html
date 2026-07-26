@@ -463,7 +463,12 @@ Rules:
           return;
         }
 
-        const briefText = data.content[0].text;
+        const textBlock = (data.content || []).find(block => block.type === 'text');
+        if (!textBlock) {
+          showError("No text response from the API. Please try again.");
+          return;
+        }
+        const briefText = textBlock.text;
         document.getElementById('briefOutput').textContent = briefText;
         document.getElementById('outputSection').style.display = 'block';
         document.getElementById('outputSection').scrollIntoView({ behavior: 'smooth' });

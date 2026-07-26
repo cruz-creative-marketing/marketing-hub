@@ -603,8 +603,11 @@ Be specific to their industry and platform. Avoid generic advice. Reference vide
           throw new Error(data.error.message);
         }
 
-        const raw = data.content[0].text;
-        const clean = raw.replace(/```json|```/g, '').trim();
+        const textBlock = (data.content || []).find(block => block.type === 'text');
+        if (!textBlock) {
+          throw new Error('No text response from the API. Please try again.');
+        }
+        const clean = textBlock.text.replace(/```json|```/g, '').trim();
         const audit = JSON.parse(clean);
 
         displayAudit(audit, name, brand);
