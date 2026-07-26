@@ -1,307 +1,437 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Free Social Media Audit - Cruz Creative</title>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #15171C;
-      color: #ffffff;
-      min-height: 100vh;
-      padding: 40px 20px;
-    }
-    .container {
-      max-width: 680px;
-      margin: 0 auto;
-    }
-    .logo {
-      font-size: 13px;
-      font-weight: 700;
-      color: #4FE3A0;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      margin-bottom: 32px;
-    }
-    .badge {
-      display: inline-block;
-      background: #EC1E79;
-      color: white;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      padding: 5px 12px;
-      border-radius: 20px;
-      margin-bottom: 16px;
-    }
-    h1 {
-      font-size: 36px;
-      font-weight: 900;
-      line-height: 1.15;
-      margin-bottom: 12px;
-    }
-    h1 span { color: #4FE3A0; }
-    .subtitle {
-      color: #aaaaaa;
-      font-size: 15px;
-      line-height: 1.6;
-      margin-bottom: 40px;
-    }
-    .card {
-      background: #1e2028;
-      border: 1px solid #2e3040;
-      border-radius: 12px;
-      padding: 32px;
-      margin-bottom: 24px;
-    }
-    .card-title {
-      font-size: 12px;
-      font-weight: 700;
-      color: #4FE3A0;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 20px;
-    }
-    label {
-      display: block;
-      font-size: 13px;
-      font-weight: 600;
-      color: #cccccc;
-      margin-bottom: 6px;
-      margin-top: 18px;
-    }
-    label:first-of-type { margin-top: 0; }
-    input, textarea, select {
-      width: 100%;
-      padding: 12px 14px;
-      background: #15171C;
-      border: 1px solid #2e3040;
-      border-radius: 8px;
-      color: #ffffff;
-      font-size: 15px;
-      outline: none;
-      transition: border 0.2s;
-      font-family: 'Segoe UI', sans-serif;
-    }
-    input:focus, textarea:focus, select:focus {
-      border-color: #4FE3A0;
-    }
-    textarea { resize: vertical; min-height: 90px; }
-    .hint {
-      font-size: 12px;
-      color: #666;
-      margin-top: 5px;
-    }
-    .email-gate {
-      background: #1a1f2e;
-      border: 1px solid #EC1E79;
-      border-radius: 12px;
-      padding: 28px 32px;
-      margin-bottom: 24px;
-    }
-    .email-gate h3 {
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 6px;
-    }
-    .email-gate p {
-      font-size: 14px;
-      color: #aaaaaa;
-      margin-bottom: 20px;
-    }
-    .btn {
-      width: 100%;
-      padding: 16px;
-      background: #EC1E79;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: opacity 0.2s;
-      margin-top: 8px;
-    }
-    .btn:hover { opacity: 0.85; }
-    .btn:disabled { opacity: 0.4; cursor: not-allowed; }
-    .loading {
-      display: none;
-      text-align: center;
-      padding: 40px 20px;
-    }
-    .loading-text {
-      color: #4FE3A0;
-      font-size: 16px;
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
-    .loading-sub {
-      color: #666;
-      font-size: 13px;
-    }
-    .spinner {
-      width: 36px;
-      height: 36px;
-      border: 3px solid #2e3040;
-      border-top-color: #4FE3A0;
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      margin: 0 auto 16px;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    .error {
-      display: none;
-      padding: 16px;
-      background: #2a1020;
-      border: 1px solid #EC1E79;
-      border-radius: 8px;
-      color: #EC1E79;
-      font-size: 14px;
-      margin-top: 16px;
-    }
-    .output-section { display: none; }
-    .output-header {
-      text-align: center;
-      margin-bottom: 32px;
-    }
-    .output-header .badge-success {
-      display: inline-block;
-      background: #4FE3A0;
-      color: #15171C;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      padding: 5px 14px;
-      border-radius: 20px;
-      margin-bottom: 12px;
-    }
-    .output-header h2 {
-      font-size: 26px;
-      font-weight: 800;
-      margin-bottom: 6px;
-    }
-    .output-header p {
-      color: #aaaaaa;
-      font-size: 14px;
-    }
-    .audit-block {
-      background: #1e2028;
-      border: 1px solid #2e3040;
-      border-radius: 12px;
-      padding: 24px;
-      margin-bottom: 16px;
-    }
-    .audit-block.highlight { border-color: #4FE3A0; background: #1a2520; }
-    .audit-block.warning { border-color: #f59e0b; background: #1e1a10; }
-    .audit-block.opportunity { border-color: #EC1E79; background: #1e1020; }
-    .audit-label {
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      margin-bottom: 8px;
-    }
-    .audit-label.green { color: #4FE3A0; }
-    .audit-label.amber { color: #f59e0b; }
-    .audit-label.pink { color: #EC1E79; }
-    .audit-content {
-      font-size: 15px;
-      line-height: 1.7;
-      color: #e0e0e0;
-      white-space: pre-wrap;
-    }
-    .score-row {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      background: #1e2028;
-      border: 1px solid #2e3040;
-      border-radius: 12px;
-      padding: 20px 24px;
-      margin-bottom: 16px;
-    }
-    .score-circle {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      background: #EC1E79;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      font-weight: 900;
-      flex-shrink: 0;
-    }
-    .score-label { font-size: 13px; color: #aaaaaa; }
-    .score-value { font-size: 18px; font-weight: 700; }
-    .cta-card {
-      background: linear-gradient(135deg, #EC1E79 0%, #15171C 100%);
-      border-radius: 12px;
-      padding: 32px;
-      text-align: center;
-      margin-top: 24px;
-    }
-    .cta-card h3 { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
-    .cta-card p { color: #dddddd; font-size: 14px; margin-bottom: 24px; }
-    .cta-card a {
-      display: inline-block;
-      background: #4FE3A0;
-      color: #15171C;
-      font-weight: 700;
-      font-size: 15px;
-      padding: 14px 32px;
-      border-radius: 8px;
-      text-decoration: none;
-    }
-    .action-row {
-      display: flex;
-      gap: 12px;
-      margin-top: 24px;
-      flex-wrap: wrap;
-    }
-    .action-btn {
-      padding: 12px 20px;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 600;
-      cursor: pointer;
-      border: none;
-      flex: 1;
-      min-width: 140px;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Free Social Media Audit | Cruz Creative</title>
+<meta name="description" content="Answer 6 quick questions about your social presence and get a free, personalised audit: what's working, what's not, and 3 quick wins you can implement this week." />
+<link rel="icon" href="assets/cruz-creative-logo-horizontal-darkbg.svg" type="image/svg+xml" />
+
+<style>
+  @font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('design_system/assets/fonts/montserrat-400.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('design_system/assets/fonts/montserrat-600.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 800;
+    font-display: swap;
+    src: url('design_system/assets/fonts/montserrat-800.woff2') format('woff2');
+  }
+
+  :root {
+    --mint: #A5F0B1;
+    --mint-hover: #8FE39C;
+    --near-black: #0A0909;
+    --surface: #141212;
+    --elevated: #1E1A1A;
+    --white: #FFFFFF;
+    --text-on-dark: #CCCCCC;
+    --font-primary: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--near-black);
+    font-family: var(--font-primary);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: clamp(40px, 6vw, 72px) 24px 80px;
+  }
+
+  a { color: var(--mint); text-decoration: none; }
+
+  .page {
+    max-width: 640px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .logo {
+    height: 34px;
+    margin-bottom: clamp(32px, 5vw, 56px);
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 16px;
+    border-radius: 999px;
+    background: var(--elevated);
+    color: var(--mint);
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    font-weight: 800;
+    font-size: clamp(30px, 4.5vw, 44px);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    color: var(--white);
+    margin: 24px 0 0;
+    text-wrap: pretty;
+  }
+  h1 span { color: var(--mint); }
+
+  .subhead {
+    font-weight: 400;
+    font-size: clamp(16px, 2vw, 18px);
+    line-height: 1.6;
+    color: var(--text-on-dark);
+    margin: 18px 0 0;
+    max-width: 500px;
+    text-wrap: pretty;
+  }
+
+  .hero-image-wrap {
+    width: 100%;
+    max-width: 640px;
+    aspect-ratio: 16 / 9;
+    margin-top: clamp(28px, 4vw, 40px);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .hero-image-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  #formSection {
+    width: 100%;
+    margin-top: clamp(32px, 5vw, 48px);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    text-align: left;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--elevated);
+    border-radius: 16px;
+    padding: clamp(24px, 4vw, 32px);
+  }
+
+  .card-title {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--mint);
+    margin-bottom: 18px;
+  }
+
+  .field { margin-top: 18px; }
+  .field:first-of-type { margin-top: 0; }
+
+  label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-on-dark);
+    margin-bottom: 8px;
+  }
+
+  input, textarea, select {
+    width: 100%;
+    background: var(--near-black);
+    border: 1px solid var(--elevated);
+    border-radius: 8px;
+    padding: 14px 16px;
+    font-size: 16px;
+    font-family: var(--font-primary);
+    color: var(--white);
+    outline: none;
+    transition: border-color 160ms var(--ease-out);
+  }
+  input::placeholder, textarea::placeholder { color: var(--text-on-dark); opacity: 0.6; }
+  input:focus, textarea:focus, select:focus { border-color: var(--mint); }
+  textarea { resize: vertical; min-height: 90px; }
+
+  select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23A5F0B1' stroke-width='1.5' fill='none' fill-rule='evenodd'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    padding-right: 40px;
+  }
+
+  .hint {
+    font-size: 12px;
+    color: var(--text-on-dark);
+    opacity: 0.6;
+    margin-top: 6px;
+  }
+
+  .email-gate {
+    background: var(--surface);
+    border: 1px solid var(--mint);
+    border-radius: 16px;
+    padding: clamp(24px, 4vw, 32px);
+  }
+  .email-gate h3 {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--white);
+    margin-bottom: 6px;
+  }
+  .email-gate p {
+    font-size: 14px;
+    color: var(--text-on-dark);
+    margin-bottom: 18px;
+  }
+
+  .btn {
+    width: 100%;
+    padding: 18px 32px;
+    background: var(--mint);
+    color: var(--near-black);
+    font-family: var(--font-primary);
+    font-weight: 600;
+    font-size: 18px;
+    border: 0;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 160ms var(--ease-out), transform 120ms var(--ease-out);
+  }
+  .btn:hover { background: var(--mint-hover); }
+  .btn:active { transform: scale(0.98); }
+  .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  .error {
+    display: none;
+    padding: 16px;
+    background: var(--surface);
+    border: 1px solid var(--mint);
+    border-radius: 8px;
+    color: var(--white);
+    font-size: 14px;
+  }
+
+  .loading {
+    display: none;
+    text-align: center;
+    padding: 40px 20px;
+    width: 100%;
+  }
+  .loading-text {
+    color: var(--mint);
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .loading-sub {
+    color: var(--text-on-dark);
+    opacity: 0.6;
+    font-size: 13px;
+  }
+  .spinner {
+    width: 36px;
+    height: 36px;
+    border: 3px solid var(--elevated);
+    border-top-color: var(--mint);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 16px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .output-section {
+    display: none;
+    width: 100%;
+    margin-top: clamp(32px, 5vw, 48px);
+  }
+  .output-header { text-align: center; margin-bottom: 28px; }
+  .output-header .badge-success {
+    display: inline-flex;
+    align-items: center;
+    background: var(--mint);
+    color: var(--near-black);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 999px;
+    margin-bottom: 14px;
+  }
+  .output-header h2 {
+    font-size: clamp(22px, 3vw, 28px);
+    font-weight: 800;
+    color: var(--white);
+    margin-bottom: 6px;
+  }
+  .output-header p { color: var(--text-on-dark); font-size: 14px; }
+
+  .audit-block {
+    background: var(--surface);
+    border: 1px solid var(--elevated);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 16px;
+    text-align: left;
+  }
+  .audit-block.highlight { border-color: var(--mint); }
+  .audit-label {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 10px;
+    color: var(--mint);
+  }
+  .audit-label.neutral { color: var(--white); }
+  .audit-content {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--text-on-dark);
+    white-space: pre-wrap;
+  }
+
+  .score-row {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    background: var(--surface);
+    border: 1px solid var(--elevated);
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+    text-align: left;
+  }
+  .score-circle {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--elevated);
+    border: 2px solid var(--mint);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--white);
+    flex-shrink: 0;
+  }
+  .score-circle.strong { background: var(--mint); color: var(--near-black); border-color: var(--mint); }
+  .score-label { font-size: 13px; color: var(--text-on-dark); }
+  .score-value { font-size: 18px; font-weight: 700; color: var(--white); }
+
+  .cta-card {
+    background: var(--surface);
+    border: 1px solid var(--mint);
+    border-radius: 16px;
+    padding: clamp(28px, 4vw, 36px);
+    text-align: center;
+    margin-top: 8px;
+  }
+  .cta-card h3 { font-size: 22px; font-weight: 800; color: var(--white); margin-bottom: 8px; }
+  .cta-card p { color: var(--text-on-dark); font-size: 14px; margin-bottom: 22px; }
+  .cta-card a {
+    display: inline-block;
+    background: var(--mint);
+    color: var(--near-black);
+    font-weight: 600;
+    font-size: 16px;
+    padding: 16px 32px;
+    border-radius: 999px;
+    text-decoration: none;
+    transition: background 160ms var(--ease-out);
+  }
+  .cta-card a:hover { background: var(--mint-hover); }
+
+  .action-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+  .action-btn {
+    padding: 14px 20px;
+    border-radius: 999px;
+    font-family: var(--font-primary);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 0;
+    flex: 1;
+    min-width: 140px;
+    transition: opacity 160ms var(--ease-out);
+  }
+  .action-btn:hover { opacity: 0.85; }
+
+  .trust-line {
+    margin: 24px 0 0;
+    font-size: 13px;
+    color: var(--text-on-dark);
+    opacity: 0.6;
+  }
+</style>
 </head>
 <body>
-  <div class="container">
+<div class="page">
+  <img class="logo" src="assets/cruz-creative-logo-horizontal-darkbg.svg" alt="Cruz Creative" />
 
-    <div class="logo">Cruz Creative</div>
-    <div class="badge">Free Tool</div>
-    <h1>Get Your Free<br><span>Social Media Audit</span></h1>
-    <p class="subtitle">Answer 6 quick questions about your social presence. We will analyse what is working, what is not, and give you 3 actionable wins you can implement this week.</p>
+  <span class="badge">Free tool</span>
 
-    <div id="formSection">
+  <h1>Get your free <span>social media audit</span></h1>
+  <p class="subhead">Answer 6 quick questions about your social presence. We'll analyse what's working, what's not, and give you 3 actionable wins you can implement this week.</p>
 
-      <div class="card">
-        <div class="card-title">About Your Brand</div>
+  <div class="hero-image-wrap">
+    <img src="uploads/hero-agata.png" alt="Cruz Creative social media audit preview" />
+  </div>
 
-        <label>Your name</label>
+  <div id="formSection">
+
+    <div class="card">
+      <div class="card-title">About Your Brand</div>
+
+      <div class="field">
+        <label for="name">Your name</label>
         <input type="text" id="name" placeholder="e.g. Sarah" />
-
-        <label>Brand or business name</label>
-        <input type="text" id="brand" placeholder="e.g. Bloom Skincare" />
-
-        <label>What does your business do?</label>
-        <textarea id="business" placeholder="e.g. We sell organic skincare products to women aged 30-50 who want clean, effective beauty routines"></textarea>
       </div>
 
-      <div class="card">
-        <div class="card-title">Your Social Media</div>
+      <div class="field">
+        <label for="brand">Brand or business name</label>
+        <input type="text" id="brand" placeholder="e.g. Bloom Skincare" />
+      </div>
 
-        <label>Which platform are you most active on?</label>
+      <div class="field">
+        <label for="business">What does your business do?</label>
+        <textarea id="business" placeholder="e.g. We sell organic skincare products to women aged 30-50 who want clean, effective beauty routines"></textarea>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Your Social Media</div>
+
+      <div class="field">
+        <label for="platform">Which platform are you most active on?</label>
         <select id="platform">
           <option value="">Select a platform</option>
           <option>Instagram</option>
@@ -311,87 +441,98 @@
           <option>YouTube</option>
           <option>Multiple platforms</option>
         </select>
+      </div>
 
-        <label>How would you describe your current content?</label>
+      <div class="field">
+        <label for="content">How would you describe your current content?</label>
         <textarea id="content" placeholder="e.g. We post product photos 3x per week, occasionally do Stories, rarely do Reels. Engagement is low and follower growth has stalled over the past 3 months"></textarea>
         <p class="hint">Be honest. The more detail you give, the better your audit will be.</p>
+      </div>
 
-        <label>What is your biggest frustration with social media right now?</label>
+      <div class="field">
+        <label for="frustration">What is your biggest frustration with social media right now?</label>
         <textarea id="frustration" placeholder="e.g. We put a lot of effort in but nothing seems to go viral. We get likes but no one actually buys anything"></textarea>
+      </div>
 
-        <label>Who is your target customer?</label>
+      <div class="field">
+        <label for="audience">Who is your target customer?</label>
         <input type="text" id="audience" placeholder="e.g. Female entrepreneurs aged 28-45, interested in wellness and personal growth" />
       </div>
+    </div>
 
-      <div class="email-gate">
-        <h3>Where should we send your audit?</h3>
-        <p>Enter your email below and your personalised audit will appear instantly on screen. No spam, ever.</p>
-        <label>Email address</label>
+    <div class="email-gate">
+      <h3>Where should we send your audit?</h3>
+      <p>Enter your email below and your personalised audit will appear instantly on screen. No spam, ever.</p>
+      <div class="field" style="margin-top:0;">
+        <label for="email">Email address</label>
         <input type="email" id="email" placeholder="you@yourbrand.com" />
       </div>
-
-      <button class="btn" onclick="runAudit()">Run My Free Audit</button>
-      <div class="error" id="error"></div>
-
     </div>
 
-    <div class="loading" id="loading">
-      <div class="spinner"></div>
-      <div class="loading-text">Analysing your social presence...</div>
-      <div class="loading-sub">This takes about 10 seconds</div>
-    </div>
+    <button class="btn" onclick="runAudit()">Run My Free Audit</button>
+    <div class="error" id="error"></div>
 
-    <div class="output-section" id="outputSection">
-
-      <div class="output-header">
-        <div class="badge-success">Your Audit is Ready</div>
-        <h2 id="outputTitle">Your Social Media Audit</h2>
-        <p id="outputSub">Here is what we found and where your biggest opportunities are.</p>
-      </div>
-
-      <div class="score-row">
-        <div class="score-circle" id="scoreCircle">--</div>
-        <div>
-          <div class="score-label">Overall Social Media Score</div>
-          <div class="score-value" id="scoreLabel">Analysing...</div>
-        </div>
-      </div>
-
-      <div class="audit-block highlight">
-        <div class="audit-label green">What Is Working</div>
-        <div class="audit-content" id="working"></div>
-      </div>
-
-      <div class="audit-block warning">
-        <div class="audit-label amber">What Needs Fixing</div>
-        <div class="audit-content" id="fixing"></div>
-      </div>
-
-      <div class="audit-block opportunity">
-        <div class="audit-label pink">Your 3 Quick Wins</div>
-        <div class="audit-content" id="quickwins"></div>
-      </div>
-
-      <div class="audit-block">
-        <div class="audit-label green">Content Strategy Recommendation</div>
-        <div class="audit-content" id="strategy"></div>
-      </div>
-
-      <div class="cta-card">
-        <h3>Ready to act on this?</h3>
-        <p>Cruz Creative turns audits into action. Let us build the content strategy and produce the videos that move the needle.</p>
-        <a href="https://www.cruzcreative.net/contact" target="_blank">Book a Free Strategy Call</a>
-      </div>
-
-      <div class="action-row">
-        <button class="action-btn" style="background:#4FE3A0; color:#15171C;" onclick="downloadAudit()">Download PDF</button>
-        <button class="action-btn" style="background:#1e2028; color:#fff; border:1px solid #2e3040;" onclick="startAgain()">Start Again</button>
-      </div>
-
-    </div>
   </div>
 
-  <script>
+  <div class="loading" id="loading">
+    <div class="spinner"></div>
+    <div class="loading-text">Analysing your social presence...</div>
+    <div class="loading-sub">This takes about 10 seconds</div>
+  </div>
+
+  <div class="output-section" id="outputSection">
+
+    <div class="output-header">
+      <div class="badge-success">Your audit is ready</div>
+      <h2 id="outputTitle">Your Social Media Audit</h2>
+      <p id="outputSub">Here is what we found and where your biggest opportunities are.</p>
+    </div>
+
+    <div class="score-row">
+      <div class="score-circle" id="scoreCircle">--</div>
+      <div>
+        <div class="score-label">Overall Social Media Score</div>
+        <div class="score-value" id="scoreLabel">Analysing...</div>
+      </div>
+    </div>
+
+    <div class="audit-block highlight">
+      <div class="audit-label">What Is Working</div>
+      <div class="audit-content" id="working"></div>
+    </div>
+
+    <div class="audit-block">
+      <div class="audit-label neutral">What Needs Fixing</div>
+      <div class="audit-content" id="fixing"></div>
+    </div>
+
+    <div class="audit-block highlight">
+      <div class="audit-label">Your 3 Quick Wins</div>
+      <div class="audit-content" id="quickwins"></div>
+    </div>
+
+    <div class="audit-block">
+      <div class="audit-label neutral">Content Strategy Recommendation</div>
+      <div class="audit-content" id="strategy"></div>
+    </div>
+
+    <div class="cta-card">
+      <h3>Ready to act on this?</h3>
+      <p>Cruz Creative turns audits into action. Let us build the content strategy and produce the videos that move the needle.</p>
+      <a href="https://www.cruzcreative.net/contact" target="_blank">Book a Free Strategy Call</a>
+    </div>
+
+    <div class="action-row">
+      <button class="action-btn" style="background:var(--mint); color:var(--near-black);" onclick="downloadAudit()">Download PDF</button>
+      <button class="action-btn" style="background:var(--elevated); color:var(--white);" onclick="startAgain()">Start Again</button>
+    </div>
+
+  </div>
+
+  <p class="trust-line">No spam, ever &middot; Cruz Creative</p>
+</div>
+
+<script>
     async function runAudit() {
       const name = document.getElementById('name').value.trim();
       const brand = document.getElementById('brand').value.trim();
@@ -504,9 +645,7 @@ Be specific to their industry and platform. Avoid generic advice. Reference vide
       const score = audit.score;
       const circle = document.getElementById('scoreCircle');
       circle.textContent = score + "/10";
-      if (score <= 4) circle.style.background = '#f59e0b';
-      else if (score <= 7) circle.style.background = '#EC1E79';
-      else circle.style.background = '#4FE3A0';
+      circle.classList.toggle('strong', score >= 8);
 
       document.getElementById('scoreLabel').textContent = audit.scoreLabel;
       document.getElementById('working').textContent = audit.working;
@@ -532,14 +671,12 @@ Be specific to their industry and platform. Avoid generic advice. Reference vide
           <head>
             <title>Social Media Audit - ${brand}</title>
             <style>
-              body { font-family: 'Segoe UI', sans-serif; max-width: 680px; margin: 40px auto; padding: 40px; color: #15171C; line-height: 1.7; }
-              .header { border-bottom: 3px solid #4FE3A0; padding-bottom: 16px; margin-bottom: 32px; }
-              .agency { color: #EC1E79; font-weight: 700; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; }
+              body { font-family: 'Helvetica Neue', Arial, sans-serif; max-width: 680px; margin: 40px auto; padding: 40px; color: #0A0909; line-height: 1.7; }
+              .header { border-bottom: 3px solid #A5F0B1; padding-bottom: 16px; margin-bottom: 32px; }
+              .agency { color: #333333; font-weight: 700; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; }
               h1 { font-size: 26px; margin: 6px 0 0; }
-              .score { display: inline-block; background: #EC1E79; color: white; font-size: 20px; font-weight: 900; padding: 10px 20px; border-radius: 8px; margin: 24px 0 32px; }
-              h2 { font-size: 14px; text-transform: uppercase; letter-spacing: 1px; color: #4FE3A0; margin: 24px 0 8px; border-left: 3px solid #4FE3A0; padding-left: 10px; }
-              h2.amber { color: #f59e0b; border-color: #f59e0b; }
-              h2.pink { color: #EC1E79; border-color: #EC1E79; }
+              .score { display: inline-block; background: #A5F0B1; color: #0A0909; font-size: 20px; font-weight: 900; padding: 10px 20px; border-radius: 8px; margin: 24px 0 32px; }
+              h2 { font-size: 14px; text-transform: uppercase; letter-spacing: 1px; color: #333333; margin: 24px 0 8px; border-left: 3px solid #A5F0B1; padding-left: 10px; }
               p { font-size: 14px; color: #333; white-space: pre-wrap; }
               .footer { margin-top: 48px; padding-top: 16px; border-top: 1px solid #eee; font-size: 12px; color: #999; }
             </style>
@@ -552,9 +689,9 @@ Be specific to their industry and platform. Avoid generic advice. Reference vide
             <div class="score">Score: ${score} - ${scoreLabel}</div>
             <h2>What Is Working</h2>
             <p>${working}</p>
-            <h2 class="amber">What Needs Fixing</h2>
+            <h2>What Needs Fixing</h2>
             <p>${fixing}</p>
-            <h2 class="pink">Your 3 Quick Wins</h2>
+            <h2>Your 3 Quick Wins</h2>
             <p>${quickwins}</p>
             <h2>Content Strategy Recommendation</h2>
             <p>${strategy}</p>
@@ -569,7 +706,7 @@ Be specific to their industry and platform. Avoid generic advice. Reference vide
 
     function startAgain() {
       document.getElementById('outputSection').style.display = 'none';
-      document.getElementById('formSection').style.display = 'block';
+      document.getElementById('formSection').style.display = 'flex';
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
@@ -577,9 +714,9 @@ Be specific to their industry and platform. Avoid generic advice. Reference vide
       const el = document.getElementById('error');
       el.textContent = msg;
       el.style.display = 'block';
-      document.getElementById('formSection').style.display = 'block';
+      document.getElementById('formSection').style.display = 'flex';
       document.getElementById('loading').style.display = 'none';
     }
-  </script>
+</script>
 </body>
 </html>
