@@ -8,46 +8,78 @@ exports.handler = async function (event) {
 
     // If this is a Slack notification request handle it separately
     if (body.type === "slack_notification") {
-      const { name, email, brand, platform, frustration } = body;
+      const { name, email, brand, platform, frustration, audit } = body;
 
-      const slackPayload = {
-        blocks: [
+      const blocks = [
+        {
+          type: "header",
+          text: {
+            type: "plain_text",
+            text: audit ? "New Social Media Audit Completed" : "New Social Media Audit Lead"
+          }
+        },
+        {
+          type: "section",
+          fields: [
+            { type: "mrkdwn", text: `*Name:*\n${name || 'Not provided'}` },
+            { type: "mrkdwn", text: `*Email:*\n${email}` },
+            { type: "mrkdwn", text: `*Brand:*\n${brand}` },
+            { type: "mrkdwn", text: `*Platform:*\n${platform}` }
+          ]
+        },
+        {
+          type: "section",
+          text: {
+            type: "mrkdwn",
+            text: `*Biggest Frustration:*\n${frustration || 'Not provided'}`
+          }
+        }
+      ];
+
+      if (audit) {
+        blocks.push(
+          { type: "divider" },
           {
-            type: "header",
-            text: {
-              type: "plain_text",
-              text: "New Social Media Audit Lead"
-            }
+            type: "section",
+            text: { type: "mrkdwn", text: `*Score:* ${audit.score}/10 — ${audit.scoreLabel}` }
           },
           {
             type: "section",
-            fields: [
-              { type: "mrkdwn", text: `*Name:*\n${name || 'Not provided'}` },
-              { type: "mrkdwn", text: `*Email:*\n${email}` },
-              { type: "mrkdwn", text: `*Brand:*\n${brand}` },
-              { type: "mrkdwn", text: `*Platform:*\n${platform}` }
-            ]
+            text: { type: "mrkdwn", text: `*What's Working:*\n${audit.working}` }
           },
           {
             type: "section",
-            text: {
-              type: "mrkdwn",
-              text: `*Biggest Frustration:*\n${frustration || 'Not provided'}`
-            }
+            text: { type: "mrkdwn", text: `*What Needs Fixing:*\n${audit.fixing}` }
           },
           {
-            type: "actions",
-            elements: [
-              {
-                type: "button",
-                text: { type: "plain_text", text: "View Cruz Creative CRM" },
-                url: "https://www.cruzcreative.net",
-                style: "primary"
-              }
-            ]
+            type: "section",
+            text: { type: "mrkdwn", text: `*Quick Wins:*\n${audit.quickwins}` }
+          },
+          {
+            type: "section",
+            text: { type: "mrkdwn", text: `*Strategy Recommendation:*\n${audit.strategy}` }
+          }
+        );
+      } else {
+        blocks.push({
+          type: "section",
+          text: { type: "mrkdwn", text: ":warning: Audit generation failed for this lead — no report to show. Worth a manual follow-up." }
+        });
+      }
+
+      blocks.push({
+        type: "actions",
+        elements: [
+          {
+            type: "button",
+            text: { type: "plain_text", text: "View Cruz Creative CRM" },
+            url: "https://www.cruzcreative.net",
+            style: "primary"
           }
         ]
-      };
+      });
+
+      const slackPayload = { blocks };
 
       await fetch(process.env.SLACK_WEBHOOK_URL, {
         method: "POST",

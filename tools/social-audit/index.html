@@ -557,9 +557,6 @@
       document.getElementById('loading').style.display = 'block';
       document.getElementById('error').style.display = 'none';
 
-      // Fire Slack notification immediately, do not wait for it
-      sendSlackNotification(name, email, brand, platform, frustration);
-
       const userMessage = `
 Name: ${name || 'Not provided'}
 Brand: ${brand}
@@ -611,15 +608,17 @@ Be specific to their industry and platform. Avoid generic advice. Reference vide
         const audit = JSON.parse(clean);
 
         displayAudit(audit, name, brand);
+        sendSlackNotification(name, email, brand, platform, frustration, audit);
 
       } catch (err) {
         document.getElementById('formSection').style.display = 'block';
         document.getElementById('loading').style.display = 'none';
         showError("Something went wrong: " + err.message + ". Please try again.");
+        sendSlackNotification(name, email, brand, platform, frustration, null);
       }
     }
 
-    async function sendSlackNotification(name, email, brand, platform, frustration) {
+    async function sendSlackNotification(name, email, brand, platform, frustration, audit) {
       try {
         await fetch("/.netlify/functions/claude", {
           method: "POST",
@@ -630,7 +629,8 @@ Be specific to their industry and platform. Avoid generic advice. Reference vide
             email: email,
             brand: brand,
             platform: platform,
-            frustration: frustration
+            frustration: frustration,
+            audit: audit
           })
         });
       } catch (err) {
