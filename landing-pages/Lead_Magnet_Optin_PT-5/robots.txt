@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /.netlify/functions/
+Disallow: /downloads/15-prompts.pdf
