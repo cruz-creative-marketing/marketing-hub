@@ -27,19 +27,22 @@ exports.handler = async function (event) {
     return { statusCode: 403, body: JSON.stringify({ error: "Forbidden" }) };
   }
 
-  let firstName, email, website;
+  let firstName, email, hpContactRef;
   try {
     const body = JSON.parse(event.body || "{}");
     firstName = (body.firstName || "").trim();
     email = (body.email || "").trim();
-    // Honeypot field: hidden from real visitors via CSS, so only bots
-    // that blindly fill every input tend to populate it.
-    website = (body.website || "").trim();
+    // Honeypot field: hidden from real visitors via display:none, so only bots
+    // that blindly fill every input tend to populate it. Field name is
+    // deliberately obscure (not "website"/"url"/etc) since Safari ignores
+    // autocomplete="off" and will autofill common-sounding hidden fields from
+    // a user's saved Contact card, which was silently dropping real signups.
+    hpContactRef = (body.hp_contact_ref || "").trim();
   } catch (err) {
     return { statusCode: 400, body: JSON.stringify({ error: "Invalid JSON body" }) };
   }
 
-  if (website) {
+  if (hpContactRef) {
     // Pretend success so bots don't learn the honeypot tripped.
     return { statusCode: 200, body: JSON.stringify({ ok: true }) };
   }
