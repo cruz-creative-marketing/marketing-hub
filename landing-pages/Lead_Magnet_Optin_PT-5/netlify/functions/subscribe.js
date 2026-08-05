@@ -1,10 +1,46 @@
 // Netlify serverless function: adds a lead-magnet opt-in to MailerLite.
 // Keeps the MailerLite API key server-side (never exposed to the browser).
 //
-// Requires an env var set in Netlify: Site settings -> Environment variables
-//   MAILERLITE_API_KEY = <your MailerLite API token>
+// Requires env vars set in Netlify: Site settings -> Environment variables
+//   MAILERLITE_API_KEY   = <your MailerLite API token>
+//   TURNSTILE_SECRET_KEY = <your Cloudflare Turnstile secret key>
 
 const LEAD_MAGNET_GROUP_ID = "193919489339819798";
+
+const TURNSTILE_VERIFY_URL = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
+
+// Verifies the Turnstile token server-side. This is the layer that catches
+// headless-browser bots (real Chrome via Puppeteer/Playwright etc.) that
+// otherwise clear the origin check and correctly skip the CSS-hidden
+// honeypot, since they render the page like a genuine browser.
+async function verifyTurnstile(token, remoteIp) {
+  const secret = process.env.TURNSTILE_SECRET_KEY;
+  if (!secret) {
+    // Fail closed: if the secret isn't configured, don't silently skip
+    // verification — that would leave the site unprotected without anyone
+    // noticing.
+    return { ok: false, reason: "TURNSTILE_SECRET_KEY is not configured on this site" };
+  }
+  if (!token) {
+    return { ok: false, reason: "Missing Turnstile token" };
+  }
+
+  const params = new URLSearchParams();
+  params.append("secret", secret);
+  params.append("response", token);
+  if (remoteIp) params.append("remoteip", remoteIp);
+
+  try {
+    const res = await fetch(TURNSTILE_VERIFY_URL, { method: "POST", body: params });
+    const data = await res.json();
+    if (!data.success) {
+      return { ok: false, reason: "Turnstile verification failed", codes: data["error-codes"] };
+    }
+    return { ok: true };
+  } catch (err) {
+    return { ok: false, reason: "Turnstile verification request errored: " + err.message };
+  }
+}
 
 // Only accept submissions that actually came from our own page. Blocks
 // scripts/bots that POST straight to this endpoint without loading the site.
@@ -27,7 +63,7 @@ exports.handler = async function (event) {
     return { statusCode: 403, body: JSON.stringify({ error: "Forbidden" }) };
   }
 
-  let firstName, email, hpContactRef;
+  let firstName, email, hpContactRef, turnstileToken;
   try {
     const body = JSON.parse(event.body || "{}");
     firstName = (body.firstName || "").trim();
@@ -38,6 +74,7 @@ exports.handler = async function (event) {
     // autocomplete="off" and will autofill common-sounding hidden fields from
     // a user's saved Contact card, which was silently dropping real signups.
     hpContactRef = (body.hp_contact_ref || "").trim();
+    turnstileToken = (body["cf-turnstile-response"] || "").trim();
   } catch (err) {
     return { statusCode: 400, body: JSON.stringify({ error: "Invalid JSON body" }) };
   }
@@ -45,6 +82,12 @@ exports.handler = async function (event) {
   if (hpContactRef) {
     // Pretend success so bots don't learn the honeypot tripped.
     return { statusCode: 200, body: JSON.stringify({ ok: true }) };
+  }
+
+  const clientIp = event.headers["x-nf-client-connection-ip"] || "";
+  const turnstileResult = await verifyTurnstile(turnstileToken, clientIp);
+  if (!turnstileResult.ok) {
+    return { statusCode: 403, body: JSON.stringify({ error: "Verification failed" }) };
   }
 
   if (!email || !EMAIL_RE.test(email)) {

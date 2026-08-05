@@ -29,6 +29,8 @@
   gtag('js', new Date());
   gtag('config', 'G-452DCFWWE6');
 </script>
+<!-- Cloudflare Turnstile: catches headless-browser bots that clear the honeypot + origin check -->
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <style>
   @font-face { font-family:'Montserrat'; font-style:normal; font-weight:400; font-display:swap; src:url('design_system/assets/fonts/montserrat-400.woff2') format('woff2'); }
   @font-face { font-family:'Montserrat'; font-style:normal; font-weight:600; font-display:swap; src:url('design_system/assets/fonts/montserrat-600.woff2') format('woff2'); }
@@ -112,6 +114,9 @@
       <label for="hp_contact_ref">Leave this field blank</label>
       <input type="text" id="hp_contact_ref" name="hp_contact_ref" tabindex="-1" autocomplete="off" />
     </div>
+    <div class="cf-turnstile" data-sitekey="0x4AAAAAAEG-MF4itZQ34Vcl" data-callback="onTurnstileSuccess"></div>
+    <p id="turnstileNotice" style="display:none; margin:0; font-size:13px; color:var(--text-on-dark); opacity:0.75;">Just a second — verifying you're human…</p>
+    <p id="formError" style="display:none; margin:0; font-size:14px; color:#F0A5A5; font-weight:600;"></p>
     <div class="submit-row">
       <button type="submit" class="btn">Send me the prompts</button>
     </div>
@@ -119,11 +124,54 @@
   <p class="trust-line">No spam. One useful email a week, unsubscribe anytime. Used daily at Cruz Creative on brands like the ones in our portfolio.</p>
 </div>
 <script>
+  // Turnstile resolves in the background (usually well under a second in
+  // Managed mode) and calls this once it has a token for the widget.
+  var turnstileToken = '';
+  function onTurnstileSuccess(token) {
+    turnstileToken = token;
+    document.getElementById('turnstileNotice').style.display = 'none';
+  }
+
+  function showFormError(message) {
+    var errorEl = document.getElementById('formError');
+    errorEl.textContent = message;
+    errorEl.style.display = 'block';
+  }
+
+  function hideFormError() {
+    document.getElementById('formError').style.display = 'none';
+  }
+
   document.getElementById('optinForm').addEventListener('submit', function (e) {
     e.preventDefault();
+    hideFormError();
+
+    // Turnstile hasn't resolved yet (rare — usually only on a very fast
+    // submit or a slow connection). Show a brief notice and wait for it,
+    // rather than silently letting an unverified submit through.
+    if (!turnstileToken) {
+      var notice = document.getElementById('turnstileNotice');
+      notice.style.display = 'block';
+      var form = e.target;
+      var waited = 0;
+      var poll = setInterval(function () {
+        waited += 200;
+        if (turnstileToken) {
+          clearInterval(poll);
+          form.requestSubmit();
+        } else if (waited >= 8000) {
+          clearInterval(poll);
+          notice.textContent = "Verification is taking longer than expected — please try again.";
+        }
+      }, 200);
+      return;
+    }
+
     var firstName = document.getElementById('firstName').value;
     var email = document.getElementById('email').value;
     var hpContactRef = document.getElementById('hp_contact_ref').value; // honeypot
+    var submitButton = document.querySelector('#optinForm button[type="submit"]');
+    var submittedToken = turnstileToken;
 
     // GA4 event on opt-in submit (feeds the 25%+ conversion KPI)
     if (typeof gtag === 'function') {
@@ -134,17 +182,37 @@
       });
     }
 
+    submitButton.disabled = true;
+
     // POST to subscribe function (applies the lead-magnet-prompts tag; triggers PDF delivery + nurture in Kajabi)
+    // Only redirect on an actual 2xx response — fetch() does NOT reject on
+    // HTTP error statuses (403/500/etc), only on network-level failures, so
+    // this must be checked explicitly rather than relying on .catch() alone.
     fetch('/.netlify/functions/subscribe', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ firstName: firstName, email: email, group: 'lead-magnet-prompts', hp_contact_ref: hpContactRef }),
-      keepalive: true
+      body: JSON.stringify({
+        firstName: firstName,
+        email: email,
+        group: 'lead-magnet-prompts',
+        hp_contact_ref: hpContactRef,
+        'cf-turnstile-response': submittedToken
+      })
+    }).then(function (response) {
+      if (!response.ok) {
+        throw new Error('Subscribe request failed with status ' + response.status);
+      }
+      window.location.href = 'thank-you.html';
     }).catch(function (err) {
       console.error('subscribe request failed', err);
+      submitButton.disabled = false;
+      showFormError("Something went wrong — please try again. If it keeps happening, email hello@cruzcreative.agency.");
+      // The Turnstile token is single-use and was just consumed by the
+      // failed attempt (or already expired) — reset the widget so a retry
+      // gets a fresh token instead of silently failing again.
+      turnstileToken = '';
+      if (window.turnstile) { turnstile.reset(); }
     });
-
-    window.location.href = 'thank-you.html';
   });
 </script>
 </body>
