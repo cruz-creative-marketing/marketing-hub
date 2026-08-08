@@ -1,3 +1,37 @@
 [build]
   publish = "."
   functions = "netlify/functions"
+
+# Rate limiting (Starter plan: max 2 code-based rules per project).
+# Throttles bursty automated traffic (e.g. the scraper cycling through
+# spoofed/obsolete user agents seen in the request log) without affecting
+# normal browsing — a real visitor's page load never comes close to these
+# thresholds. Netlify caps window_size at 180s, so this guards against
+# bursts, not slow trickling scrapes; it's a supplement to, not a
+# replacement for, the honeypot/origin-check/Turnstile already in
+# netlify/functions/subscribe.js.
+
+[[redirects]]
+  from = "/*"
+  to = "/:splat"
+  status = 200
+  force = true
+
+  [redirects.rate_limit]
+    window_limit = 30
+    window_size = 60
+    aggregate_by = ["ip", "domain"]
+
+# Tighter limit on the signup endpoint itself — a genuine visitor submits
+# once, so this mainly guards against future brute-force/spam attempts
+# against MailerLite, not the read-only scraping observed so far.
+[[redirects]]
+  from = "/.netlify/functions/subscribe"
+  to = "/.netlify/functions/subscribe"
+  status = 200
+  force = true
+
+  [redirects.rate_limit]
+    window_limit = 5
+    window_size = 60
+    aggregate_by = ["ip", "domain"]
