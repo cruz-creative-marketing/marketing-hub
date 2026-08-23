@@ -75,6 +75,7 @@
   .cta:hover { background:var(--mint-hover); }
   .cta:active { transform:scale(0.98); }
   .privacy { text-align:center; color:var(--text-on-dark); opacity:0.6; font-size:12px; margin:12px 0 0; }
+  .tswrap { padding:9px; background:var(--near-black); border:1px solid rgba(255,255,255,0.22); border-radius:10px; display:flex; justify-content:center; align-items:center; min-height:65px; }
   .preview { margin-top:18px; background:var(--near-black); border:1px solid var(--elevated); border-radius:14px; padding:14px; }
   .previewtop { display:flex; justify-content:space-between; color:var(--text-on-dark); opacity:0.75; font-size:11px; text-transform:uppercase; letter-spacing:.08em; margin-bottom:12px; }
   .pages { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
@@ -220,11 +221,11 @@
       <form id="optinForm">
         <div class="field">
           <label for="firstName">First name</label>
-          <input type="text" id="firstName" name="firstName" placeholder="Your first name" required />
+          <input type="text" id="firstName" name="firstName" placeholder="Your first name" autocomplete="given-name" required />
         </div>
         <div class="field">
           <label for="email">Email</label>
-          <input type="email" id="email" name="email" placeholder="you@yourbrand.com" required />
+          <input type="email" id="email" name="email" placeholder="you@yourbrand.com" autocomplete="email" required />
         </div>
         <!-- Honeypot: hidden from real visitors, only bots tend to fill it. Do not remove.
              Uses display:none (not off-screen positioning) and a non-autofill-prone field
@@ -234,10 +235,15 @@
           <label for="hp_contact_ref">Leave this field blank</label>
           <input type="text" id="hp_contact_ref" name="hp_contact_ref" tabindex="-1" autocomplete="off" />
         </div>
-        <div class="cf-turnstile" style="text-align:center;" data-sitekey="0x4AAAAAAEG-MF4itZQ34Vcl" data-callback="onTurnstileSuccess" data-appearance="always" data-theme="dark"></div>
+        <div class="field">
+          <label>Quick security check</label>
+          <div class="tswrap">
+            <div class="cf-turnstile" data-sitekey="0x4AAAAAAEG-MF4itZQ34Vcl" data-callback="onTurnstileSuccess" data-appearance="always" data-theme="dark"></div>
+          </div>
+        </div>
         <p id="turnstileNotice" style="display:none; margin:0; font-size:13px; color:var(--text-on-dark); opacity:0.75;">Just a second — verifying you're human…</p>
         <p id="formError" style="display:none; margin:0; font-size:14px; color:#F0A5A5; font-weight:600;"></p>
-        <button type="submit" class="cta">Send me the free prompts →</button>
+        <button type="submit" class="cta">Send me the 15 prompts →</button>
       </form>
       <p class="privacy">No spam. One useful email a week. Unsubscribe anytime.</p>
       <div class="preview">
@@ -330,7 +336,7 @@
         <div class="proof-count-label">businesses already using these prompts</div>
       </div>
     </div>
-    <p class="proof-note"><a href="#form">↑ Grab your free copy — same prompts, real results.</a></p>
+    <p class="proof-note"><a href="#form">↑ Grab your free copy — same 15 prompts, real results.</a></p>
   </div>
 </section>
 
@@ -347,7 +353,7 @@
     <div class="finalbox">
       <h2>Your AI is capable of better. You just need to ask better.</h2>
       <p>Get all 15 prompts we use to create better graphics, sharper copy and more realistic product content.</p>
-      <a class="cta" href="#form">Get the free prompt pack →</a>
+      <a class="cta" href="#form">Send me the 15 prompts →</a>
     </div>
   </div>
 </section>
