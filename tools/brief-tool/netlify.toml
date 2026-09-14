@@ -1,2 +1,5 @@
+[build]
+  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF -- :/tools/brief-tool"
+
 [functions]
   directory = "netlify/functions"
