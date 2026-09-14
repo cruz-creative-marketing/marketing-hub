@@ -9,6 +9,36 @@ const LEAD_MAGNET_GROUP_ID = "193919489339819798";
 
 const TURNSTILE_VERIFY_URL = "https://challenges.cloudflare.com/turnstile/v0/siteverify";
 
+// Best-effort per-IP rate limit on this endpoint specifically. Netlify's
+// declarative redirect rate-limiting can't target a /.netlify/functions/*
+// path (rejected at deploy time as a reserved namespace), so the site-wide
+// netlify.toml rule is the only platform-level guard — this backs it with a
+// tighter limit scoped to just this endpoint. In-memory and per warm
+// instance only (resets on cold start, not shared across concurrent
+// instances), which is fine here: a genuine visitor submits once, so this
+// is a precaution against future spam/brute-force, not the primary
+// defense — that's the honeypot/origin-check/server-verified Turnstile
+// below.
+const RATE_LIMIT_WINDOW_MS = 60000;
+const RATE_LIMIT_MAX = 5;
+const submitTimestampsByIp = new Map();
+
+function isRateLimited(ip) {
+  if (!ip) return false;
+  const now = Date.now();
+  const cutoff = now - RATE_LIMIT_WINDOW_MS;
+  const timestamps = (submitTimestampsByIp.get(ip) || []).filter(function (t) {
+    return t > cutoff;
+  });
+  if (timestamps.length >= RATE_LIMIT_MAX) {
+    submitTimestampsByIp.set(ip, timestamps);
+    return true;
+  }
+  timestamps.push(now);
+  submitTimestampsByIp.set(ip, timestamps);
+  return false;
+}
+
 // Verifies the Turnstile token server-side. This is the layer that catches
 // headless-browser bots (real Chrome via Puppeteer/Playwright etc.) that
 // otherwise clear the origin check and correctly skip the CSS-hidden
@@ -63,6 +93,11 @@ exports.handler = async function (event) {
     return { statusCode: 403, body: JSON.stringify({ error: "Forbidden" }) };
   }
 
+  const clientIp = event.headers["x-nf-client-connection-ip"] || "";
+  if (isRateLimited(clientIp)) {
+    return { statusCode: 429, body: JSON.stringify({ error: "Too many requests" }) };
+  }
+
   let firstName, email, hpContactRef, turnstileToken;
   try {
     const body = JSON.parse(event.body || "{}");
@@ -84,7 +119,6 @@ exports.handler = async function (event) {
     return { statusCode: 200, body: JSON.stringify({ ok: true }) };
   }
 
-  const clientIp = event.headers["x-nf-client-connection-ip"] || "";
   const turnstileResult = await verifyTurnstile(turnstileToken, clientIp);
   if (!turnstileResult.ok) {
     return { statusCode: 403, body: JSON.stringify({ error: "Verification failed" }) };
