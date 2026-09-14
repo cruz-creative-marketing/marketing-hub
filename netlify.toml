@@ -1,6 +1,6 @@
 [build]
   publish = "bio"
-  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF -- :/bio"
+  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF -- :/bio :/netlify.toml"
 
 [[redirects]]
   from = "/"
