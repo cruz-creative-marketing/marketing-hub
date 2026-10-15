@@ -254,9 +254,9 @@
       <div class="client">
         <h3>Apple Mail</h3>
         <ol>
-          <li>Click <b>Copy signature</b> above.</li>
-          <li>Mail → <b>Settings → Signatures</b>, pick your account, click <b>+</b>.</li>
-          <li>Untick <b>Always match my default message font</b>.</li>
+          <li>Open this page in <b>Safari</b> and click <b>Copy signature</b>. Safari copies the richest format for Mail.</li>
+          <li>Mail → <b>Settings → Composing</b>: set <b>Message format</b> to <b>Rich Text</b>. On Plain Text, every signature turns into text.</li>
+          <li><b>Settings → Signatures</b>, pick your account, click <b>+</b>, and untick <b>Always match my default message font</b>.</li>
           <li>Paste into the preview pane. Close settings to save.</li>
         </ol>
       </div>
@@ -427,10 +427,12 @@
   var timer;
   function say(msg) { $('status').textContent = msg; clearTimeout(timer); timer = setTimeout(function () { $('status').textContent = ''; }, 4000); }
 
-  // Fallback: render the real (hosted-logo) markup off-screen and copy it as a selection.
+  // Primary copy: render the real (hosted-image) markup invisibly and copy it as a page selection.
+  // The browser then puts its native rich formats on the clipboard (Safari adds RTF and a web archive),
+  // which Apple Mail's signature editor needs; a bare text/html clipboard item pastes there as plain text.
   function copyBySelection(html) {
     var box = document.createElement('div');
-    box.style.cssText = 'position:fixed;left:-9999px;top:0;background:#fff;';
+    box.style.cssText = 'position:fixed;left:0;top:0;opacity:0;pointer-events:none;z-index:-1;background:#fff;';
     box.innerHTML = html;
     document.body.appendChild(box);
     var r = document.createRange(); r.selectNodeContents(box);
@@ -443,13 +445,14 @@
   $('copyRich').addEventListener('click', function () {
     var d = read(), html = build(d, d.logoUrl);
     var done = function () { say('Copied. Paste it into your signature settings.'); };
-    var fallback = function () { copyBySelection(html) ? done() : say('Copy was blocked. Open "Show HTML code" and copy it from there.'); };
+    var blocked = function () { say('Copy was blocked. Open "Show HTML code" and copy it from there.'); };
+    if (copyBySelection(html)) return done();
     if (navigator.clipboard && window.ClipboardItem) {
       navigator.clipboard.write([new ClipboardItem({
         'text/html': new Blob([html], { type: 'text/html' }),
         'text/plain': new Blob([plain(d)], { type: 'text/plain' })
-      })]).then(done, fallback);
-    } else fallback();
+      })]).then(done, blocked);
+    } else blocked();
   });
 
   $('copyHtml').addEventListener('click', function () {
