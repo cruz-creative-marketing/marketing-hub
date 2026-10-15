@@ -29,9 +29,12 @@ Montserrat is set first in the font stack. Most email clients don't load web fon
 
 ## Logo hosting
 
-Email clients only show images from a public `https://` URL, and they don't support SVG. The generator defaults to the logo PNG already used in the MailerLite email templates.
+Email clients only show images from a public `https://` URL, and they don't support SVG. The signature logo lives in this repo and is served by the bio site:
 
-`assets/cruz-creative-logo-signature@2x.png` (320×56, shown at 160×28 for sharp retina display) is the signature-sized version. If the default image ever breaks, upload this file somewhere public (MailerLite, Netlify, the website CMS) and paste its URL into **Advanced: logo image URL** in the generator.
+- File: `bio/assets/email/cruz-creative-logo-signature@2x.png` (320×56, shown at 160×28 so it stays sharp on retina screens)
+- Public URL: `https://bio.cruzcreative.net/assets/email/cruz-creative-logo-signature@2x.png`
+
+Netlify publishes it whenever `bio/` changes on `main`. Don't rename or move the file: every signature already sent points at that URL. To update the logo, replace the file in place with the same name and size.
 
 ## Rules
 

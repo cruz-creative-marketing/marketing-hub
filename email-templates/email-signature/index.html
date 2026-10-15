@@ -177,8 +177,8 @@
           <summary>Advanced: logo image URL</summary>
           <div class="field">
             <label for="logoUrl">Hosted PNG (must be a public https link)</label>
-            <input id="logoUrl" type="url" value="https://storage.mlcdn.com/account_image/1118797/VcTEzpZyTe2cChWjNE4BdRV7S62vqQnSbHaoa6iq.png">
-            <span class="hint">Email clients won't show SVG or attached images. Use the 320×56 PNG in <code>assets/</code>, uploaded somewhere public.</span>
+            <input id="logoUrl" type="url" value="https://bio.cruzcreative.net/assets/email/cruz-creative-logo-signature@2x.png">
+            <span class="hint">Email clients won't show SVG or attached images. The default is the 320×56 logo hosted on bio.cruzcreative.net. Only change this if that link breaks.</span>
           </div>
         </details>
       </form>
@@ -272,7 +272,7 @@
   var SITE = 'https://cruzcreative.net';
   var FONT = "'Montserrat',Arial,Helvetica,sans-serif";
   var FIELDS = ['name', 'title', 'email', 'phone', 'ctaText', 'ctaUrl', 'logoUrl'];
-  var STORE = 'cc-signature-v1';
+  var STORE = 'cc-signature-v2';
 
   var $ = function (id) { return document.getElementById(id); };
   document.getElementById('brandmark').src = LOGO_SVG;
