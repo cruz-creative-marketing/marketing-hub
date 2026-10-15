@@ -1,0 +1,439 @@
+<title>Cruz Creative Signatures</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,800;1,400&display=swap">
+<style>
+  /* Layout: brand header, then a two-column workbench — details form left, live inbox preview right; install guide below. */
+  :root {
+    --bg: #0A0909;          /* Near-Black */
+    --surface: #141212;     /* Surface */
+    --elevated: #1E1A1A;    /* Elevated */
+    --fg: #FFFFFF;
+    --fg-soft: #CCCCCC;
+    --muted: #8A8585;
+    --mint: #A5F0B1;
+    --mint-ink: #0A0909;    /* text on mint */
+    --link: #A5F0B1;
+    --field: #0A0909;
+    --font: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+    color-scheme: dark;
+  }
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) {
+      --bg: #F5F5F0; --surface: #FFFFFF; --elevated: #E6E6DF;
+      --fg: #0A0909; --fg-soft: #333333; --muted: #6B6B66;
+      --mint: #A5F0B1; --mint-ink: #0A0909; --link: #1F7A3A; --field: #F5F5F0;
+      color-scheme: light;
+    }
+  }
+  :root[data-theme="light"] {
+    --bg: #F5F5F0; --surface: #FFFFFF; --elevated: #E6E6DF;
+    --fg: #0A0909; --fg-soft: #333333; --muted: #6B6B66;
+    --mint: #A5F0B1; --mint-ink: #0A0909; --link: #1F7A3A; --field: #F5F5F0;
+    color-scheme: light;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg); color: var(--fg-soft);
+    font-family: var(--font); font-size: 15px; line-height: 1.6;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    padding-block: 32px 64px;
+  }
+  .wrap { max-width: 1120px; margin: 0 auto; display: grid; gap: 40px; }
+
+  header.top { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 20px; }
+  .brandmark { display: block; width: 180px; height: auto; }
+  .eyebrow { font-size: 12px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--link); margin: 0 0 8px; }
+  h1 { font-size: clamp(28px, 4vw, 44px); line-height: 1.05; font-weight: 800; color: var(--fg); margin: 0; text-wrap: balance; letter-spacing: -.02em; }
+  h1 span { color: var(--link); }
+  .lede { margin: 12px 0 0; max-width: 58ch; }
+
+  .bench { display: grid; grid-template-columns: minmax(0, 360px) minmax(0, 1fr); gap: 24px; align-items: start; }
+  @media (max-width: 860px) { .bench { grid-template-columns: minmax(0, 1fr); } }
+
+  .panel { background: var(--surface); border: 1px solid var(--elevated); border-radius: 16px; padding: 24px; min-width: 0; }
+  .panel h2 { font-size: 13px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--fg); margin: 0 0 18px; }
+
+  form { display: grid; gap: 16px; }
+  .field { display: grid; gap: 6px; }
+  label, .label { font-size: 13px; font-weight: 600; color: var(--fg); }
+  .hint { font-size: 12px; color: var(--muted); font-weight: 400; }
+  input[type="text"], input[type="email"], input[type="tel"], input[type="url"] {
+    width: 100%; font: inherit; font-size: 14px; color: var(--fg);
+    background: var(--field); border: 1px solid var(--elevated); border-radius: 8px; padding: 10px 12px;
+  }
+  input:focus-visible, button:focus-visible, .seg input:focus-visible + span, summary:focus-visible { outline: 2px solid var(--mint); outline-offset: 2px; }
+
+  .seg { display: flex; gap: 6px; padding: 4px; background: var(--field); border: 1px solid var(--elevated); border-radius: 999px; }
+  .seg label { flex: 1; position: relative; cursor: pointer; }
+  .seg input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+  .seg span { display: block; text-align: center; padding: 8px 10px; border-radius: 999px; font-size: 13px; font-weight: 600; color: var(--fg-soft); transition: background .15s, color .15s; }
+  .seg input:checked + span { background: var(--mint); color: var(--mint-ink); }
+
+  .toggle { display: flex; align-items: center; gap: 10px; font-size: 13px; font-weight: 600; color: var(--fg); cursor: pointer; }
+  .toggle input { width: 18px; height: 18px; accent-color: var(--mint); }
+
+  details.adv summary { cursor: pointer; font-size: 13px; font-weight: 600; color: var(--muted); }
+  details.adv[open] summary { margin-bottom: 12px; }
+
+  .preview-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
+  .preview-head h2 { margin: 0; }
+  .seg.small { width: auto; }
+  .seg.small span { padding: 6px 14px; font-size: 12px; }
+
+  .inbox { border-radius: 12px; overflow: hidden; border: 1px solid var(--elevated); }
+  .inbox-bar { display: flex; gap: 6px; padding: 10px 14px; border-bottom: 1px solid; }
+  .inbox-bar i { width: 9px; height: 9px; border-radius: 50%; background: currentColor; opacity: .35; }
+  .inbox-body { padding: 24px 22px 28px; font-family: Arial, Helvetica, sans-serif; font-size: 14px; line-height: 1.55; overflow-x: auto; }
+  .inbox-body .msg { margin: 0 0 22px; }
+  .inbox[data-ground="white"] .inbox-bar { background: #F2F2F2; border-color: #E2E2E2; color: #666; }
+  .inbox[data-ground="white"] .inbox-body { background: #FFFFFF; color: #222222; }
+  .inbox[data-ground="dark"] .inbox-bar { background: #1F1F1F; border-color: #2C2C2C; color: #AAA; }
+  .inbox[data-ground="dark"] .inbox-body { background: #121212; color: #E3E3E3; }
+
+  #note { margin: 12px 0 0; }
+  .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; align-items: center; }
+  .btn { font: inherit; font-size: 14px; font-weight: 800; border-radius: 999px; padding: 12px 22px; cursor: pointer; border: 1px solid transparent; transition: transform .12s cubic-bezier(.16,1,.3,1), background .15s, opacity .15s; }
+  .btn:active { transform: scale(.97); }
+  .btn-primary { background: var(--mint); color: var(--mint-ink); }
+  .btn-primary:hover { background: #8FE89E; }
+  .btn-secondary { background: transparent; color: var(--fg); border-color: var(--elevated); }
+  .btn-secondary:hover { background: var(--elevated); }
+  .status { font-size: 13px; font-weight: 600; color: var(--link); min-height: 1.6em; }
+
+  details.src { margin-top: 18px; }
+  details.src summary { cursor: pointer; font-size: 13px; font-weight: 600; color: var(--muted); }
+  details.src textarea { margin-top: 10px; width: 100%; min-height: 160px; font: 12px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--fg-soft); background: var(--field); border: 1px solid var(--elevated); border-radius: 8px; padding: 12px; resize: vertical; }
+
+  .install { display: grid; gap: 20px; }
+  .install-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; }
+  .install-head h2 { margin: 0; }
+  .steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  @media (max-width: 860px) { .steps { grid-template-columns: minmax(0, 1fr); } }
+  .client { border: 1px solid var(--elevated); border-radius: 12px; padding: 18px 20px; min-width: 0; }
+  .client h3 { margin: 0 0 10px; font-size: 15px; font-weight: 800; color: var(--fg); }
+  .client ol { margin: 0; padding-left: 20px; display: grid; gap: 6px; font-size: 14px; }
+  .client li::marker { color: var(--link); font-weight: 800; }
+  .client b { color: var(--fg); font-weight: 600; }
+
+  .rules { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin: 0; padding: 0; list-style: none; }
+  .rules li { font-size: 14px; font-weight: 600; color: var(--fg-soft); padding-left: 22px; position: relative; }
+  .rules li::before { content: ""; position: absolute; left: 0; top: .55em; width: 10px; height: 6px; border-left: 2px solid var(--link); border-bottom: 2px solid var(--link); transform: rotate(-45deg); }
+
+  footer { font-size: 12px; color: var(--muted); }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <div>
+      <p class="eyebrow">Team toolkit · Email signature</p>
+      <h1>Sign off like <span>you mean it.</span></h1>
+      <p class="lede">Fill in your details, pick a style, hit copy. Paste it into Gmail, Outlook or Apple Mail and every email you send carries the brand.</p>
+    </div>
+    <img class="brandmark" id="brandmark" alt="Cruz Creative">
+  </header>
+
+  <section class="bench">
+    <div class="panel">
+      <h2>Your details</h2>
+      <form id="f" autocomplete="off">
+        <div class="field">
+          <label for="name">Full name</label>
+          <input id="name" type="text" value="James Tucker">
+        </div>
+        <div class="field">
+          <label for="title">Job title</label>
+          <input id="title" type="text" value="Founder">
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" type="email" value="james@cruzcreative.agency">
+        </div>
+        <div class="field">
+          <label for="phone">Mobile / WhatsApp <span class="hint">· leave blank to hide</span></label>
+          <input id="phone" type="tel" value="+34 711 001 320">
+        </div>
+        <div class="field">
+          <span class="label">Style</span>
+          <div class="seg" role="radiogroup" aria-label="Signature style">
+            <label><input type="radio" name="style" id="style-bold" value="bold" checked><span>Bold · dark card</span></label>
+            <label><input type="radio" name="style" id="style-clean" value="clean"><span>Clean · minimal</span></label>
+          </div>
+        </div>
+        <label class="toggle"><input type="checkbox" id="cta" checked> Add a call-to-action button</label>
+        <div class="field" id="cta-fields">
+          <label for="ctaText">Button text</label>
+          <input id="ctaText" type="text" value="Book a discovery call">
+          <label for="ctaUrl">Button link</label>
+          <input id="ctaUrl" type="url" value="https://cal.com/cruzcreative/ai-discovery-call">
+        </div>
+        <label class="toggle"><input type="checkbox" id="tagline" checked> Show the tagline</label>
+        <details class="adv">
+          <summary>Advanced: logo image URL</summary>
+          <div class="field">
+            <label for="logoUrl">Hosted PNG (must be a public https link)</label>
+            <input id="logoUrl" type="url" value="https://storage.mlcdn.com/account_image/1118797/VcTEzpZyTe2cChWjNE4BdRV7S62vqQnSbHaoa6iq.png">
+            <span class="hint">Email clients won't show SVG or attached images. Use the 320×56 PNG in <code>assets/</code>, uploaded somewhere public.</span>
+          </div>
+        </details>
+      </form>
+    </div>
+
+    <div class="panel">
+      <div class="preview-head">
+        <h2>Live preview</h2>
+        <div class="seg small" role="radiogroup" aria-label="Preview inbox">
+          <label><input type="radio" name="ground" id="ground-white" value="white" checked><span>Light inbox</span></label>
+          <label><input type="radio" name="ground" id="ground-dark" value="dark"><span>Dark inbox</span></label>
+        </div>
+      </div>
+      <div class="inbox" id="inbox" data-ground="white">
+        <div class="inbox-bar"><i></i><i></i><i></i></div>
+        <div class="inbox-body">
+          <p class="msg">Hi Sam,<br><br>First cut of the reels is in your folder. Three hooks, all 9:16, captions burned in. Tell me which one hits and we'll lock the edit by Friday.<br><br>Cheers,</p>
+          <div id="preview"></div>
+        </div>
+      </div>
+      <p class="hint" id="note" hidden>Gmail and Outlook lighten dark text automatically in dark mode, so this is roughly what Clean looks like there. Pick Bold if you want the signature to look identical in every inbox.</p>
+      <div class="actions">
+        <button class="btn btn-primary" type="button" id="copyRich">Copy signature</button>
+        <button class="btn btn-secondary" type="button" id="copyHtml">Copy HTML code</button>
+        <span class="status" id="status" role="status" aria-live="polite"></span>
+      </div>
+      <details class="src">
+        <summary>Show HTML code</summary>
+        <textarea id="src" readonly aria-label="Signature HTML code"></textarea>
+      </details>
+    </div>
+  </section>
+
+  <section class="panel install">
+    <div class="install-head">
+      <h2>Install it in 60 seconds</h2>
+      <span class="hint">Use <b>Copy signature</b> for Gmail and Outlook. Use <b>Copy HTML code</b> only if a client asks for code.</span>
+    </div>
+    <div class="steps">
+      <div class="client">
+        <h3>Gmail</h3>
+        <ol>
+          <li>Click <b>Copy signature</b> above.</li>
+          <li>Gmail → gear icon → <b>See all settings</b>.</li>
+          <li>Under <b>Signature</b>, click <b>Create new</b>, name it "Cruz Creative".</li>
+          <li>Paste into the box. Set it as the default for new emails and replies.</li>
+          <li>Scroll down and hit <b>Save changes</b>.</li>
+        </ol>
+      </div>
+      <div class="client">
+        <h3>Outlook</h3>
+        <ol>
+          <li>Click <b>Copy signature</b> above.</li>
+          <li>Web / new Outlook: <b>Settings → Account → Signatures</b>. Classic desktop: <b>File → Options → Mail → Signatures</b>.</li>
+          <li>Add a new signature and paste.</li>
+          <li>Pick it as the default for new messages and replies. Save.</li>
+        </ol>
+      </div>
+      <div class="client">
+        <h3>Apple Mail</h3>
+        <ol>
+          <li>Click <b>Copy signature</b> above.</li>
+          <li>Mail → <b>Settings → Signatures</b>, pick your account, click <b>+</b>.</li>
+          <li>Untick <b>Always match my default message font</b>.</li>
+          <li>Paste into the preview pane. Close settings to save.</li>
+        </ol>
+      </div>
+    </div>
+    <ul class="rules">
+      <li>One signature for the whole team. Don't restyle it.</li>
+      <li>Keep the logo as supplied. No resizing, recolouring or effects.</li>
+      <li>No quotes, banners or extra images underneath.</li>
+      <li>Send yourself a test email before you switch it on.</li>
+    </ul>
+  </section>
+
+  <footer>Built from Cruz Creative Brand Guidelines v1.3 · Montserrat, Mint #A5F0B1, Near-Black #0A0909.</footer>
+</div>
+
+<script>
+(function () {
+  // Inline SVG of the horizontal lockup, used only for on-page display (artifact viewers block remote images).
+  var LOGO_SVG = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5NjcuMTAgMTcwLjIwIiB3aWR0aD0iOTY3IiBoZWlnaHQ9IjE3MCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CjxyZWN0IHg9IjQuMDAiIHk9IjQuMDAiIHdpZHRoPSI5NTkuMTAiIGhlaWdodD0iMTYyLjIwIiBmaWxsPSIjMEEwOTA5IiBzdHJva2U9IiNBNUYwQjEiIHN0cm9rZS13aWR0aD0iOC4wIi8+CjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDc0LjAwLDEyMC41MCkgc2NhbGUoMC4xMDAwMDAsLTAuMTAwMDAwKSI+PHBhdGggZD0iTTM4MCA3MTVRNDcyIDcxNSA1NDQuNSA2ODAuNVE2MTcgNjQ2IDY2Mi41IDU4My4wUTcwOCA1MjAgNzIzIDQzNkg0ODlRNDczIDQ3MSA0NDMuNSA0OTAuNVE0MTQgNTEwIDM3NiA1MTBRMzIwIDUxMCAyODcuNSA0NjguMFEyNTUgNDI2IDI1NSAzNTVRMjU1IDI4NCAyODcuNSAyNDIuMFEzMjAgMjAwIDM3NiAyMDBRNDE0IDIwMCA0NDMuNSAyMTkuNVE0NzMgMjM5IDQ4OSAyNzRINzIzUTcwOCAxOTAgNjYyLjUgMTI3LjBRNjE3IDY0IDU0NC41IDI5LjVRNDcyIC01IDM4MCAtNVEyNzMgLTUgMTk0LjAgNDAuNVExMTUgODYgNzIuNSAxNjguMFEzMCAyNTAgMzAgMzU1UTMwIDQ2MCA3Mi41IDU0Mi4wUTExNSA2MjQgMTk0LjAgNjY5LjVRMjczIDcxNSAzODAgNzE1WiIgZmlsbD0iI0ZGRkZGRiIvPjwvZz4KPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMTUxLjMwLDEyMC41MCkgc2NhbGUoMC4xMDAwMDAsLTAuMTAwMDAwKSI+PHBhdGggZD0iTTQwNiAwIDI3MyAyNTRIMjcyVjBINTBWNzA4SDM4MFE0NjYgNzA4IDUyNy4wIDY3Ny41UTU4OCA2NDcgNjE4LjUgNTk0LjVRNjQ5IDU0MiA2NDkgNDc2UTY0OSA0MDUgNjA5LjUgMzUwLjBRNTcwIDI5NSA0OTYgMjcxTDY1MCAwWk0yNzIgNDAySDM2MFEzOTIgNDAyIDQwOC4wIDQxNi41UTQyNCA0MzEgNDI0IDQ2MlE0MjQgNDkwIDQwNy41IDUwNi4wUTM5MSA1MjIgMzYwIDUyMkgyNzJaIiBmaWxsPSIjRkZGRkZGIi8+PC9nPgo8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyMjAuMzAsMTIwLjUwKSBzY2FsZSgwLjEwMDAwMCwtMC4xMDAwMDApIj48cGF0aCBkPSJNMjY3IDcwOFYzMDlRMjY3IDI2MCAyODguNSAyMzEuNVEzMTAgMjAzIDM1OCAyMDNRNDA2IDIwMyA0MjkuMCAyMzEuNVE0NTIgMjYwIDQ1MiAzMDlWNzA4SDY3M1YzMDlRNjczIDIwOCA2MzEuMCAxMzYuNVE1ODkgNjUgNTE2LjAgMjkuMFE0NDMgLTcgMzUzIC03UTI2MyAtNyAxOTMuNSAyOS4wUTEyNCA2NSA4NS4wIDEzNi4wUTQ2IDIwNyA0NiAzMDlWNzA4WiIgZmlsbD0iI0ZGRkZGRiIvPjwvZz4KPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjk0LjIwLDEyMC41MCkgc2NhbGUoMC4xMDAwMDAsLTAuMTAwMDAwKSI+PHBhdGggZD0iTTI5NiAxNzdINTgwVjBINTBWMTY3TDMzMCA1MzJINTBWNzA4SDU4MFY1NDFaIiBmaWxsPSIjRkZGRkZGIi8+PC9nPgo8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgzNzguMjAsMTIwLjUwKSBzY2FsZSgwLjEwMDAwMCwtMC4xMDAwMDApIj48cGF0aCBkPSJNMzgwIDcxNVE0NzIgNzE1IDU0NC41IDY4MC41UTYxNyA2NDYgNjYyLjUgNTgzLjBRNzA4IDUyMCA3MjMgNDM2SDQ4OVE0NzMgNDcxIDQ0My41IDQ5MC41UTQxNCA1MTAgMzc2IDUxMFEzMjAgNTEwIDI4Ny41IDQ2OC4wUTI1NSA0MjYgMjU1IDM1NVEyNTUgMjg0IDI4Ny41IDI0Mi4wUTMyMCAyMDAgMzc2IDIwMFE0MTQgMjAwIDQ0My41IDIxOS41UTQ3MyAyMzkgNDg5IDI3NEg3MjNRNzA4IDE5MCA2NjIuNSAxMjcuMFE2MTcgNjQgNTQ0LjUgMjkuNVE0NzIgLTUgMzgwIC01UTI3MyAtNSAxOTQuMCA0MC41UTExNSA4NiA3Mi41IDE2OC4wUTMwIDI1MCAzMCAzNTVRMzAgNDYwIDcyLjUgNTQyLjBRMTE1IDYyNCAxOTQuMCA2NjkuNVEyNzMgNzE1IDM4MCA3MTVaIiBmaWxsPSIjQTVGMEIxIi8+PC9nPgo8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg0NTUuNTAsMTIwLjUwKSBzY2FsZSgwLjEwMDAwMCwtMC4xMDAwMDApIj48cGF0aCBkPSJNNDA2IDAgMjczIDI1NEgyNzJWMEg1MFY3MDhIMzgwUTQ2NiA3MDggNTI3LjAgNjc3LjVRNTg4IDY0NyA2MTguNSA1OTQuNVE2NDkgNTQyIDY0OSA0NzZRNjQ5IDQwNSA2MDkuNSAzNTAuMFE1NzAgMjk1IDQ5NiAyNzFMNjUwIDBaTTI3MiA0MDJIMzYwUTM5MiA0MDIgNDA4LjAgNDE2LjVRNDI0IDQzMSA0MjQgNDYyUTQyNCA0OTAgNDA3LjUgNTA2LjBRMzkxIDUyMiAzNjAgNTIySDI3MloiIGZpbGw9IiNBNUYwQjEiLz48L2c+CjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDUyNC41MCwxMjAuNTApIHNjYWxlKDAuMTAwMDAwLC0wLjEwMDAwMCkiPjxwYXRoIGQ9Ik0yNzIgNTMxVjQ0NEg0OTJWMjc3SDI3MlYxNzdINTIyVjBINTBWNzA4SDUyMlY1MzFaIiBmaWxsPSIjQTVGMEIxIi8+PC9nPgo8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg1ODIuMTAsMTIwLjUwKSBzY2FsZSgwLjEwMDAwMCwtMC4xMDAwMDApIj48cGF0aCBkPSJNNTA0IDEwN0gyNjhMMjMzIDBIMEwyNTkgNzA4SDUxNUw3NzMgMEg1MzlaTTQ1MCAyNzQgMzg2IDQ3MSAzMjIgMjc0WiIgZmlsbD0iI0E1RjBCMSIvPjwvZz4KPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNjYxLjQwLDEyMC41MCkgc2NhbGUoMC4xMDAwMDAsLTAuMTAwMDAwKSI+PHBhdGggZD0iTTYwNiA3MDhWNTMySDQxOFYwSDE5NlY1MzJIMTBWNzA4WiIgZmlsbD0iI0E1RjBCMSIvPjwvZz4KPGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNzI1LjAwLDEyMC41MCkgc2NhbGUoMC4xMDAwMDAsLTAuMTAwMDAwKSI+PHBhdGggZD0iTTI3MiA3MDhWMEg1MFY3MDhaIiBmaWxsPSIjQTVGMEIxIi8+PC9nPgo8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSg3NTkuMjAsMTIwLjUwKSBzY2FsZSgwLjEwMDAwMCwtMC4xMDAwMDApIj48cGF0aCBkPSJNNzYzIDcwOCA1MjUgMEgyMzhMMCA3MDhIMjM2TDM4MiAyMjFMNTI3IDcwOFoiIGZpbGw9IiNBNUYwQjEiLz48L2c+CjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDgzNy41MCwxMjAuNTApIHNjYWxlKDAuMTAwMDAwLC0wLjEwMDAwMCkiPjxwYXRoIGQ9Ik0yNzIgNTMxVjQ0NEg0OTJWMjc3SDI3MlYxNzdINTIyVjBINTBWNzA4SDUyMlY1MzFaIiBmaWxsPSIjQTVGMEIxIi8+PC9nPgo8L3N2Zz4=';
+
+  var SOCIALS = [
+    ['Instagram', 'https://www.instagram.com/cruz.creative/'],
+    ['TikTok', 'https://www.tiktok.com/@cruz_creative'],
+    ['YouTube', 'https://www.youtube.com/@cruz-creative'],
+    ['LinkedIn', 'https://www.linkedin.com/company/cruzcreative/']
+  ];
+  var SITE = 'https://cruzcreative.net';
+  var FONT = "'Montserrat',Arial,Helvetica,sans-serif";
+  var FIELDS = ['name', 'title', 'email', 'phone', 'ctaText', 'ctaUrl', 'logoUrl'];
+  var STORE = 'cc-signature-v1';
+
+  var $ = function (id) { return document.getElementById(id); };
+  document.getElementById('brandmark').src = LOGO_SVG;
+
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function telHref(p) { return 'tel:' + p.replace(/[^\d+]/g, ''); }
+
+  function read() {
+    var d = {};
+    FIELDS.forEach(function (k) { d[k] = $(k).value.trim(); });
+    d.style = document.querySelector('input[name="style"]:checked').value;
+    d.cta = $('cta').checked && d.ctaText && d.ctaUrl;
+    d.tagline = $('tagline').checked;
+    return d;
+  }
+
+  // Email-safe markup: nested tables, inline styles, bgcolor attributes for Outlook, no external CSS.
+  // recolour: preview-only, mimics how Gmail/Outlook dark mode lightens dark text in the Clean style.
+  function build(d, logoSrc, recolour) {
+    var dark = d.style === 'bold';
+    var c = dark
+      ? { name: '#FFFFFF', title: '#A5F0B1', text: '#CCCCCC', label: '#A5F0B1', social: '#CCCCCC', tag: '#A5F0B1', rule: '#1E1A1A' }
+      : recolour
+        ? { name: '#FFFFFF', title: '#CCCCCC', text: '#DDDDDD', label: '#FFFFFF', social: '#DDDDDD', tag: '#CCCCCC', rule: '#333333' }
+        : { name: '#0A0909', title: '#333333', text: '#333333', label: '#0A0909', social: '#333333', tag: '#333333', rule: '#E2E2DC' };
+
+    function row(lbl, inner) {
+      return '<tr>' +
+        '<td valign="top" style="padding:0 10px 4px 0;font-family:' + FONT + ';font-size:11px;line-height:19px;font-weight:800;color:' + c.label + ';">' + lbl + '</td>' +
+        '<td valign="top" style="padding:0 0 4px 0;font-family:' + FONT + ';font-size:13px;line-height:19px;color:' + c.text + ';">' + inner + '</td>' +
+        '</tr>';
+    }
+    function link(href, text) {
+      return '<a href="' + esc(href) + '" style="color:' + c.text + ';text-decoration:none;">' + esc(text) + '</a>';
+    }
+
+    var name = d.name || 'Your Name';
+    var rows = '';
+    if (d.email) rows += row('E', link('mailto:' + d.email, d.email));
+    if (d.phone) rows += row('M', link(telHref(d.phone), d.phone));
+    rows += row('W', link(SITE, 'cruzcreative.net') + '<span style="color:' + c.text + ';">&nbsp;&middot;&nbsp;Tenerife, Canary Islands</span>');
+
+    var socials = SOCIALS.map(function (s) {
+      return '<a href="' + s[1] + '" style="font-family:' + FONT + ';font-size:11px;line-height:16px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:' + c.social + ';text-decoration:none;">' + s[0] + '</a>';
+    }).join('<span style="color:#A5F0B1;font-size:11px;font-weight:800;">&nbsp;&nbsp;/&nbsp;&nbsp;</span>');
+
+    var cta = d.cta
+      ? '<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin-top:14px;"><tr>' +
+        '<td bgcolor="#A5F0B1" style="background-color:#A5F0B1;border-radius:999px;">' +
+        '<a href="' + esc(d.ctaUrl) + '" style="display:inline-block;padding:8px 18px;font-family:' + FONT + ';font-size:12px;line-height:16px;font-weight:800;color:#0A0909;text-decoration:none;border-radius:999px;">' + esc(d.ctaText) + '&nbsp;&rarr;</a>' +
+        '</td></tr></table>'
+      : '';
+
+    var logo = '<a href="' + SITE + '" style="text-decoration:none;"><img src="' + esc(logoSrc) + '" width="160" height="28" alt="Cruz Creative" style="display:block;width:160px;height:28px;border:0;outline:none;font-family:' + FONT + ';font-size:13px;font-weight:800;color:' + c.name + ';"></a>';
+
+    var tag = d.tagline
+      ? '<tr><td style="padding-top:10px;font-family:' + FONT + ';font-size:12px;line-height:18px;font-style:italic;color:' + c.tag + ';">Big ideas. Bold content. Zero fluff.</td></tr>'
+      : '';
+
+    var head =
+      '<tr><td style="font-family:' + FONT + ';font-size:18px;line-height:24px;font-weight:800;color:' + c.name + ';">' + esc(name) + '</td></tr>' +
+      (d.title ? '<tr><td style="padding-top:2px;font-family:' + FONT + ';font-size:11px;line-height:16px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:' + c.title + ';">' + esc(d.title) + '</td></tr>' : '') +
+      '<tr><td style="padding:12px 0 12px 0;"><table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr><td width="32" height="2" bgcolor="#A5F0B1" style="width:32px;height:2px;background-color:#A5F0B1;font-size:0;line-height:0;">&nbsp;</td></tr></table></td></tr>' +
+      '<tr><td><table role="presentation" cellpadding="0" cellspacing="0" border="0">' + rows + '</table>' + cta + '</td></tr>';
+
+    var foot =
+      '<tr><td style="padding-top:16px;"><table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="border-top:1px solid ' + c.rule + ';"><tr><td style="padding-top:14px;">' +
+      logo +
+      '</td></tr><tr><td style="padding-top:10px;">' + socials + '</td></tr>' + tag + '</table></td></tr>';
+
+    var inner = '<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">' + head + foot + '</table>';
+
+    if (dark) {
+      return '<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="440" bgcolor="#0A0909" style="width:440px;max-width:100%;background-color:#0A0909;border:1px solid #1E1A1A;border-radius:12px;border-collapse:separate;">' +
+        '<tr><td style="padding:22px 24px 20px 24px;">' + inner + '</td></tr></table>';
+    }
+    return '<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="440" style="width:440px;max-width:100%;">' +
+      '<tr><td style="border-left:3px solid #A5F0B1;padding:2px 0 2px 18px;">' + inner + '</td></tr></table>';
+  }
+
+  function plain(d) {
+    return [d.name, d.title && (d.title + ' · Cruz Creative'), d.email, d.phone, 'cruzcreative.net · Tenerife, Canary Islands',
+      d.tagline && 'Big ideas. Bold content. Zero fluff.', d.cta && (d.ctaText + ': ' + d.ctaUrl)].filter(Boolean).join('\n');
+  }
+
+  function render() {
+    var d = read();
+    $('cta-fields').hidden = !$('cta').checked;
+    var ground = document.querySelector('input[name="ground"]:checked').value;
+    var recolour = ground === 'dark' && d.style === 'clean';
+    $('preview').innerHTML = build(d, LOGO_SVG, recolour);
+    $('src').value = build(d, d.logoUrl);
+    $('inbox').dataset.ground = ground;
+    $('note').hidden = !recolour;
+    try {
+      var save = {}; FIELDS.forEach(function (k) { save[k] = $(k).value; });
+      save.style = d.style; save.cta = $('cta').checked; save.tagline = d.tagline;
+      localStorage.setItem(STORE, JSON.stringify(save));
+    } catch (e) {}
+  }
+
+  function restore() {
+    try {
+      var s = JSON.parse(localStorage.getItem(STORE) || 'null');
+      if (!s) return;
+      FIELDS.forEach(function (k) { if (typeof s[k] === 'string') $(k).value = s[k]; });
+      if (s.style) $('style-' + s.style).checked = true;
+      if (typeof s.cta === 'boolean') $('cta').checked = s.cta;
+      if (typeof s.tagline === 'boolean') $('tagline').checked = s.tagline;
+    } catch (e) {}
+  }
+
+  var timer;
+  function say(msg) { $('status').textContent = msg; clearTimeout(timer); timer = setTimeout(function () { $('status').textContent = ''; }, 4000); }
+
+  // Fallback: render the real (hosted-logo) markup off-screen and copy it as a selection.
+  function copyBySelection(html) {
+    var box = document.createElement('div');
+    box.style.cssText = 'position:fixed;left:-9999px;top:0;background:#fff;';
+    box.innerHTML = html;
+    document.body.appendChild(box);
+    var r = document.createRange(); r.selectNodeContents(box);
+    var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r);
+    var ok = false; try { ok = document.execCommand('copy'); } catch (e) {}
+    sel.removeAllRanges(); box.remove();
+    return ok;
+  }
+
+  $('copyRich').addEventListener('click', function () {
+    var d = read(), html = build(d, d.logoUrl);
+    var done = function () { say('Copied. Paste it into your signature settings.'); };
+    var fallback = function () { copyBySelection(html) ? done() : say('Copy was blocked. Open "Show HTML code" and copy it from there.'); };
+    if (navigator.clipboard && window.ClipboardItem) {
+      navigator.clipboard.write([new ClipboardItem({
+        'text/html': new Blob([html], { type: 'text/html' }),
+        'text/plain': new Blob([plain(d)], { type: 'text/plain' })
+      })]).then(done, fallback);
+    } else fallback();
+  });
+
+  $('copyHtml').addEventListener('click', function () {
+    var html = $('src').value;
+    var selectIt = function () {
+      document.querySelector('details.src').open = true;
+      $('src').focus(); $('src').select();
+      var ok = false; try { ok = document.execCommand('copy'); } catch (e) {}
+      say(ok ? 'HTML copied.' : 'Code selected. Press Ctrl/Cmd + C to copy.');
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(html).then(function () { say('HTML copied.'); }, selectIt);
+    } else selectIt();
+  });
+
+  $('f').addEventListener('submit', function (e) { e.preventDefault(); });
+  document.addEventListener('input', render);
+  document.addEventListener('change', render);
+  restore();
+  render();
+})();
+</script>
