@@ -53,134 +53,374 @@ src="https://www.facebook.com/tr?id=803165125824651&ev=PageView&noscript=1"
   @font-face { font-family:'Montserrat'; font-style:normal; font-weight:400; font-display:swap; src:url('design_system/assets/fonts/montserrat-400.woff2') format('woff2'); }
   @font-face { font-family:'Montserrat'; font-style:normal; font-weight:600; font-display:swap; src:url('design_system/assets/fonts/montserrat-600.woff2') format('woff2'); }
   @font-face { font-family:'Montserrat'; font-style:normal; font-weight:800; font-display:swap; src:url('design_system/assets/fonts/montserrat-800.woff2') format('woff2'); }
-  :root { --mint:#A5F0B1; --mint-hover:#8FE39C; --near-black:#0A0909; --surface:#141212; --elevated:#1E1A1A; --white:#FFFFFF; --text-on-dark:#CCCCCC; --danger:#F0A5A5; --font-primary:'Montserrat','Helvetica Neue',Arial,sans-serif; --ease-out:cubic-bezier(0.16,1,0.3,1); }
+  /* Agency direction (PT-124): light page, near-black hero and closing cards,
+     matching the /home-agency redesign of cruzcreative.net (PT-117). */
+  :root { --mint:#A5F0B1; --mint-hover:#8FE39C; --near-black:#0A0909; --surface:#141212; --elevated:#1E1A1A; --line-dark:#2A2626; --white:#FFFFFF; --warm-white:#F0EADE; --text-on-dark:#CCCCCC; --muted-on-dark:#A9A5A0; --off-white:#F5F5F0; --light-grey:#F0F0F0; --text-on-light:#333333; --muted-on-light:#6B6763; --border:#E2E2DC; --danger:#F0A5A5; --font-primary:'Montserrat','Helvetica Neue',Arial,sans-serif; --ease-out:cubic-bezier(0.16,1,0.3,1); }
   *,*::before,*::after { box-sizing:border-box; }
   html { scroll-behavior:smooth; }
-  body { margin:0; background:var(--near-black); color:var(--white); font-family:var(--font-primary); }
-  a { color:var(--mint); }
-  .wrap { width:min(1160px,calc(100% - 40px)); margin:auto; }
-
-  .topbar { padding:22px 0; display:flex; justify-content:space-between; align-items:center; }
-  .logo img { height:28px; display:block; }
-  .micro { font-size:13px; color:var(--text-on-dark); opacity:0.75; }
-
-  .hero-section { position:relative; overflow:hidden; background:var(--near-black); }
-  .hero-video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; }
-  .hero-video-overlay { position:absolute; inset:0; background:rgba(10,9,9,0.72); z-index:1; }
-  .hero-section .wrap { position:relative; z-index:2; }
-  .hero { display:flex; flex-direction:column; align-items:center; text-align:center; max-width:920px; margin:0 auto; padding:56px 0 74px; scroll-margin-top:24px; }
-  .badge { display:inline-flex; padding:8px 14px; border:1px solid #33583a; border-radius:999px; color:var(--mint); background:#102015; font-weight:800; font-size:24px; letter-spacing:.08em; text-transform:uppercase; }
-  h1 { font-weight:800; font-size:clamp(34px,6vw,56px); line-height:1.05; letter-spacing:-1.6px; margin:22px 0 0; text-wrap:pretty; }
-  h1 em { font-style:normal; color:var(--mint); }
-  .subhead { font-size:21px; line-height:1.5; font-weight:600; color:var(--white); margin:20px 0 0; }
-  .lede { font-size:16px; line-height:1.5; font-weight:500; color:var(--text-on-dark); opacity:0.82; max-width:480px; margin:22px 0 0; }
-  #optinForm { width:100%; display:flex; flex-direction:column; align-items:center; }
-  .emailrow { margin-top:22px; display:flex; gap:12px; align-items:stretch; width:100%; max-width:700px; }
-  .emailrow input { -webkit-appearance:none; appearance:none; flex:1 1 auto; min-width:0; height:64px; line-height:normal; padding:0 20px; border-radius:12px; border:1px solid rgba(165,240,177,0.4); background:var(--near-black); box-shadow:inset 0 1px 4px rgba(0,0,0,0.5), 0 0 20px rgba(165,240,177,0.16); color:var(--white); font-family:var(--font-primary); font-size:18px; outline:none; text-align:left; transition:border-color 160ms var(--ease-out), box-shadow 160ms var(--ease-out); }
-  .emailrow input::placeholder { color:var(--text-on-dark); opacity:0.6; }
-  .emailrow input:focus { border-color:var(--mint); box-shadow:inset 0 1px 4px rgba(0,0,0,0.5), 0 0 0 3px rgba(165,240,177,0.24), 0 0 28px rgba(165,240,177,0.28); }
-  .hero-cta { -webkit-appearance:none; appearance:none; flex-shrink:0; height:64px; display:inline-flex; align-items:center; gap:8px; border:1px solid rgba(165,240,177,0.5); border-radius:12px; background:var(--mint); color:var(--near-black); font-family:var(--font-primary); font-weight:900; font-size:18px; padding:0 28px; cursor:pointer; white-space:nowrap; text-decoration:none; box-shadow:0 0 22px rgba(165,240,177,0.32); transition:background 160ms var(--ease-out),transform 120ms var(--ease-out), box-shadow 160ms var(--ease-out); }
-  .hero-cta:hover { background:var(--mint-hover); box-shadow:0 0 30px rgba(165,240,177,0.48); }
-  .hero-cta:active { transform:scale(0.98); }
-  .hero-cta svg, .hero-cta span { font-size:18px; }
-  .cta { display:block; width:100%; border:0; border-radius:12px; background:var(--mint); color:var(--near-black); font-family:var(--font-primary); font-weight:900; font-size:18px; padding:18px; cursor:pointer; text-align:center; text-decoration:none; transition:background 160ms var(--ease-out),transform 120ms var(--ease-out); }
-  .cta:hover { background:var(--mint-hover); }
-  .cta:active { transform:scale(0.98); }
-  .privacy { text-align:center; color:var(--text-on-dark); opacity:0.6; font-size:12px; margin:14px 0 0; }
-  .tswrap { margin-top:14px; width:100%; max-width:480px; padding:9px; display:flex; justify-content:center; align-items:center; min-height:65px; }
-  .valuechips { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin:34px 0 0; }
-  .chip { display:inline-flex; align-items:center; gap:8px; padding:10px 14px; background:var(--surface); border:1px solid var(--elevated); border-radius:10px; color:#ddd; font-size:14px; }
-  .chip svg { flex-shrink:0; }
-  .proofline { display:flex; align-items:center; justify-content:center; gap:12px; color:var(--text-on-dark); opacity:0.85; font-size:14px; margin-top:20px; }
-  .faces { display:flex; }
-  .face { width:28px; height:28px; border-radius:50%; background:var(--elevated); border:2px solid var(--near-black); margin-left:-7px; object-fit:cover; display:block; }
-  .face:first-child { margin:0; }
+  body { margin:0; background:var(--off-white); color:var(--text-on-light); font-family:var(--font-primary); }
+  a { color:var(--near-black); }
+  img { max-width:100%; }
+  .page { padding:16px 16px 0; }
+  .wrap { max-width:1360px; margin:0 auto; }
+  .inner { padding:0 48px; }
   .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+  .check { width:22px; height:22px; border-radius:50%; background:var(--mint); display:inline-flex; align-items:center; justify-content:center; flex-shrink:0; }
 
-  .section { padding:72px 0; border-top:1px solid var(--elevated); }
-  .eyebrow { text-align:center; color:var(--mint); font-size:13px; font-weight:900; letter-spacing:.12em; text-transform:uppercase; }
-  .section h2 { text-align:center; font-size:clamp(28px,4vw,44px); letter-spacing:-.03em; font-weight:800; margin:12px auto 42px; max-width:780px; line-height:1.2; }
+  /* Buttons */
+  .btn { -webkit-appearance:none; appearance:none; display:inline-flex; align-items:center; justify-content:center; gap:10px; border:0; border-radius:999px; font-family:var(--font-primary); font-weight:800; font-size:15px; text-decoration:none; cursor:pointer; white-space:nowrap; transition:background 160ms var(--ease-out), transform 120ms var(--ease-out), box-shadow 160ms var(--ease-out); }
+  .btn:active { transform:scale(0.97); }
+  .btn-mint { background:var(--mint); color:var(--near-black); height:52px; padding:0 24px; }
+  .btn-mint:hover { background:var(--mint-hover); transform:translateY(-2px); box-shadow:0 10px 28px rgba(165,240,177,0.35); }
+  .btn-mint:disabled { opacity:0.7; cursor:wait; transform:none; box-shadow:none; }
+  .btn-dark { background:var(--near-black); color:var(--warm-white); height:44px; padding:0 20px; font-weight:600; font-size:14px; }
+  .btn-dark:hover { background:var(--elevated); }
 
-  .compare { display:grid; grid-template-columns:1fr 64px 1fr; align-items:center; }
-  .example { border-radius:18px; background:var(--surface); border:1px solid var(--elevated); overflow:hidden; }
-  .example.good { border-color:#4c8a56; }
-  .exhead { padding:15px 18px; background:var(--elevated); font-size:12px; font-weight:900; letter-spacing:.08em; color:var(--text-on-dark); }
-  .good .exhead { color:var(--mint); }
-  .exprompt { padding:12px 18px; border-bottom:1px solid var(--elevated); color:rgba(255,255,255,0.45); font-size:14px; font-style:italic; }
-  .posterrow { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; padding:18px; }
-  .posterrow img { width:100%; aspect-ratio:.78; object-fit:cover; border-radius:8px; display:block; }
-  .caption { text-align:center; padding:14px; border-top:1px solid var(--elevated); font-weight:900; letter-spacing:0.04em; }
-  .bad .caption { color:#DC3C3C; }
-  .good .caption { color:var(--mint); }
-  .arrow { text-align:center; font-size:32px; color:var(--mint); font-weight:800; }
+  /* Top bar */
+  .topbar { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:8px 8px 20px; }
+  .logo img { width:150px; height:auto; display:block; }
+  .topbar-right { display:flex; align-items:center; gap:20px; }
+  .micro { font-size:13px; font-weight:600; color:var(--text-on-light); }
 
-  .cards { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
-  .card { padding:24px; border:1px solid var(--elevated); border-radius:16px; background:var(--surface); }
-  .num { color:var(--mint); font-weight:900; font-size:13px; }
-  .card h3 { font-size:20px; margin:10px 0; font-weight:800; }
-  .card p { color:var(--text-on-dark); line-height:1.55; margin:0; }
+  /* Hero card */
+  .hero-card { position:relative; overflow:hidden; border-radius:32px; background:var(--near-black); color:var(--text-on-dark); scroll-margin-top:16px; }
+  .hero-video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; }
+  .hero-shade { position:absolute; inset:0; z-index:1; background:linear-gradient(90deg, rgba(10,9,9,0.96) 0%, rgba(10,9,9,0.86) 42%, rgba(10,9,9,0.4) 75%, rgba(10,9,9,0.6) 100%); }
+  .hero-body { position:relative; z-index:2; padding:56px 56px 32px; display:flex; flex-direction:column; gap:40px; }
+  .hero-main { display:flex; gap:48px; align-items:center; justify-content:space-between; }
+  .hero-copy { flex:1 1 560px; max-width:640px; display:flex; flex-direction:column; gap:22px; }
+  .eyebrow-pill { align-self:flex-start; font-size:12px; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:var(--mint); border:1px solid rgba(165,240,177,0.45); border-radius:999px; padding:8px 14px; }
+  h1 { margin:0; font-size:clamp(40px,5vw,68px); line-height:1.02; font-weight:800; letter-spacing:-0.03em; color:var(--warm-white); text-wrap:pretty; }
+  h1 em, h2 em { font-style:normal; color:var(--mint); }
+  .lede { margin:0; font-size:18px; line-height:1.6; color:var(--text-on-dark); max-width:520px; }
 
-  .proof-logos { display:flex; flex-wrap:wrap; justify-content:center; gap:12px 28px; margin:0 0 24px; }
-  .proof-logo { display:flex; align-items:center; gap:8px; font-weight:700; font-size:15px; letter-spacing:0.02em; color:var(--text-on-dark); opacity:0.7; }
-  .proof-logo-mark { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
-  .proof-cards { display:grid; grid-template-columns:1fr 1fr; gap:16px; max-width:780px; margin:0 auto; }
-  .proof-card { background:var(--surface); border:1px solid var(--elevated); border-radius:16px; padding:24px; text-align:left; }
-  .proof-stars { color:var(--mint); font-size:15px; letter-spacing:2px; margin:0 0 12px; }
-  .proof-quote { margin:0 0 16px; font-size:16px; line-height:1.6; color:var(--text-on-dark); font-style:italic; }
-  .proof-author { display:flex; align-items:center; gap:10px; }
-  .proof-avatar { width:36px; height:36px; border-radius:50%; background:var(--mint); color:var(--near-black); font-weight:700; font-size:13px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
-  .proof-author-name { font-size:15px; font-weight:600; color:var(--white); }
-  .proof-author-role { font-size:14px; color:var(--text-on-dark); opacity:0.75; }
-  .proof-count-card { display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:8px; }
-  .proof-count-dots { display:flex; }
-  .proof-count-dots span { width:22px; height:22px; border-radius:50%; margin-left:-6px; border:2px solid var(--surface); }
-  .proof-count-dots span:first-child { margin-left:0; }
-  .proof-count { font-size:32px; font-weight:800; color:var(--mint); }
-  .proof-count-label { font-size:15px; color:var(--text-on-dark); }
-  .proof-note { margin:24px 0 0; text-align:center; }
-  .proof-note a { font-size:15px; font-weight:700; }
+  /* Opt-in form (ids, honeypot and Turnstile wiring unchanged) */
+  #optinForm { display:flex; flex-direction:column; gap:12px; background:rgba(20,18,18,0.88); border:1px solid var(--line-dark); border-radius:22px; padding:18px; max-width:560px; }
+  .field-label { font-size:13px; font-weight:600; color:var(--warm-white); }
+  .emailrow { display:flex; flex-wrap:wrap; gap:10px; }
+  .email-input { -webkit-appearance:none; appearance:none; flex:1 1 240px; min-width:0; height:52px; border-radius:999px; border:1px solid #3A3535; background:var(--near-black); color:var(--white); padding:0 20px; font-family:var(--font-primary); font-weight:400; font-size:16px; outline:none; transition:border-color 160ms var(--ease-out), box-shadow 160ms var(--ease-out); }
+  .email-input::placeholder { color:#8A8682; }
+  .email-input:focus { border-color:var(--mint); box-shadow:0 0 0 3px rgba(165,240,177,0.24); }
+  .tswrap { display:flex; justify-content:flex-start; min-height:65px; }
+  .form-note { margin:0; font-size:13px; color:var(--muted-on-dark); }
+  .form-error { margin:0; font-size:14px; color:var(--danger); font-weight:600; }
+  .fine { font-size:12px; color:var(--muted-on-dark); }
 
-  .sample { max-width:760px; margin:auto; border:1px solid var(--elevated); border-radius:18px; background:var(--surface); padding:26px; position:relative; overflow:hidden; }
-  .sample code { color:var(--text-on-dark); line-height:1.8; white-space:normal; font-family:'Courier New',monospace; font-size:15px; }
-  .sample .fade { position:absolute; left:0; right:0; bottom:0; height:75px; background:linear-gradient(transparent,var(--surface)); }
+  /* Poster deck: same behaviour as the homepage Reel Stack. Swipe or drag,
+     click a side card, use the arrows, dots or arrow keys to cycle; click the
+     front card to open it in the viewer. */
+  .deck { flex:0 1 460px; min-width:300px; display:flex; flex-direction:column; align-items:center; gap:14px; }
+  .deck-stage { position:relative; width:100%; height:400px; touch-action:pan-y; user-select:none; -webkit-user-select:none; }
+  .deck-item { -webkit-appearance:none; appearance:none; position:absolute; left:50%; top:50%; width:270px; height:360px; margin:-180px 0 0 -135px; padding:0; border:6px solid var(--surface); border-radius:18px; overflow:hidden; background:var(--surface); cursor:pointer; transition:transform 450ms var(--ease-out), opacity 450ms var(--ease-out), box-shadow 300ms var(--ease-out); }
+  .deck-item img { width:100%; height:100%; object-fit:cover; display:block; pointer-events:none; -webkit-user-drag:none; }
+  .deck-item.is-front { z-index:3; opacity:1; transform:none; box-shadow:0 30px 60px rgba(0,0,0,0.5); }
+  .deck-item.is-front:hover { transform:translateY(-4px); box-shadow:0 36px 70px rgba(0,0,0,0.6); }
+  .deck-item.is-prev { z-index:2; opacity:0.55; transform:translateX(-42%) rotate(-7deg) scale(0.85); }
+  .deck-item.is-next { z-index:2; opacity:0.55; transform:translateX(42%) rotate(7deg) scale(0.85); }
+  .deck-item.is-prev:hover, .deck-item.is-next:hover { opacity:0.8; }
+  .deck-item:focus-visible { outline:3px solid var(--mint); outline-offset:3px; }
+  .deck-tag, .deck-view { position:absolute; background:var(--mint); color:var(--near-black); font-size:12px; font-weight:800; padding:7px 12px; border-radius:999px; white-space:nowrap; opacity:0; transition:opacity 200ms var(--ease-out); }
+  .deck-tag { left:12px; bottom:12px; }
+  .deck-view { right:10px; top:10px; display:inline-flex; align-items:center; gap:6px; background:rgba(10,9,9,0.78); color:var(--white); }
+  .deck-item.is-front .deck-tag, .deck-item.is-front .deck-view { opacity:1; }
+  .deck-controls { display:flex; align-items:center; gap:14px; }
+  .round-btn { -webkit-appearance:none; appearance:none; width:44px; height:44px; border-radius:50%; border:1px solid #3A3535; background:rgba(20,18,18,0.8); color:var(--white); display:inline-flex; align-items:center; justify-content:center; cursor:pointer; transition:border-color 160ms var(--ease-out), background 160ms var(--ease-out); }
+  .round-btn:hover { border-color:var(--mint); }
+  .round-btn:focus-visible { outline:3px solid var(--mint); outline-offset:2px; }
+  .deck-dots { display:flex; gap:2px; }
+  .deck-dot { -webkit-appearance:none; appearance:none; width:22px; height:44px; padding:0; border:0; background:none; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; }
+  .deck-dot span { width:6px; height:6px; border-radius:3px; background:#5A5555; transition:width 300ms var(--ease-out), background 300ms var(--ease-out); }
+  .deck-dot[aria-current="true"] span { width:22px; background:var(--mint); }
+  .deck-dot:focus-visible { outline:2px solid var(--mint); outline-offset:-8px; border-radius:8px; }
 
-  .final { padding:72px 0 100px; text-align:center; border-top:1px solid var(--elevated); }
-  .finalbox { max-width:780px; margin:auto; padding:42px; border:1px solid #3e7045; border-radius:22px; background:#0e1710; }
-  .final h2 { font-size:clamp(28px,3.6vw,42px); margin:0 0 12px; letter-spacing:-.03em; font-weight:800; }
-  .final p { color:var(--text-on-dark); margin:0; }
-  .final .cta { max-width:380px; margin:24px auto 0; }
+  /* Poster viewer (opens from the front card) */
+  .viewer { position:fixed; inset:0; z-index:100; background:var(--near-black); display:flex; flex-direction:column; color:var(--text-on-dark); }
+  .viewer[hidden] { display:none; }
+  .viewer-top { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:16px 20px; }
+  .viewer-count { font-size:14px; font-weight:600; color:var(--warm-white); min-width:44px; }
+  .switch { display:inline-flex; padding:4px; border-radius:999px; background:var(--surface); border:1px solid var(--line-dark); }
+  .switch button { -webkit-appearance:none; appearance:none; height:36px; padding:0 16px; border:0; border-radius:999px; background:none; color:var(--text-on-dark); font-family:var(--font-primary); font-weight:600; font-size:13px; white-space:nowrap; cursor:pointer; transition:background 200ms var(--ease-out), color 200ms var(--ease-out); }
+  .switch button[aria-pressed="true"] { background:var(--mint); color:var(--near-black); font-weight:800; }
+  .switch button[aria-pressed="true"].is-generic { background:var(--white); }
+  .switch button:focus-visible { outline:2px solid var(--mint); outline-offset:2px; }
+  .viewer-stage { flex:1 1 auto; min-height:0; display:flex; align-items:center; justify-content:center; gap:20px; padding:0 20px; touch-action:pan-y; }
+  .viewer-figure { position:relative; flex:0 1 auto; min-width:0; margin:0; }
+  .viewer-figure img { display:block; width:auto; height:auto; max-width:100%; max-height:calc(100vh - 190px); border-radius:14px; user-select:none; -webkit-user-drag:none; }
+  .viewer-badge { position:absolute; left:12px; top:12px; font-size:12px; font-weight:800; padding:7px 12px; border-radius:999px; background:var(--mint); color:var(--near-black); }
+  .viewer-badge.is-generic { background:var(--white); }
+  .viewer-bar { display:flex; align-items:center; justify-content:space-between; gap:12px 20px; flex-wrap:wrap; margin:16px auto 20px; width:min(760px, calc(100% - 40px)); background:var(--surface); border:1px solid var(--line-dark); border-radius:22px; padding:12px 12px 12px 22px; }
+  .viewer-title { display:flex; flex-direction:column; gap:2px; }
+  .viewer-title strong { font-size:16px; font-weight:800; color:var(--warm-white); }
+  .viewer-title span { font-size:13px; }
+  html.viewer-open { overflow:hidden; }
 
-  @media(max-width:820px) {
-    .hero { padding-top:36px; }
-    .compare { grid-template-columns:1fr; }
-    .arrow { transform:rotate(90deg); padding:10px; }
-    .cards { grid-template-columns:1fr; }
-    .proof-cards { grid-template-columns:1fr; }
+  .hero-foot { border-top:1px solid rgba(255,255,255,0.14); padding-top:22px; display:flex; flex-wrap:wrap; gap:20px 40px; align-items:center; justify-content:space-between; }
+  .ticks { display:flex; flex-wrap:wrap; gap:12px 28px; }
+  .tick { display:inline-flex; align-items:center; gap:10px; font-size:14px; font-weight:600; color:var(--warm-white); }
+  .built { display:flex; flex-wrap:wrap; align-items:center; gap:10px 22px; font-size:14px; }
+  .built-label { font-size:11px; font-weight:600; letter-spacing:0.14em; color:var(--muted-on-dark); }
+  .built strong { font-weight:800; color:var(--warm-white); }
+
+  /* Stats band */
+  .stats { margin-top:24px; background:var(--light-grey); border-radius:28px; padding:36px 48px; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:28px; }
+  .stat { display:flex; flex-direction:column; gap:10px; }
+  .stat-num { font-size:48px; font-weight:800; letter-spacing:-0.03em; color:var(--near-black); line-height:1; }
+  .stat-line { width:28px; height:3px; background:var(--mint); border-radius:2px; }
+  .stat-label { font-size:14px; font-weight:600; }
+
+  /* Sections */
+  .section { padding-top:112px; }
+  .section-head { display:flex; flex-wrap:wrap; gap:20px 60px; align-items:flex-end; justify-content:space-between; margin-bottom:44px; }
+  .section-title { display:flex; flex-direction:column; gap:16px; max-width:760px; }
+  .eyebrow { font-size:13px; font-weight:600; letter-spacing:0.14em; text-transform:uppercase; color:var(--text-on-light); margin:0; }
+  h2 { margin:0; font-size:clamp(32px,3.8vw,52px); line-height:1.06; font-weight:800; letter-spacing:-0.03em; color:var(--near-black); text-wrap:pretty; }
+  .section-aside { margin:0; max-width:360px; font-size:16px; line-height:1.6; }
+
+  /* Compare */
+  .compare { display:flex; gap:20px; align-items:stretch; }
+  .example { flex:1 1 0; border-radius:28px; padding:20px; display:flex; gap:24px; }
+  .compare-poster { -webkit-appearance:none; appearance:none; flex:0 0 210px; width:210px; aspect-ratio:3 / 4; align-self:flex-start; padding:0; border:0; border-radius:18px; overflow:hidden; background:var(--surface); cursor:pointer; transition:transform 300ms var(--ease-out), box-shadow 300ms var(--ease-out); }
+  .compare-poster:hover { transform:translateY(-4px); box-shadow:0 18px 36px rgba(10,9,9,0.2); }
+  .compare-poster:focus-visible { outline:3px solid var(--mint); outline-offset:3px; }
+  .compare-poster img { width:100%; height:100%; object-fit:cover; display:block; }
+  .example-label { display:none; }
+  .example-body { flex:1 1 auto; display:flex; flex-direction:column; gap:14px; padding:8px 4px; }
+  .example-tag { align-self:flex-start; font-size:12px; font-weight:600; letter-spacing:0.1em; padding:7px 12px; border-radius:999px; }
+  .example-prompt { margin:0; font-size:20px; line-height:1.4; font-weight:800; }
+  .example-result { margin-top:auto; font-size:15px; font-weight:600; }
+  .example.bad { background:var(--white); border:1px solid var(--border); }
+  .example.bad .compare-poster img { filter:saturate(0.85); }
+  .example.bad .example-tag { background:var(--light-grey); }
+  .example.bad .example-result { color:var(--muted-on-light); }
+  .example.good { background:var(--near-black); color:var(--text-on-dark); }
+  .example.good .example-tag { background:var(--mint); color:var(--near-black); font-weight:800; }
+  .example.good .example-prompt { color:var(--warm-white); }
+  .example.good .example-result { color:var(--mint); }
+  .compare-arrow { flex:0 0 auto; display:flex; align-items:center; justify-content:center; }
+  .compare-arrow span { width:56px; height:56px; border-radius:50%; background:var(--mint); display:inline-flex; align-items:center; justify-content:center; }
+
+  /* Inside cards */
+  .cards { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; }
+  .card { background:var(--white); border:1px solid var(--border); border-radius:28px; overflow:hidden; display:flex; flex-direction:column; transition:transform 300ms var(--ease-out), box-shadow 300ms var(--ease-out); }
+  .card:hover { transform:translateY(-6px); box-shadow:0 18px 40px rgba(10,9,9,0.08); }
+  /* Each card shows its whole poster (3:4, never cropped) on a Light Grey
+     well. Clicking the poster opens the viewer on that poster. */
+  .card-well { background:var(--light-grey); height:440px; display:flex; align-items:center; justify-content:center; }
+  .card-poster { -webkit-appearance:none; appearance:none; position:relative; width:280px; aspect-ratio:3 / 4; padding:0; border:6px solid var(--surface); border-radius:16px; overflow:hidden; background:var(--surface); cursor:pointer; box-shadow:0 18px 36px rgba(10,9,9,0.18); transition:transform 300ms var(--ease-out), box-shadow 300ms var(--ease-out); }
+  .card-poster img { width:100%; height:100%; object-fit:cover; display:block; }
+  .card-poster .deck-view { opacity:0; }
+  .card:hover .card-poster, .card-poster:focus-visible { transform:translateY(-6px); box-shadow:0 28px 50px rgba(10,9,9,0.28); }
+  .card:hover .card-poster .deck-view, .card-poster:focus-visible .deck-view { opacity:1; }
+  .card-poster:focus-visible { outline:3px solid var(--mint); outline-offset:3px; }
+  .card-body { padding:26px; display:flex; flex-direction:column; gap:14px; }
+  .card-top { display:flex; justify-content:space-between; align-items:center; }
+  .card-num { font-size:13px; font-weight:800; color:var(--near-black); }
+  .tag { background:var(--mint); color:var(--near-black); font-size:12px; font-weight:800; padding:6px 12px; border-radius:999px; }
+  .card h3 { margin:0; font-size:22px; line-height:1.25; font-weight:800; color:var(--near-black); }
+  .card p { margin:0; font-size:15px; line-height:1.6; }
+
+  /* Steal one now */
+  .dark-panel { background:var(--near-black); border-radius:32px; padding:64px 56px; display:flex; gap:48px; color:var(--text-on-dark); }
+  .dark-panel .eyebrow { color:var(--mint); }
+  .dark-panel h2 { color:var(--warm-white); }
+  .steal-copy { flex:1 1 380px; display:flex; flex-direction:column; gap:18px; }
+  .steal-copy p { margin:0; font-size:16px; line-height:1.6; max-width:420px; }
+  .prompt-box { flex:1 1 520px; background:var(--surface); border:1px solid var(--line-dark); border-radius:22px; padding:24px; display:flex; flex-direction:column; gap:18px; }
+  .prompt-top { display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; }
+  .prompt-label { font-size:12px; font-weight:800; letter-spacing:0.12em; color:var(--mint); }
+  .copy-btn { display:inline-flex; align-items:center; gap:8px; height:44px; padding:0 16px; border-radius:999px; border:1px solid #3A3535; background:var(--elevated); color:var(--warm-white); font-family:var(--font-primary); font-weight:600; font-size:13px; cursor:pointer; transition:border-color 160ms var(--ease-out); }
+  .copy-btn:hover { border-color:var(--mint); }
+  .prompt-text { margin:0; font-size:17px; line-height:1.7; color:var(--warm-white); }
+  .prompt-text .more { color:#8A8682; }
+  .prompt-foot { border-top:1px solid var(--line-dark); padding-top:16px; display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; font-size:14px; }
+  .prompt-foot a { display:inline-flex; align-items:center; gap:8px; color:var(--mint); font-weight:800; text-decoration:none; }
+
+  /* Proof */
+  .proof { display:flex; gap:40px; align-items:stretch; }
+  .proof-copy { flex:1 1 360px; display:flex; flex-direction:column; gap:16px; }
+  .proof-copy p { margin:0; font-size:16px; line-height:1.6; max-width:420px; }
+  .pills { display:flex; flex-wrap:wrap; gap:10px; margin-top:8px; }
+  .pill { background:var(--white); border:1px solid var(--border); padding:10px 16px; border-radius:999px; font-weight:800; font-size:14px; color:var(--near-black); }
+  .quote-card { flex:1.4 1 520px; margin:0; background:var(--white); border:1px solid var(--border); border-radius:28px; padding:36px; display:flex; flex-direction:column; gap:24px; }
+  .stars { display:flex; gap:4px; }
+  .quote-card blockquote { margin:0; font-size:26px; line-height:1.4; font-weight:800; color:var(--near-black); letter-spacing:-0.01em; }
+  .quote-card figcaption { display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; border-top:1px solid var(--border); padding-top:20px; }
+  .author { display:flex; align-items:center; gap:14px; }
+  .author img { width:48px; height:48px; border-radius:50%; object-fit:cover; }
+  .author-name { display:block; font-size:15px; font-weight:800; color:var(--near-black); }
+  .author-role { font-size:13px; }
+  .count { display:flex; align-items:baseline; gap:10px; }
+  .count strong { font-size:34px; font-weight:800; color:var(--near-black); letter-spacing:-0.03em; }
+  .count span { font-size:13px; font-weight:600; }
+
+  /* Closing card */
+  .closing { margin-top:112px; background:var(--near-black); border-radius:32px; padding:20px; display:flex; gap:20px; color:var(--text-on-dark); }
+  .closing-copy { flex:1.5 1 560px; padding:44px 36px; display:flex; flex-direction:column; gap:20px; }
+  .closing-copy .eyebrow { color:var(--mint); }
+  .closing-copy h2 { font-size:clamp(34px,4vw,56px); color:var(--warm-white); }
+  .closing-copy p { margin:0; font-size:17px; line-height:1.6; max-width:520px; }
+  #closingForm { display:flex; flex-wrap:wrap; gap:10px; max-width:560px; }
+  #closingForm .email-input { background:var(--surface); height:56px; }
+  #closingForm .btn-mint { height:56px; padding:0 26px; }
+  .call-card { flex:1 1 340px; min-height:380px; border-radius:22px; padding:26px; display:flex; flex-direction:column; justify-content:flex-end; gap:12px; text-decoration:none; color:var(--text-on-dark); position:relative; overflow:hidden; isolation:isolate; }
+  .call-card img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 20%; z-index:-2; transition:transform 800ms var(--ease-out); }
+  .call-card::before { content:''; position:absolute; inset:0; z-index:-1; background:linear-gradient(180deg, rgba(10,9,9,0) 35%, rgba(10,9,9,0.92) 100%); }
+  .call-card:hover img { transform:scale(1.06); }
+  .call-card .tag { align-self:flex-start; }
+  .call-title { font-size:26px; line-height:1.2; font-weight:800; color:var(--warm-white); }
+  .call-row { display:flex; justify-content:space-between; align-items:center; gap:12px; font-size:14px; }
+  .call-btn { display:inline-flex; align-items:center; min-height:44px; background:var(--white); color:var(--near-black); font-weight:800; font-size:14px; padding:0 18px; border-radius:999px; white-space:nowrap; transition:background 160ms var(--ease-out); }
+  .call-card:hover .call-btn { background:var(--mint); }
+
+  /* Footer */
+  .footer { padding:40px 48px 48px; display:flex; flex-wrap:wrap; gap:16px 32px; justify-content:space-between; align-items:center; font-size:13px; }
+  .footer-brand { display:flex; align-items:center; gap:16px; }
+  .footer-brand img { width:130px; height:auto; display:block; }
+  .footer nav { display:flex; flex-wrap:wrap; gap:20px; }
+
+  /* Motion, modelled on the /home-agency homepage: the hero headline reveals
+     word by word (rise and blur), then the rest of the hero follows in
+     sequence; sections fade up 32px on scroll (0.7s), card groups stagger,
+     the dark panels scale up from 95%. Only applied when html has .motion,
+     which the script adds unless the visitor prefers reduced motion, so the
+     page is fully visible without JS. */
+  html.motion .reveal { opacity:0; transform:translateY(32px); transition:opacity 700ms var(--ease-out), transform 700ms var(--ease-out); transition-delay:var(--d, 0s); }
+  html.motion .reveal.reveal-scale { transform:scale(0.95); }
+  html.motion .reveal.is-in { opacity:1; transform:none; }
+  html.motion .word { display:inline-block; opacity:0; transform:translateY(0.35em); filter:blur(8px); transition:opacity 700ms var(--ease-out), transform 700ms var(--ease-out), filter 700ms var(--ease-out); transition-delay:var(--d, 0s); }
+  html.motion .word.is-in { opacity:1; transform:none; filter:none; }
+  .quote-card { transition:transform 300ms var(--ease-out), box-shadow 300ms var(--ease-out); }
+  .quote-card:hover { transform:translateY(-6px); box-shadow:0 18px 40px rgba(10,9,9,0.08); }
+  .pill { transition:transform 300ms var(--ease-out); }
+  .pill:hover { transform:scale(1.06); }
+  .author img { transition:transform 300ms var(--ease-out); }
+  .author img:hover { transform:scale(1.1); }
+
+  @media (max-width:1100px) {
+    .hero-main { flex-direction:column; align-items:stretch; }
+    .hero-copy { max-width:none; flex-basis:auto; }
+    .deck { align-self:center; width:100%; max-width:460px; flex-basis:auto; }
+    .compare { flex-direction:column; }
+    .compare-arrow span { transform:rotate(90deg); }
+    .example-body { min-width:0; }
+    .cards { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .dark-panel, .proof, .closing { flex-direction:column; }
+    .steal-copy, .prompt-box, .proof-copy, .quote-card, .closing-copy, .call-card { flex-basis:auto; }
+  }
+  @media (max-width:820px) {
+    .page { padding:12px 12px 0; }
+    .inner { padding:0 8px; }
     .micro { display:none; }
-    .section { padding:56px 0; }
-    /* Background video is desktop-only — see the loader script, which never
-       requests the file on narrow viewports. Tablet/mobile get the static
-       poster as a CSS background instead, with the same dark wash baked in
-       via the gradient so text stays legible without the overlay element. */
-    .hero-video, .hero-video-overlay { display:none; }
-    .hero-section { background-image:linear-gradient(rgba(10,9,9,0.72),rgba(10,9,9,0.72)), url('uploads/hero-bg-poster.jpg'); background-size:cover; background-position:center; }
+    .logo img { width:124px; }
+    .topbar { padding:4px 4px 14px; }
+    .hero-card { border-radius:26px; }
+    /* Background video is desktop-only: see the loader script, which never
+       requests the file on narrow viewports. Tablet and phone get the static
+       poster on top of the card, fading into near-black behind the copy. */
+    .hero-video, .hero-shade { display:none; }
+    .hero-card { background-image:linear-gradient(180deg, rgba(10,9,9,0.5) 0%, rgba(10,9,9,0.88) 40%, var(--near-black) 70%), url('uploads/hero-bg-poster.jpg'); background-size:auto 480px; background-repeat:no-repeat; background-position:center top; }
+    .hero-body { padding:150px 20px 24px; gap:24px; }
+    .hero-copy { gap:18px; }
+    .lede { font-size:16px; }
+    #optinForm { padding:0; background:none; border:0; }
+    .eyebrow-pill { font-size:11px; letter-spacing:0.1em; }
+    .emailrow { flex-direction:column; }
+    .emailrow .email-input, #closingForm .email-input { flex:0 0 auto; }
+    .emailrow .btn-mint { width:100%; }
+    .fine { text-align:center; }
+    .deck { min-width:0; }
+    .deck-stage { height:280px; }
+    .deck-item { width:190px; height:254px; margin:-127px 0 0 -95px; border-width:5px; border-radius:16px; }
+    .deck-item.is-prev { transform:translateX(-48%) rotate(-7deg) scale(0.84); }
+    .deck-item.is-next { transform:translateX(48%) rotate(7deg) scale(0.84); }
+    .deck-tag, .deck-view { font-size:11px; padding:6px 10px; }
+    .viewer-top { padding:12px; }
+    .viewer-arrow { display:none; }
+    .viewer-stage { padding:0 12px; }
+    .viewer-figure img { max-height:calc(100vh - 250px); }
+    .viewer-bar { margin:12px auto 12px; width:calc(100% - 24px); padding:14px; flex-direction:column; align-items:stretch; text-align:center; }
+    .viewer-bar .btn-mint { width:100%; }
+    .switch button { padding:0 10px; font-size:12px; }
+    .ticks { flex-direction:column; }
+    .built { display:none; }
+    .stats { margin-top:14px; padding:24px 20px; border-radius:22px; grid-template-columns:repeat(2,minmax(0,1fr)); gap:22px 16px; }
+    .stat-num { font-size:38px; }
+    .stat-label { font-size:13px; }
+    .section { padding-top:72px; }
+    .section-head { margin-bottom:24px; }
+    .section-aside { display:none; }
+    /* Phone: both whole posters side by side, labelled, then the two
+       prompts as compact rows underneath. */
+    .compare { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); grid-template-areas:"bposter gposter" "blabel glabel" "bbody bbody" "gbody gbody"; gap:10px 12px; }
+    .compare-arrow { display:none; }
+    .example { display:contents; }
+    .compare-poster { width:100%; flex:none; border-radius:14px; }
+    .compare-poster:hover { transform:none; box-shadow:none; }
+    .example.bad .compare-poster { grid-area:bposter; }
+    .example.good .compare-poster { grid-area:gposter; box-shadow:0 0 0 3px var(--mint); }
+    .example-label { display:block; font-size:12px; font-weight:600; text-align:center; }
+    .example.bad .example-label { grid-area:blabel; color:var(--muted-on-light); }
+    .example.good .example-label { grid-area:glabel; color:var(--near-black); font-weight:800; }
+    .example-tag { display:none; }
+    .example-body { gap:6px; padding:16px; border-radius:18px; }
+    .example.bad .example-body { grid-area:bbody; background:var(--white); border:1px solid var(--border); margin-top:10px; }
+    .example.good .example-body { grid-area:gbody; background:var(--near-black); }
+    .example-prompt { font-size:16px; }
+    .example-result { margin-top:0; font-size:13px; }
+    .cards { grid-template-columns:1fr; }
+    /* Phone: a compact card with a small whole-poster thumbnail beside the
+       number, tag and title, and the description underneath. */
+    .card { border-radius:22px; display:grid; grid-template-columns:96px minmax(0,1fr); grid-template-areas:"poster top" "poster title" "desc desc"; align-content:start; gap:10px 14px; padding:16px; }
+    .card-well, .card-body { display:contents; }
+    .card-poster { grid-area:poster; width:96px; border-width:4px; border-radius:12px; box-shadow:0 8px 18px rgba(10,9,9,0.16); align-self:start; }
+    .card:hover .card-poster { transform:none; box-shadow:0 8px 18px rgba(10,9,9,0.16); }
+    .card-poster .deck-view { display:none; }
+    .card-top { grid-area:top; justify-content:flex-start; gap:8px; }
+    .card-top .tag { font-size:11px; padding:5px 10px; }
+    .card h3 { grid-area:title; align-self:start; }
+    .card p { grid-area:desc; }
+    .card h3 { font-size:19px; }
+    .card p { font-size:14px; }
+    .dark-panel { padding:28px 20px; border-radius:26px; gap:24px; }
+    .prompt-box { padding:18px; }
+    .prompt-text { font-size:15px; }
+    .quote-card { padding:22px; border-radius:22px; }
+    .quote-card blockquote { font-size:18px; }
+    .pills { justify-content:flex-start; }
+    .closing { margin-top:72px; padding:12px; border-radius:26px; }
+    .closing-copy { padding:20px 10px 8px; }
+    #closingForm { flex-direction:column; }
+    #closingForm .btn-mint { width:100%; }
+    .call-card { min-height:340px; padding:20px; }
+    .call-title { font-size:21px; }
+    .call-row { flex-direction:column; align-items:flex-start; }
+    .footer { padding:28px 8px 36px; flex-direction:column; text-align:center; }
+    .footer-brand { flex-direction:column; }
+    .footer nav { justify-content:center; }
   }
   @media (prefers-reduced-motion: reduce) {
     .hero-video { display:none; }
-  }
-  @media(max-width:600px) {
-    .topbar { justify-content:center; }
-    .badge { font-size:16px; }
-    .emailrow { flex-direction:column; }
-    .hero-cta { width:100%; justify-content:center; }
-    .posterrow img:nth-child(1), .posterrow img:nth-child(2) { display:none; }
-    .posterrow { grid-template-columns:1fr; }
-    .posterrow img { aspect-ratio:.9; }
+    html { scroll-behavior:auto; }
+    .btn, .card, .card-poster, .call-card img, .deck-item, .deck-dot span, .switch button { transition:none; }
+    .deck-item.is-front:hover, .quote-card:hover, .pill:hover, .author img:hover { transform:none; }
+    .btn-mint:hover, .card:hover { transform:none; }
+    .card:hover .card-poster, .card-poster:focus-visible, .call-card:hover img { transform:none; }
   }
 </style>
 </head>
 <body>
-<section class="hero-section">
+<div class="page">
+<div class="wrap">
+
+<header class="topbar">
+  <a class="logo" href="https://cruzcreative.net" aria-label="Cruz Creative home"><img src="assets/cruz-creative-logo-horizontal-darkbg.svg" alt="Cruz Creative" /></a>
+  <div class="topbar-right">
+    <span class="micro">Free resource · No spam · Instant delivery</span>
+    <a class="btn btn-dark" href="#form">Get My 15 Prompts</a>
+  </div>
+</header>
+
+<section class="hero-card" id="form">
   <video class="hero-video" id="heroVideo" autoplay muted loop playsinline poster="uploads/hero-bg-poster.jpg"></video>
   <script>
     // Desktop-only, and never for reduced-motion visitors. The <video> above
@@ -214,165 +454,582 @@ src="https://www.facebook.com/tr?id=803165125824651&ev=PageView&noscript=1"
       window.addEventListener('load', sync);
     })();
   </script>
-  <div class="hero-video-overlay"></div>
-  <div class="wrap">
-  <header class="topbar">
-    <div class="logo"><img src="assets/cruz-creative-logo-horizontal-darkbg.svg" alt="Cruz Creative" /></div>
-    <div class="micro">Free resource · No spam · Instant delivery</div>
-  </header>
+  <div class="hero-shade"></div>
 
-  <main class="hero" id="form">
-    <span class="badge">15 client-tested AI prompts · free</span>
-    <h1>Stop making content that <em>looks AI-generated.</em></h1>
-    <p class="subhead">Free forever. Instant download. No spam.</p>
-    <p class="lede">Ready to sound like you, not like AI? Enter your email and we'll send all 15 prompts instantly.</p>
+  <div class="hero-body">
+    <div class="hero-main">
+      <main class="hero-copy">
+        <span class="eyebrow-pill">15 client-tested AI prompts · Free</span>
+        <h1>Stop making content that looks <em>AI-generated.</em></h1>
+        <p class="lede">Ready to sound like you, not like AI? Drop your email and we send all 15 prompts straight to your inbox.</p>
 
-    <form id="optinForm">
-      <div class="emailrow">
-        <label for="email" class="sr-only">Email address</label>
-        <input type="email" id="email" name="email" placeholder="Email address" autocomplete="email" required />
-        <button type="submit" class="hero-cta">Download <span aria-hidden="true">→</span></button>
-      </div>
-      <!-- Honeypot: hidden from real visitors, only bots tend to fill it. Do not remove.
-           Uses display:none (not off-screen positioning) and a non-autofill-prone field
-           name, since Safari ignores autocomplete="off" and will fill fields named things
-           like "website" from a user's saved Contact card even when off-screen. -->
-      <div style="display:none;" aria-hidden="true">
-        <label for="hp_contact_ref">Leave this field blank</label>
-        <input type="text" id="hp_contact_ref" name="hp_contact_ref" tabindex="-1" autocomplete="off" />
-      </div>
-      <div class="tswrap">
-        <div class="cf-turnstile" data-sitekey="0x4AAAAAAEG-MF4itZQ34Vcl" data-callback="onTurnstileSuccess" data-appearance="always" data-theme="dark"></div>
-      </div>
-      <p id="turnstileNotice" style="display:none; margin:14px 0 0; font-size:13px; color:var(--text-on-dark); opacity:0.75;">Just a second — verifying you're human…</p>
-      <p id="formError" style="display:none; margin:14px 0 0; font-size:14px; color:#F0A5A5; font-weight:600;"></p>
-    </form>
-    <p class="privacy">No spam. One useful email a week. Unsubscribe anytime.</p>
-
-    <div class="valuechips">
-      <span class="chip"><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.2 11.5L13 4.5" stroke="#A5F0B1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>On-brand graphics</span>
-      <span class="chip"><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.2 11.5L13 4.5" stroke="#A5F0B1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Natural brand voice</span>
-      <span class="chip"><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M3 8.5L6.2 11.5L13 4.5" stroke="#A5F0B1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Better product shots</span>
-    </div>
-
-    <div class="proofline"><div class="faces"><img class="face" src="uploads/client-urfx.webp" alt="Urfx" /><img class="face" src="uploads/client-unit-11.webp" alt="U-11" /><img class="face" src="uploads/client-ivisa.webp" alt="iVisa" /><img class="face" src="uploads/client-lake.webp" alt="Lake Company" /><img class="face" src="uploads/client-halcyon.webp" alt="Halcyon Group" /></div>Built from prompts used in real client work</div>
-  </main>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <p class="eyebrow">See the difference</p>
-    <h2>Same AI. Better prompt. Completely different result.</h2>
-    <div class="compare">
-      <div class="example bad">
-        <div class="exhead">ANY AI TOOL — GENERIC PROMPT</div>
-        <div class="exprompt">"Make me a poster promoting my business."</div>
-        <div class="posterrow">
-          <img src="uploads/generic-ai-3.webp" alt="Generic AI poster for a gym — stock template look" />
-          <img src="uploads/generic-ai-1.webp" alt="Generic AI poster for a bike rental — stock template look" />
-          <img src="uploads/generic-ai-2.webp" alt="Generic AI poster for a burger restaurant — stock template look" />
-        </div>
-        <div class="caption">Looks like everyone else</div>
-      </div>
-      <div class="arrow">→</div>
-      <div class="example good">
-        <div class="exhead">CRUZ CREATIVE — OUR PROMPT</div>
-        <div class="exprompt">"Make me a poster in [brand]'s exact fonts, colours, and voice."</div>
-        <div class="posterrow">
-          <img src="uploads/on-brand-1.webp" alt="On-brand AI poster for a gym — matches the brand's real fonts and photography" />
-          <img src="uploads/on-brand-2.webp" alt="On-brand AI poster for a bike rental — matches the brand's real fonts and photography" />
-          <img src="uploads/on-brand-3.webp" alt="On-brand AI poster for a burger restaurant — matches the brand's real fonts and photography" />
-        </div>
-        <div class="caption">Looks like your brand</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <p class="eyebrow">What's inside</p>
-    <h2>15 prompts built for the content you actually create.</h2>
-    <div class="cards">
-      <article class="card"><span class="num">01</span><h3>Graphics that don’t look like ChatGPT. They look like your brand.</h3><p>Your fonts, your colours, text big enough to read at thumbnail size. None of that grainy, flat, obviously-AI look everyone’s posting right now.</p></article>
-      <article class="card"><span class="num">02</span><h3>A brand voice you can use to sound like you.</h3><p>We all know the phrases AI overuses. Teach it to write the way you actually talk, then use that voice on reel scripts, captions, emails and newsletters.</p></article>
-      <article class="card"><span class="num">03</span><h3>Product and people shots that save you thousands.</h3><p>Turn a mediocre phone photo into a shoot-worthy asset, then spin it into a full set of scenes. One photo, a month of content, and the photographer’s invoice you never have to pay.</p></article>
-    </div>
-  </div>
-</section>
-
-<!-- PLACEHOLDER CONTENT — replace before launch: real client names/logos,
-     a real testimonial quote, and a real subscriber count (or drop this
-     card if there isn't one worth showing yet). -->
-<section class="section">
-  <div class="wrap">
-    <p class="eyebrow">Used on brands like</p>
-    <h2>Proof, not promises.</h2>
-    <div class="proof-logos">
-      <span class="proof-logo"><span class="proof-logo-mark" style="background:#A5F0B1;"></span>Halcyon</span>
-      <span class="proof-logo"><span class="proof-logo-mark" style="background:#7FB2F0;"></span>Pro-Cut</span>
-      <span class="proof-logo"><span class="proof-logo-mark" style="background:#F0A5A5;"></span>Sky Schools</span>
-    </div>
-    <div class="proof-cards">
-      <div class="proof-card">
-        <p class="proof-stars">★★★★★</p>
-        <p class="proof-quote">"We used the brand voice prompt on our last three newsletters and our open rate actually went up. Feels like us, not like a chatbot."</p>
-        <div class="proof-author">
-          <span class="proof-avatar">DP</span>
-          <div>
-            <div class="proof-author-name">Dolores Phillips</div>
-            <div class="proof-author-role">Project Director, Halcyon</div>
+        <form id="optinForm">
+          <label for="email" class="field-label">Email address</label>
+          <div class="emailrow">
+            <input type="email" id="email" name="email" class="email-input" placeholder="you@yourbrand.com" autocomplete="email" required />
+            <button type="submit" class="btn btn-mint">Send My 15 Prompts <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
           </div>
+          <!-- Honeypot: hidden from real visitors, only bots tend to fill it. Do not remove.
+               Uses display:none (not off-screen positioning) and a non-autofill-prone field
+               name, since Safari ignores autocomplete="off" and will fill fields named things
+               like "website" from a user's saved Contact card even when off-screen. -->
+          <div style="display:none;" aria-hidden="true">
+            <label for="hp_contact_ref">Leave this field blank</label>
+            <input type="text" id="hp_contact_ref" name="hp_contact_ref" tabindex="-1" autocomplete="off" />
+          </div>
+          <div class="tswrap">
+            <div class="cf-turnstile" data-sitekey="0x4AAAAAAEG-MF4itZQ34Vcl" data-callback="onTurnstileSuccess" data-appearance="always" data-theme="dark"></div>
+          </div>
+          <p id="turnstileNotice" class="form-note" style="display:none;">Just a second. Checking you're human…</p>
+          <p id="formError" class="form-error" role="alert" style="display:none;"></p>
+          <span class="fine">Free forever. No spam. One useful email a week. Unsubscribe anytime.</span>
+        </form>
+      </main>
+
+      <div class="deck" id="deck" role="region" aria-roledescription="carousel" aria-label="Posters made with our prompts">
+        <div class="deck-stage" id="deckStage">
+          <button type="button" class="deck-item" data-index="0"><img src="uploads/on-brand-1.webp" alt="" draggable="false" /><span class="deck-view" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Tap to view</span><span class="deck-tag" aria-hidden="true">Made with our prompt</span></button>
+          <button type="button" class="deck-item" data-index="1"><img src="uploads/on-brand-2.webp" alt="" draggable="false" /><span class="deck-view" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Tap to view</span><span class="deck-tag" aria-hidden="true">Made with our prompt</span></button>
+          <button type="button" class="deck-item" data-index="2"><img src="uploads/on-brand-3.webp" alt="" draggable="false" /><span class="deck-view" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Tap to view</span><span class="deck-tag" aria-hidden="true">Made with our prompt</span></button>
         </div>
-      </div>
-      <div class="proof-card proof-count-card">
-        <div class="proof-count-dots">
-          <span style="background:#A5F0B1;"></span>
-          <span style="background:#7FB2F0;"></span>
-          <span style="background:#F0A5A5;"></span>
-          <span style="background:#E0A5F0;"></span>
+        <div class="deck-controls">
+          <button type="button" class="round-btn" id="deckPrev" aria-label="Previous poster"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+          <div class="deck-dots" id="deckDots">
+            <button type="button" class="deck-dot" data-index="0" aria-label="Show poster 1"><span></span></button>
+            <button type="button" class="deck-dot" data-index="1" aria-label="Show poster 2"><span></span></button>
+            <button type="button" class="deck-dot" data-index="2" aria-label="Show poster 3"><span></span></button>
+          </div>
+          <button type="button" class="round-btn" id="deckNext" aria-label="Next poster"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
         </div>
-        <div class="proof-count">50+</div>
-        <div class="proof-count-label">businesses already using these prompts</div>
       </div>
     </div>
-    <p class="proof-note"><a href="#form">↑ Grab your free copy — same 15 prompts, real results.</a></p>
+
+    <div class="hero-foot">
+      <div class="ticks">
+        <span class="tick"><span class="check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#0A0909" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg></span>On-brand graphics</span>
+        <span class="tick"><span class="check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#0A0909" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg></span>Natural brand voice</span>
+        <span class="tick"><span class="check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#0A0909" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5L20 7"/></svg></span>Better product shots</span>
+      </div>
+      <div class="built">
+        <span class="built-label">BUILT FROM REAL CLIENT WORK FOR</span>
+        <strong>Halcyon</strong>
+        <strong>Pro-Cut</strong>
+        <strong>Sky Schools</strong>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PLACEHOLDER CONTENT carried over from the previous page: confirm the 50+
+     business count before launch (also used in the Proof section below). -->
+<section class="stats" aria-label="The pack in numbers">
+  <div class="stat"><span class="stat-num">15</span><span class="stat-line"></span><span class="stat-label">Client-tested prompts</span></div>
+  <div class="stat"><span class="stat-num">3</span><span class="stat-line"></span><span class="stat-label">Graphics, voice and product shots</span></div>
+  <div class="stat"><span class="stat-num">50+</span><span class="stat-line"></span><span class="stat-label">Businesses already using them</span></div>
+  <div class="stat"><span class="stat-num">€0</span><span class="stat-line"></span><span class="stat-label">Free forever. Any AI tool.</span></div>
+</section>
+
+<section class="section inner">
+  <div class="section-head">
+    <div class="section-title">
+      <p class="eyebrow">[02] See the difference</p>
+      <h2>Same AI. Better prompt. Completely different result.</h2>
+    </div>
+    <p class="section-aside">One line of context changes everything. Here is the same tool, asked two ways.</p>
+  </div>
+  <div class="compare">
+    <article class="example bad">
+      <button type="button" class="compare-poster" data-poster="1" data-version="generic" aria-label="Bike rental poster made with a generic prompt, with a stock template look. Open larger view"><img src="uploads/generic-ai-1.webp" alt="" /></button>
+      <span class="example-label" aria-hidden="true">Generic prompt</span>
+      <div class="example-body">
+        <span class="example-tag">ANY AI TOOL · GENERIC PROMPT</span>
+        <p class="example-prompt">“Make me a poster promoting my business.”</p>
+        <span class="example-result">Looks like everyone else.</span>
+      </div>
+    </article>
+    <div class="compare-arrow" aria-hidden="true"><span><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0A0909" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></div>
+    <article class="example good">
+      <button type="button" class="compare-poster" data-poster="1" data-version="ours" aria-label="Bike rental poster made with our prompt, in the brand's real fonts and photography. Open larger view"><img src="uploads/on-brand-2.webp" alt="" /></button>
+      <span class="example-label" aria-hidden="true">Our prompt</span>
+      <div class="example-body">
+        <span class="example-tag">CRUZ CREATIVE · OUR PROMPT</span>
+        <p class="example-prompt">“Make me a poster in [brand]’s exact fonts, colours and voice.”</p>
+        <span class="example-result">Looks like your brand.</span>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="section inner">
+  <div class="section-head">
+    <div class="section-title">
+      <p class="eyebrow">[03] What’s inside</p>
+      <h2>15 prompts built for the content you actually create.</h2>
+    </div>
+  </div>
+  <div class="cards">
+    <article class="card">
+      <div class="card-well"><button type="button" class="card-poster" data-poster="1" aria-label="Bike rental poster, made with our prompt. Open larger view"><img src="uploads/on-brand-2.webp" alt="" loading="lazy" /><span class="deck-view" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Tap to view</span></button></div>
+      <div class="card-body">
+        <div class="card-top"><span class="card-num">01</span><span class="tag">GRAPHICS</span></div>
+        <h3>Graphics that look like your brand, not like ChatGPT.</h3>
+        <p>Your fonts, your colours, text big enough to read at thumbnail size. None of the grainy, flat, obviously AI look everyone is posting right now.</p>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-well"><button type="button" class="card-poster" data-poster="0" aria-label="Gym poster, made with our prompt. Open larger view"><img src="uploads/on-brand-1.webp" alt="" loading="lazy" /><span class="deck-view" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Tap to view</span></button></div>
+      <div class="card-body">
+        <div class="card-top"><span class="card-num">02</span><span class="tag">BRAND VOICE</span></div>
+        <h3>A brand voice that sounds like you.</h3>
+        <p>We all know the phrases AI overuses. Teach it the way you actually talk, then use that voice on reel scripts, captions, emails and newsletters.</p>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-well"><button type="button" class="card-poster" data-poster="2" aria-label="Burger restaurant poster, made with our prompt. Open larger view"><img src="uploads/on-brand-3.webp" alt="" loading="lazy" /><span class="deck-view" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Tap to view</span></button></div>
+      <div class="card-body">
+        <div class="card-top"><span class="card-num">03</span><span class="tag">PRODUCT &amp; PEOPLE</span></div>
+        <h3>Product and people shots that save you thousands.</h3>
+        <p>Turn a so-so phone photo into a shoot-worthy asset, then spin it into a full set of scenes. One photo, a month of content, and no photographer’s invoice.</p>
+      </div>
+    </article>
   </div>
 </section>
 
 <section class="section">
-  <div class="wrap">
-    <p class="eyebrow">Steal one now</p>
-    <h2>Here’s one of the 15 prompts, so you know exactly what you’re getting.</h2>
-    <div class="sample"><code><strong style="color:#A5F0B1">PROMPT #7 — BRAND VOICE</strong><br><br>Rewrite this caption in [Brand]'s exact voice — short, confident sentences, zero corporate jargon, and a CTA that reads like a friend's recommendation, not a sales pitch. Reference these three past posts to match tone: ···</code><div class="fade"></div></div>
-  </div>
-</section>
-
-<section class="final">
-  <div class="wrap">
-    <div class="finalbox">
-      <h2>Your AI is capable of better. You just need to ask better.</h2>
-      <p>Get all 15 prompts we use to create better graphics, sharper copy and more realistic product content.</p>
-      <a class="cta" href="#form">Send me the 15 prompts →</a>
+  <div class="dark-panel">
+    <div class="steal-copy">
+      <p class="eyebrow">[04] Steal one now</p>
+      <h2>Try one before you sign up.</h2>
+      <p>Here is one of the 15, so you know exactly what you get. Paste it into ChatGPT, Claude or Gemini and see the difference.</p>
+    </div>
+    <div class="prompt-box">
+      <div class="prompt-top">
+        <span class="prompt-label">PROMPT #7 · BRAND VOICE</span>
+        <button type="button" class="copy-btn" id="copyPrompt"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/></svg><span>Copy Prompt</span></button>
+      </div>
+      <p class="prompt-text" id="promptText">Rewrite this caption in [Brand]’s exact voice: short, confident sentences, zero corporate jargon, and a CTA that reads like a friend’s recommendation, not a sales pitch. Reference these three past posts to match the tone: <span class="more">···</span></p>
+      <div class="prompt-foot">
+        <span>14 more like this in the pack.</span>
+        <a href="#form">Get the other 14 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
     </div>
   </div>
 </section>
+
+<!-- PLACEHOLDER CONTENT carried over from the previous page: replace before
+     launch with real client names, a real testimonial quote and a real
+     subscriber count (or drop the count if there isn't one worth showing). -->
+<section class="section inner">
+  <div class="proof">
+    <div class="proof-copy">
+      <p class="eyebrow">[05] Proof, not promises</p>
+      <h2>Used on real brands. Every week.</h2>
+      <p>These are the prompts our team uses on client work, not a list we wrote for a lead magnet.</p>
+      <div class="pills">
+        <span class="pill">Halcyon</span>
+        <span class="pill">Pro-Cut</span>
+        <span class="pill">Sky Schools</span>
+      </div>
+    </div>
+    <figure class="quote-card">
+      <div class="stars" role="img" aria-label="5 out of 5 stars">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="#0A0909" aria-hidden="true"><path d="M12 2l3 6.6 7 .7-5.3 4.8 1.6 7L12 17.5 5.7 21.1l1.6-7L2 9.3l7-.7z"/></svg>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="#0A0909" aria-hidden="true"><path d="M12 2l3 6.6 7 .7-5.3 4.8 1.6 7L12 17.5 5.7 21.1l1.6-7L2 9.3l7-.7z"/></svg>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="#0A0909" aria-hidden="true"><path d="M12 2l3 6.6 7 .7-5.3 4.8 1.6 7L12 17.5 5.7 21.1l1.6-7L2 9.3l7-.7z"/></svg>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="#0A0909" aria-hidden="true"><path d="M12 2l3 6.6 7 .7-5.3 4.8 1.6 7L12 17.5 5.7 21.1l1.6-7L2 9.3l7-.7z"/></svg>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="#0A0909" aria-hidden="true"><path d="M12 2l3 6.6 7 .7-5.3 4.8 1.6 7L12 17.5 5.7 21.1l1.6-7L2 9.3l7-.7z"/></svg>
+      </div>
+      <blockquote>“We used the brand voice prompt on our last three newsletters and our open rate actually went up. Feels like us, not like a chatbot.”</blockquote>
+      <figcaption>
+        <span class="author">
+          <img src="uploads/client-halcyon.webp" alt="Halcyon logo" />
+          <span><span class="author-name">Dolores Phillips</span><span class="author-role">Project Director, Halcyon</span></span>
+        </span>
+        <span class="count"><strong>50+</strong><span>businesses using these prompts</span></span>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="closing">
+  <div class="closing-copy">
+    <p class="eyebrow">[06] Get the pack</p>
+    <h2>Your AI is capable of better. <em>Ask better.</em></h2>
+    <p>Get all 15 prompts we use for sharper graphics, copy that sounds like you and product content that looks real.</p>
+    <!-- Not a second subscribe form: it hands the email to #optinForm above,
+         so Turnstile, the honeypot, GA4 and the redirect all run once, in one place. -->
+    <form id="closingForm">
+      <label for="closingEmail" class="sr-only">Email address</label>
+      <input type="email" id="closingEmail" class="email-input" placeholder="you@yourbrand.com" autocomplete="email" required />
+      <button type="submit" class="btn btn-mint">Send My 15 Prompts <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+    </form>
+    <span class="fine">Free forever. No spam. Unsubscribe anytime.</span>
+  </div>
+  <a class="call-card" href="https://cal.com/cruzcreative/30min">
+    <img src="uploads/call-james-agata.jpg" alt="" />
+    <span class="tag">RATHER WE DO IT?</span>
+    <span class="call-title">Free 30-minute call with James and Agata.</span>
+    <span class="call-row"><span>No pitch deck. Just a clear plan.</span><span class="call-btn">Book My Call</span></span>
+  </a>
+</section>
+
+<footer class="footer">
+  <span class="footer-brand"><img src="assets/cruz-creative-logo-horizontal-darkbg.svg" alt="Cruz Creative" />© 2026 Cruz Creative · Tenerife</span>
+  <nav aria-label="Footer">
+    <a href="https://cruzcreative.net">cruzcreative.net</a>
+    <a href="https://cruzcreative.net/privacy-policy">Privacy</a>
+    <a href="https://cruzcreative.net/terms-of-service">Terms</a>
+    <a href="https://cruzcreative.net/cookie-policy">Cookies</a>
+  </nav>
+</footer>
+
+</div>
+</div>
+
+<div class="viewer" id="viewer" role="dialog" aria-modal="true" aria-labelledby="viewerName" hidden>
+  <div class="viewer-top">
+    <span class="viewer-count" id="viewerCount" aria-live="polite">1 / 3</span>
+    <div class="switch" role="group" aria-label="Which prompt made this poster">
+      <button type="button" id="showOurs" aria-pressed="true">Our prompt</button>
+      <button type="button" id="showGeneric" class="is-generic" aria-pressed="false">Generic prompt</button>
+    </div>
+    <button type="button" class="round-btn" id="viewerClose" aria-label="Close"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  </div>
+  <div class="viewer-stage" id="viewerStage">
+    <button type="button" class="round-btn viewer-arrow" id="viewerPrev" aria-label="Previous poster"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+    <figure class="viewer-figure">
+      <img id="viewerImg" src="uploads/on-brand-1.webp" alt="" draggable="false" />
+      <span class="viewer-badge" id="viewerBadge" aria-hidden="true">Our prompt</span>
+    </figure>
+    <button type="button" class="round-btn viewer-arrow" id="viewerNext" aria-label="Next poster"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+  </div>
+  <div class="viewer-bar">
+    <span class="viewer-title"><strong id="viewerName">Gym poster</strong><span id="viewerNote">Made with our prompt. Same AI, better brief.</span></span>
+    <button type="button" class="btn btn-mint" id="viewerCta">Send My 15 Prompts <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+  </div>
+</div>
 
 <script>
-  // Any in-page link to the form scrolls to it and focuses the first field —
-  // used by the closing CTA and the proof-section link. scrollIntoView is
-  // used instead of relying on the native #hash + CSS scroll-behavior, which
-  // doesn't reliably fire the scroll in every browser.
+  // Scroll to the opt-in form and put the cursor in the email field.
+  // scrollIntoView is used instead of relying on the native #hash + CSS
+  // scroll-behavior, which doesn't reliably fire the scroll in every browser.
+  function goToForm() {
+    document.getElementById('form').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setTimeout(function () {
+      document.getElementById('email').focus();
+    }, 500);
+  }
+
+  // Any in-page link to the form: the header button and "Get the other 14".
   document.querySelectorAll('a[href="#form"]').forEach(function (link) {
     link.addEventListener('click', function (e) {
       e.preventDefault();
-      document.getElementById('form').scrollIntoView({ behavior: 'smooth', block: 'start' });
-      setTimeout(function () {
-        document.getElementById('email').focus();
-      }, 500);
+      goToForm();
     });
   });
+
+  // Poster deck + viewer. Each poster has a generic twin (same brief, generic
+  // prompt) used by the viewer's "Our prompt / Generic prompt" switch.
+  (function () {
+    var POSTERS = [
+      { name: 'Gym poster', ours: 'uploads/on-brand-1.webp', generic: 'uploads/generic-ai-3.webp' },
+      { name: 'Bike rental poster', ours: 'uploads/on-brand-2.webp', generic: 'uploads/generic-ai-1.webp' },
+      { name: 'Burger restaurant poster', ours: 'uploads/on-brand-3.webp', generic: 'uploads/generic-ai-2.webp' }
+    ];
+    var count = POSTERS.length;
+    var current = 0;
+    var version = 'ours';
+    var lastFocus = null;
+
+    var deck = document.getElementById('deck');
+    var stage = document.getElementById('deckStage');
+    var items = stage.querySelectorAll('.deck-item');
+    var dots = document.querySelectorAll('.deck-dot');
+    var viewer = document.getElementById('viewer');
+    var viewerImg = document.getElementById('viewerImg');
+
+    function wrap(i) { return (i + count) % count; }
+
+    function render() {
+      items.forEach(function (item, i) {
+        var isFront = i === current;
+        item.classList.toggle('is-front', isFront);
+        item.classList.toggle('is-prev', i === wrap(current - 1));
+        item.classList.toggle('is-next', i === wrap(current + 1));
+        item.setAttribute('aria-label', isFront
+          ? POSTERS[i].name + ', made with our prompt. Open larger view'
+          : 'Show the ' + POSTERS[i].name.toLowerCase());
+      });
+      dots.forEach(function (dot, i) {
+        dot.setAttribute('aria-current', i === current ? 'true' : 'false');
+      });
+    }
+
+    function go(i) { current = wrap(i); render(); }
+
+    function renderViewer() {
+      var poster = POSTERS[current];
+      var ours = version === 'ours';
+      viewerImg.src = ours ? poster.ours : poster.generic;
+      viewerImg.alt = poster.name + (ours
+        ? ' made with the Cruz Creative prompt, in the brand’s own fonts and photography'
+        : ' made with a generic prompt, with a stock template look');
+      document.getElementById('viewerCount').textContent = (current + 1) + ' / ' + count;
+      document.getElementById('viewerName').textContent = poster.name;
+      document.getElementById('viewerNote').textContent = ours
+        ? 'Made with our prompt. Same AI, better brief.'
+        : 'Generic prompt. Looks like everyone else.';
+      var badge = document.getElementById('viewerBadge');
+      badge.textContent = ours ? 'Our prompt' : 'Generic prompt';
+      badge.classList.toggle('is-generic', !ours);
+      document.getElementById('showOurs').setAttribute('aria-pressed', ours ? 'true' : 'false');
+      document.getElementById('showGeneric').setAttribute('aria-pressed', ours ? 'false' : 'true');
+    }
+
+    function openViewer(startVersion) {
+      lastFocus = document.activeElement;
+      version = startVersion === 'generic' ? 'generic' : 'ours';
+      renderViewer();
+      viewer.hidden = false;
+      document.documentElement.classList.add('viewer-open');
+      document.getElementById('viewerClose').focus();
+    }
+
+    function closeViewer(restoreFocus) {
+      viewer.hidden = true;
+      document.documentElement.classList.remove('viewer-open');
+      render(); // the deck follows the last poster viewed
+      if (restoreFocus === false) { return; }
+      // Opened from the deck: focus the card now in front, which may differ
+      // from the one that was clicked if the visitor moved on in the viewer.
+      if (lastFocus && lastFocus.classList.contains('deck-item')) { items[current].focus(); }
+      else if (lastFocus) { lastFocus.focus(); }
+    }
+
+    function step(delta) {
+      go(current + delta);
+      if (!viewer.hidden) { renderViewer(); }
+    }
+
+    // Swipe or drag. A move of 40px or more counts as a swipe; the click
+    // that follows it is swallowed so a swipe never opens the viewer.
+    function addSwipe(el) {
+      var startX = null;
+      var swiped = false;
+      el.addEventListener('pointerdown', function (e) { startX = e.clientX; swiped = false; });
+      el.addEventListener('pointerup', function (e) {
+        if (startX === null) { return; }
+        var dx = e.clientX - startX;
+        startX = null;
+        if (Math.abs(dx) >= 40) { swiped = true; step(dx < 0 ? 1 : -1); }
+      });
+      el.addEventListener('pointercancel', function () { startX = null; });
+      el.addEventListener('click', function (e) {
+        if (swiped) { e.stopPropagation(); e.preventDefault(); swiped = false; }
+      }, true);
+    }
+
+    items.forEach(function (item, i) {
+      item.addEventListener('click', function () {
+        if (i === current) { openViewer(); } else { go(i); }
+      });
+    });
+    dots.forEach(function (dot, i) {
+      dot.addEventListener('click', function () { go(i); });
+    });
+    // The "See the difference" and "What's inside" posters open the same
+    // viewer on their poster, already switched to the version they show.
+    document.querySelectorAll('.card-poster, .compare-poster').forEach(function (poster) {
+      poster.addEventListener('click', function () {
+        go(+poster.getAttribute('data-poster'));
+        openViewer(poster.getAttribute('data-version'));
+      });
+    });
+    document.getElementById('deckPrev').addEventListener('click', function () { step(-1); });
+    document.getElementById('deckNext').addEventListener('click', function () { step(1); });
+    deck.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft') { e.preventDefault(); step(-1); }
+      if (e.key === 'ArrowRight') { e.preventDefault(); step(1); }
+    });
+    addSwipe(stage);
+
+    document.getElementById('viewerPrev').addEventListener('click', function () { step(-1); });
+    document.getElementById('viewerNext').addEventListener('click', function () { step(1); });
+    document.getElementById('viewerClose').addEventListener('click', function () { closeViewer(); });
+    document.getElementById('showOurs').addEventListener('click', function () { version = 'ours'; renderViewer(); });
+    document.getElementById('showGeneric').addEventListener('click', function () { version = 'generic'; renderViewer(); });
+    document.getElementById('viewerCta').addEventListener('click', function () {
+      closeViewer(false);
+      goToForm();
+    });
+    // A click on the backdrop (not on the poster or a control) closes it.
+    viewer.addEventListener('click', function (e) {
+      if (e.target === viewer || e.target.id === 'viewerStage' || e.target.classList.contains('viewer-top')) { closeViewer(); }
+    });
+    addSwipe(document.getElementById('viewerStage'));
+
+    // Esc closes, arrows move, Tab stays inside the viewer while it is open.
+    document.addEventListener('keydown', function (e) {
+      if (viewer.hidden) { return; }
+      if (e.key === 'Escape') { closeViewer(); }
+      else if (e.key === 'ArrowLeft') { step(-1); }
+      else if (e.key === 'ArrowRight') { step(1); }
+      else if (e.key === 'Tab') {
+        var focusable = Array.prototype.filter.call(viewer.querySelectorAll('button'), function (b) {
+          return b.offsetParent !== null;
+        });
+        var first = focusable[0];
+        var last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    });
+
+    // Warm the cache for the generic twins so the switch is instant.
+    window.addEventListener('load', function () {
+      POSTERS.forEach(function (p) { new Image().src = p.generic; });
+    });
+
+    render();
+  })();
+
+  // The closing card's email box feeds the main opt-in form, then submits it,
+  // so there is still exactly one subscribe path on the page.
+  document.getElementById('closingForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    document.getElementById('email').value = document.getElementById('closingEmail').value;
+    document.getElementById('form').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.getElementById('optinForm').requestSubmit();
+  });
+
+  // Copy the sample prompt (without the trailing "···").
+  document.getElementById('copyPrompt').addEventListener('click', function () {
+    var button = this;
+    var label = button.querySelector('span');
+    var text = document.getElementById('promptText').firstChild.textContent.trim();
+    if (!navigator.clipboard) { return; }
+    navigator.clipboard.writeText(text).then(function () {
+      label.textContent = 'Copied';
+      setTimeout(function () { label.textContent = 'Copy Prompt'; }, 2000);
+    });
+  });
+
+  // Motion: hero entrance, scroll reveals and the stats count-up.
+  (function () {
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var hasIO = 'IntersectionObserver' in window;
+
+    // Stats count up from 0 the first time the band scrolls into view (1.6s,
+    // ease-out). Only the digits change ("50+" keeps its "+"), so it also
+    // runs with Reduce Motion on, like the homepage. "€0" stays as it is.
+    function countUp(el) {
+      var match = el.textContent.match(/^(\D*)(\d+)(.*)$/);
+      if (!match || +match[2] === 0) { return; }
+      var target = +match[2];
+      var start = null;
+      function frame(now) {
+        if (start === null) { start = now; }
+        var t = Math.min(1, (now - start) / 1600);
+        var eased = 1 - Math.pow(1 - t, 3);
+        el.textContent = match[1] + Math.round(target * eased) + match[3];
+        if (t < 1) { requestAnimationFrame(frame); }
+      }
+      el.textContent = match[1] + '0' + match[3];
+      requestAnimationFrame(frame);
+    }
+    var stats = document.querySelector('.stats');
+    if (hasIO) {
+      var statsObserver = new IntersectionObserver(function (entries) {
+        if (!entries[0].isIntersecting) { return; }
+        statsObserver.disconnect();
+        stats.querySelectorAll('.stat-num').forEach(countUp);
+      }, { threshold: 0.4 });
+      statsObserver.observe(stats);
+    }
+
+    if (reduce || !hasIO) { return; }
+    document.documentElement.classList.add('motion');
+
+    // Once an element has arrived, drop the reveal classes so its own hover
+    // transitions (card lifts, image zooms) take over again.
+    function settle(el) {
+      el.addEventListener('transitionend', function done(e) {
+        if (e.target !== el || e.propertyName !== 'opacity') { return; }
+        el.removeEventListener('transitionend', done);
+        el.classList.remove('reveal', 'reveal-scale', 'is-in', 'word');
+        el.style.removeProperty('--d');
+      });
+    }
+    function mark(el, delay, kind) {
+      el.classList.add(kind === 'word' ? 'word' : 'reveal');
+      if (kind === 'scale') { el.classList.add('reveal-scale'); }
+      el.style.setProperty('--d', delay + 's');
+      settle(el);
+    }
+
+    // Hero: split the headline into words (keeping the mint <em>), reveal
+    // them one by one, then the copy, form, deck and trust strip follow.
+    var h1 = document.querySelector('.hero-copy h1');
+    function splitWords(node) {
+      Array.prototype.slice.call(node.childNodes).forEach(function (child) {
+        if (child.nodeType === 3) {
+          var frag = document.createDocumentFragment();
+          child.textContent.split(/(\s+)/).forEach(function (part) {
+            if (!part) { return; }
+            if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
+            var span = document.createElement('span');
+            span.className = 'w';
+            span.textContent = part;
+            frag.appendChild(span);
+          });
+          node.replaceChild(frag, child);
+        } else if (child.nodeType === 1) {
+          splitWords(child);
+        }
+      });
+    }
+    splitWords(h1);
+    var heroQueue = [];
+    var pill = document.querySelector('.eyebrow-pill');
+    mark(pill, 0); heroQueue.push(pill);
+    var words = h1.querySelectorAll('.w');
+    words.forEach(function (w, i) { mark(w, 0.1 + i * 0.06, 'word'); heroQueue.push(w); });
+    var after = 0.1 + words.length * 0.06 + 0.1;
+    ['.lede', '#optinForm', '.deck', '.hero-foot'].forEach(function (sel, i) {
+      var el = document.querySelector(sel);
+      mark(el, after + i * 0.1); heroQueue.push(el);
+    });
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        heroQueue.forEach(function (el) { el.classList.add('is-in'); });
+      });
+    });
+
+    // Scroll reveals: section headers fade up, groups stagger 0.08 to 0.1s,
+    // the dark panels scale up from 95%.
+    var groups = [
+      { sel: '.stats .stat', step: 0.08 },
+      { sel: '.section-head', step: 0 },
+      { sel: '.compare > *', step: 0.1 },
+      { sel: '.cards .card', step: 0.08 },
+      { sel: '.dark-panel', step: 0, kind: 'scale' },
+      { sel: '.proof-copy, .quote-card', step: 0.1 },
+      { sel: '.closing', step: 0, kind: 'scale' }
+    ];
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) { return; }
+        entry.target.classList.add('is-in');
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+    groups.forEach(function (group) {
+      document.querySelectorAll(group.sel).forEach(function (el, i) {
+        mark(el, i * group.step, group.kind);
+        observer.observe(el);
+      });
+    });
+  })();
 
   // Turnstile resolves in the background (usually well under a second in
   // Managed mode) and calls this once it has a token for the widget.
@@ -411,7 +1068,7 @@ src="https://www.facebook.com/tr?id=803165125824651&ev=PageView&noscript=1"
           form.requestSubmit();
         } else if (waited >= 8000) {
           clearInterval(poll);
-          notice.textContent = "Verification is taking longer than expected — please try again.";
+          notice.textContent = "Checking is taking longer than expected. Please try again.";
           // Without a reset, the widget is left permanently stuck: a retry
           // would just re-poll the same dead token and time out again.
           // Resetting gives the next submit attempt a fresh challenge.
@@ -435,7 +1092,7 @@ src="https://www.facebook.com/tr?id=803165125824651&ev=PageView&noscript=1"
       });
     }
 
-    var originalButtonText = submitButton.textContent;
+    var originalButtonHTML = submitButton.innerHTML;
     submitButton.disabled = true;
     submitButton.textContent = 'Sending…';
 
@@ -460,8 +1117,8 @@ src="https://www.facebook.com/tr?id=803165125824651&ev=PageView&noscript=1"
     }).catch(function (err) {
       console.error('subscribe request failed', err);
       submitButton.disabled = false;
-      submitButton.textContent = originalButtonText;
-      showFormError("Something went wrong — please try again. If it keeps happening, email hello@cruzcreative.agency.");
+      submitButton.innerHTML = originalButtonHTML;
+      showFormError("Something went wrong. Please try again. If it keeps happening, email hello@cruzcreative.agency.");
       // The Turnstile token is single-use and was just consumed by the
       // failed attempt (or already expired) — reset the widget so a retry
       // gets a fresh token instead of silently failing again.
