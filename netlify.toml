@@ -5,7 +5,7 @@
   # always says "no change" and cancels the deploy (this blocked PRs #20 to #22).
   # In that case compare with the previous commit instead (for a PR merge, all of main before it).
   ignore = "BASE=$CACHED_COMMIT_REF; if [ -z \"$BASE\" ] || [ \"$BASE\" = \"$COMMIT_REF\" ]; then BASE=$COMMIT_REF^; fi; git diff --quiet $BASE $COMMIT_REF -- :/bio :/netlify.toml :/netlify/edge-functions"
-  # Edge function that keeps the bio page's latest case study card current (PT-129)
+  # Edge function that keeps the bio page's latest blog article card current (PT-129)
   edge_functions = "netlify/edge-functions"
 
 [[redirects]]
