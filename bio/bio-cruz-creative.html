@@ -126,7 +126,7 @@
   .feature .body .txt { flex:1; }
   .feature strong { display:block; color:var(--warm-white); font-size:17px; font-weight:800; letter-spacing:-0.01em; line-height:1.25; }
   .feature .txt span { display:block; font-size:13px; color:var(--muted-on-dark); margin-top:2px; }
-  .feature .price { position:absolute; top:12px; left:12px; background:var(--mint); color:var(--near-black); font-weight:800; font-size:13px; padding:7px 12px; border-radius:999px; }
+  .feature .txt .price { display:inline-block; margin:0 0 0 8px; vertical-align:3px; background:var(--mint); color:var(--near-black); font-weight:800; font-size:11px; letter-spacing:0.02em; line-height:1.4; padding:3px 9px; border-radius:999px; white-space:nowrap; }
   .feature .badge { background:var(--mint); color:var(--near-black); }
   .row .txt .tag { display:inline-block; margin-top:0; font-size:10px; color:var(--near-black); line-height:1.4; }
 
@@ -314,9 +314,8 @@
     <div class="links">
       <a class="feature" href="https://www.cruzcreative.net/">
         <div class="media"><img src="assets/img/ai-video-thumbnail.webp" alt="Custom AI Video, one clear price" width="960" height="541" loading="lazy" /></div>
-        <span class="price">€349 fixed</span>
         <div class="body">
-          <div class="txt"><strong>Get My AI Video</strong><span>One custom AI video ad. No camera, no retainer.</span></div>
+          <div class="txt"><strong>Get My AI Video <span class="price">€349 fixed</span></strong><span>One custom AI video ad. No camera, no retainer.</span></div>
           <span class="badge"><svg class="icon"><use href="#i-arrow"/></svg></span>
         </div>
       </a>
